@@ -15,37 +15,40 @@
 \section{Inleiding}%
 \label{sec:inleiding}
 
-Waarover zal je bachelorproef gaan? Introduceer het thema en zorg dat volgende zaken zeker duidelijk aanwezig zijn:
+Man-in-the-Middle (MitM)-aanvallen vormen een grote bedreiging voor de veiligheid en vertrouwelijkheid van gegevens binnen netwerken. Bij dit type aanval plaatst een aanvaller zich onopgemerkt tussen twee communicerende partijen, waardoor hij toegang krijgt tot gevoelige informatie die vervolgens onderschept, gemanipuleerd of misbruikt kan worden. Deze aanvallen maken gebruik van kwetsbaarheden in netwerken, onveilige verbindingen en onvoldoende beveiligingsmaatregelen, wat de veiligheid en integriteit van netwerken in gevaar brengt. Dit kan niet alleen leiden tot beveiligingsrisico’s, maar ook tot verlies van vertrouwen en integriteit in netwerkomgevingen.
+Vanwege de groeiende dreiging van MitM-aanvallen is er behoefte aan een diepgaand onderzoek naar effectieve preventiemethoden. Dit onderzoek heeft als doel verschillende soorten MitM-aanvallen vast te stellen, te onderzoeken en te vergelijken, en de maatregelen te identificeren die organisaties kunnen nemen om deze risico’s te verkleinen. Op deze manier biedt het onderzoek organisaties handvatten om hun netwerken beter te beschermen en de kans op MitM-aanvallen te minimaliseren.
+
+Daarnaast bevat het onderzoek een Proof of Concept (PoC), waarbij minstens één methode ter voorkoming van MitM wordt gedemonstreerd en getest. De bevindingen kunnen organisaties helpen bij het implementeren van effectieve MitM-beveiligingsmaatregelen te implementeren, afgestemd op diverse netwerkomgevingen en met oog voor schaalbaarheid en kosten.
+
+De centrale onderzoeksvragen die in dit onderzoek aan bod komen, zijn als volgt:
 
 \begin{itemize}
-  \item kaderen thema
-  \item de doelgroep
-  \item de probleemstelling en (centrale) onderzoeksvraag
-  \item de onderzoeksdoelstelling
+  \item Welke soorten Man-in-the-Middle-aanvallen komen het vaakst voor, en waarin verschillen ze?
+  
+  \item Welke beveiligingsmaatregelen worden momenteel genomen om deze aanvallen te voorkomen?
+  
+  \item Hoe effectief zijn verschillende beveiligingsmaatregelen in het waarborgen van de integriteit en vertrouwelijkheid van gegevens?
+  \item Welke invloed hebben deze veiligheidsmaatregelen op de prestaties van het netwerk, en hoe wordt dit gemeten?
+  
+  \item Zijn organisaties zich voldoende bewust van de risico’s van MitM-aanvallen en de noodzakelijke preventieve maatregelen?
 \end{itemize}
-
-Denk er aan: een typische bachelorproef is \textit{toegepast onderzoek}, wat betekent dat je start vanuit een concrete probleemsituatie in bedrijfscontext, een \textbf{casus}. Het is belangrijk om je onderwerp goed af te bakenen: je gaat voor die \textit{ene specifieke probleemsituatie} op zoek naar een goede oplossing, op basis van de huidige kennis in het vakgebied.
-
-De doelgroep moet ook concreet en duidelijk zijn, dus geen algemene of vaag gedefinieerde groepen zoals \emph{bedrijven}, \emph{developers}, \emph{Vlamingen}, enz. Je richt je in elk geval op it-professionals, een bachelorproef is geen populariserende tekst. Eén specifiek bedrijf (die te maken hebben met een concrete probleemsituatie) is dus beter dan \emph{bedrijven} in het algemeen.
-
-Formuleer duidelijk de onderzoeksvraag! De begeleiders lezen nog steeds te veel voorstellen waarin we geen onderzoeksvraag terugvinden.
-
-Schrijf ook iets over de doelstelling. Wat zie je als het concrete eindresultaat van je onderzoek, naast de uitgeschreven scriptie? Is het een proof-of-concept, een rapport met aanbevelingen, \ldots Met welk eindresultaat kan je je bachelorproef als een succes beschouwen?
 
 %---------- Stand van zaken ---------------------------------------------------
 
 \section{Literatuurstudie}%
 \label{sec:literatuurstudie}
+Voor dit onderzoek heb ik bestaande studies geraadpleegd om inzicht te krijgen in Man-in-the-Middle (MitM)-aanvallen en de beschikbare beveiligingsmaatregelen. Dit overzicht vormt de basis voor een diepgaander onderzoek naar methoden om MitM-aanvallen in netwerken effectief te voorkomen en te detecteren.
 
-Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein, d.w.z.\ een inleidende, doorlopende tekst over het onderzoeksdomein van je bachelorproef. Je steunt daarbij heel sterk op de professionele \emph{vakliteratuur}, en niet zozeer op populariserende teksten voor een breed publiek. Wat is de huidige stand van zaken in dit domein, en wat zijn nog eventuele open vragen (die misschien de aanleiding waren tot je onderzoeksvraag!)?
+MitM-aanvallen vormen een aanzienlijke bedreiging voor de vertrouwelijkheid en integriteit van digitale communicatie. Aanvallers kunnen ongemerkt gegevens tussen partijen onderscheppen en manipuleren door kwetsbaarheden in netwerkprotocollen en communicatiekanalen uit te benutten 
+~\autocite{ELRAWY2023}. Deze aanvallen komen vaak voor door een gebrek aan voldoende sterke beveiligingsmaatregelen in netwerken  ~\autocite{HALGAMUGE2025}. Onderzoek wijst op het belang van sterke maatregelen, zoals encryptie en authenticatie, om deze risico’s te verkleinen en de betrouwbaarheid van netwerken te waarborgen ~\autocite{ALIYU201824}.
 
-Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek?
+Verschillende studies beschrijven specifieke methoden om MitM-aanvallen te voorkomen. Het combineren van Advanced Encryption Standard (AES) met Diffie-Hellman-sleuteldistributie wordt gezien als een effectieve oplossing om zowel de vertrouwelijkheid als de integriteit van gegevens te waarborgen ~\autocite{ELRAWY2023
+}. Bovendien voegt deze aanpak slechts minimale overhead toe aan netwerkprestaties, waardoor het geschikt blijft voor netwerken met beperkte middelen ~\autocite{HALGAMUGE2025}. Een gelaagde beveiligingsaanpak met de integratie van Intrusion Detection Systems (IDS) en Intrusion Prevention Systems (IPS) kan bijdragen aan het vroegtijdig detecteren en voorkomen van aanvallen   ~\autocite{ANKARI2022}.
 
-Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Hykes2013}! Denk zeker goed na welke werken je refereert en waarom.
+Daarnaast geven studies inzicht in de uitdagingen van MitM-beveiliging binnen Internet of Things (IoT)-omgevingen. IoT-apparaten zijn vaak kwetsbaar door hun beperkte rekenkracht en energiecapaciteit, waardoor traditionele beveiligingsmethoden minder effectief zijn. Lichtgewicht cryptografische oplossingen zijn noodzakelijk om deze apparaten effectief tegen MitM-aanvallen te beschermen zonder hun prestaties te beperken ~\autocite{ANKARI2022}. Tot slot benadrukken onderzoeken dat dynamische beveiligingsmodellen, zoals adaptieve randbeveiliging, essentieel zijn om IoT-apparaten te beschermen tegen evoluerende cyberdreigingen ~\autocite{HALGAMUGE2025}.
 
-Draag zorg voor correcte literatuurverwijzingen! Een bronvermelding hoort thuis \emph{binnen} de zin waar je je op die bron baseert, dus niet er buiten! Maak meteen een verwijzing als je gebruik maakt van een bron. Doe dit dus \emph{niet} aan het einde van een lange paragraaf. Baseer nooit teveel aansluitende tekst op eenzelfde bron.
+Deze studie legt een basis voor verder onderzoek naar MitM-aanvallen en beschermingsstrategieën binnen mijn bachelorproject. De verschillende onderdelen – zoals aanvalstypen, beveiligingsmaatregelen en uitdagingen in  netwerkomgevingen – dienen als vertrekpunt voor het ontwikkelen en analyseren van effectieve preventie- en detectiemethoden.
 
-Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle nodige info aanwezig is om de bron terug te vinden (zoals uitvoerig besproken in de lessen Research Methods).
 
 % Voor literatuurverwijzingen zijn er twee belangrijke commando's:
 % \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
@@ -54,31 +57,24 @@ Als je informatie over bronnen verzamelt in JabRef, zorg er dan voor dat alle no
 %   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
 %   ...'')
 
-Je mag deze sectie nog verder onderverdelen in subsecties als dit de structuur van de tekst kan verduidelijken.
-
 %---------- Methodologie ------------------------------------------------------
 \section{Methodologie}%
 \label{sec:methodologie}
+Dit onderzoek volgt een gestructureerde aanpak, verdeeld in vier opeenvolgende fasen om systematisch inzicht te verkrijgen in Man-in-the-Middle (MitM)-aanvallen en de meest geschikte beveiligingsmaatregelen voor diverse netwerkomgevingen.
 
-Hier beschrijf je hoe je van plan bent het onderzoek te voeren. Welke onderzoekstechniek ga je toepassen om elk van je onderzoeksvragen te beantwoorden? Gebruik je hiervoor literatuurstudie, interviews met belanghebbenden (bv.~voor requirements-analyse), experimenten, simulaties, vergelijkende studie, risico-analyse, PoC, \ldots?
+In de eerste fase voeren we een grondig literatuuronderzoek uit naar verschillende soorten MitM-aanvallen en de beveiligingsmethoden die momenteel beschikbaar zijn. We gebruiken wetenschappelijke artikelen, rapporten en casestudies om inzicht te krijgen in aanvalstechnieken zoals ARP-spoofing, DNS-spoofing en SSL-stripping. Dit onderzoek leidt tot een overzicht van aanvalstypen en mogelijke verdedigingsstrategieën en vormt de theoretische basis voor verdere analyse en praktische toepassing.
 
-Valt je onderwerp onder één van de typische soorten bachelorproeven die besproken zijn in de lessen Research Methods (bv.\ vergelijkende studie of risico-analyse)? Zorg er dan ook voor dat we duidelijk de verschillende stappen terug vinden die we verwachten in dit soort onderzoek!
 
-Vermijd onderzoekstechnieken die geen objectieve, meetbare resultaten kunnen opleveren. Enquêtes, bijvoorbeeld, zijn voor een bachelorproef informatica meestal \textbf{niet geschikt}. De antwoorden zijn eerder meningen dan feiten en in de praktijk blijkt het ook bijzonder moeilijk om voldoende respondenten te vinden. Studenten die een enquête willen voeren, hebben meestal ook geen goede definitie van de populatie, waardoor ook niet kan aangetoond worden dat eventuele resultaten representatief zijn.
+Op basis van de literatuur selecteren we relevante beveiligingsmaatregelen, zoals encryptie, authenticatie en detectiesystemen, die effectief kunnen zijn tegen MitM-aanvallen. Elke maatregel wordt beoordeeld op haar theoretische effectiviteit, haalbaarheid en geschiktheid voor specifieke netwerkomgevingen, waaronder IoT-apparaten. Deze analyse helpt ons om maatregelen te selecteren voor praktische evaluatie in de volgende fase.
 
-Uit dit onderdeel moet duidelijk naar voor komen dat je bachelorproef ook technisch voldoen\-de diepgang zal bevatten. Het zou niet kloppen als een bachelorproef informatica ook door bv.\ een student marketing zou kunnen uitgevoerd worden.
+In deze fase ontwikkelen we een Proof of Concept (PoC) voor één of meer geselecteerde beveiligingsmaatregelen en testen deze in een gesimuleerde netwerkomgeving. Hierin voeren we MitM-aanvalsscenario's uit om de effectiviteit en prestaties van de maatregelen te evalueren. De focus ligt op meetbare resultaten zoals gegevensintegriteit, vertrouwelijkheid en eventuele impact op netwerkprestaties. Deze testen bieden praktische inzichten in de haalbaarheid en kosten van de maatregelen.
 
-Je beschrijft ook al welke tools (hardware, software, diensten, \ldots) je denkt hiervoor te gebruiken of te ontwikkelen.
 
-Probeer ook een tijdschatting te maken. Hoe lang zal je met elke fase van je onderzoek bezig zijn en wat zijn de concrete \emph{deliverables} in elke fase?
+Op basis van de testresultaten worden de beveiligingsmaatregelen geëvalueerd. Er wordt een implementatieadvies opgesteld voor organisaties, met aanbevelingen over de inzet van MitM-beveiliging in verschillende netwerkconfiguraties, inclusief IoT-omgevingen. Dit advies bevat praktische overwegingen voor schaalbaarheid en kosten, zodat organisaties goed geïnformeerde beslissingen kunnen nemen.
+
 
 %---------- Verwachte resultaten ----------------------------------------------
-\section{Verwacht resultaat, conclusie}%
+\section{Verwacht resultaat}%
 \label{sec:verwachte_resultaten}
 
-Hier beschrijf je welke resultaten je verwacht. Als je metingen en simulaties uitvoert, kan je hier al mock-ups maken van de grafieken samen met de verwachte conclusies. Benoem zeker al je assen en de onderdelen van de grafiek die je gaat gebruiken. Dit zorgt ervoor dat je concreet weet welk soort data je moet verzamelen en hoe je die moet meten.
-
-Wat heeft de doelgroep van je onderzoek aan het resultaat? Op welke manier zorgt jouw bachelorproef voor een meerwaarde?
-
-Hier beschrijf je wat je verwacht uit je onderzoek, met de motivatie waarom. Het is \textbf{niet} erg indien uit je onderzoek andere resultaten en conclusies vloeien dan dat je hier beschrijft: het is dan juist interessant om te onderzoeken waarom jouw hypothesen niet overeenkomen met de resultaten.
-
+Het onderzoek zal naar verwachting een overzicht bieden van de meest voorkomende Man-in-the-Middle (MitM)-aanvallen en laten zien hoe bestaande beveiligingsmaatregelen kunnen helpen deze te voorkomen. Door middel van een Proof of Concept wordt gedemonstreerd hoe een specifieke beveiligingsmethode effectief kan worden toegepast in een gesimuleerde omgeving. Het onderzoek zal daarnaast aanbevelingen geven voor organisaties over het verbeteren van hun netwerkbeveiliging om MitM-aanvallen beter te voorkomen en gegevensintegriteit en vertrouwelijkheid te waarborgen.
