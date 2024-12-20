@@ -41,9 +41,51 @@ Voor dit onderzoek heb ik bestaande studies geraadpleegd om inzicht te krijgen i
 
 MitM-aanvallen vormen een aanzienlijke bedreiging voor de vertrouwelijkheid en integriteit van digitale communicatie. Aanvallers kunnen ongemerkt gegevens tussen partijen onderscheppen en manipuleren door kwetsbaarheden in netwerkprotocollen en communicatiekanalen uit te benutten 
 ~\autocite{ELRAWY2023}. Deze aanvallen komen vaak voor door een gebrek aan voldoende sterke beveiligingsmaatregelen in netwerken  ~\autocite{HALGAMUGE2025}. Onderzoek wijst op het belang van sterke maatregelen, zoals encryptie en authenticatie, om deze risico’s te verkleinen en de betrouwbaarheid van netwerken te waarborgen ~\autocite{ALIYU201824}.
+\\
+\\
+\textbf{Veelvoorkomende Soorten MitM-aanvallen}
+\begin{enumerate}
+  \item \textbf{Openbare Wi-Fi-aanvallen:}  
+  Man-in-the-Middle (MitM)-aanvallen op openbare Wi-Fi-netwerken gebeuren wanneer een aanvaller communicatie onderschept en manipuleert. Veelgebruikte technieken zijn Multi-Channel MitM (MC-MitM), nep-Wi-Fi-netwerken (Evil Twin) en Channel switch (CSA). Kwetsbaarheden ontstaan door ontbrekende updates en zwakke beveiligingsstandaarden. Bescherming is mogelijk met beveiligde Wi-Fi, regelmatige updates en versleutelde websites (HTTPS) ~\autocite{THANKAPPAN2022}.
+  
+  \item \textbf{Phishing-gebaseerde MitM:}  
+  Via phishing misleiden aanvallers slachtoffers door hen te laten klikken op schadelijke links of malware te installeren, vaak via valse e-mails of frauduleuze websites. Hierdoor krijgen aanvallers toegang tot gevoelige gegevens door slachtoffers te misleiden met geloofwaardige en professionele inhoud ~\autocite{Nmachi2023}.
+  
+  \item \textbf{Domeinspoofing-aanval met HTTPS:}  
+  Aanvallers registreren domeinen die sterke gelijkenissen vertonen met echte websites en beveiligen deze met valse HTTPS-certificaten. Dit creëert een vals gevoel van veiligheid bij gebruikers, waardoor zij in de verleiding komen om persoonlijke gegevens in te voeren, omdat het domein lijkt te vertrouwen op een veilige verbinding ​~\autocite{gangan2015}.
+  
+  \item \textbf{SSL-manipulatie:}  
+  Aanvallers genereren frauduleuze SSL-certificaten om gebruikers te misleiden en naar kwaadwillige websites te leiden die eruitzien als echte, beveiligde sites. Hierdoor kunnen zij gevoelige informatie onderscheppen zonder dat de gebruikers zich hiervan bewust zijn ~\autocite{gangan2015}.
+  
+  \item \textbf{Sessiekaping (Session Hijacking):}  
+  Aanvallers stelen sessiecookies om toegang te krijgen tot gebruikersaccounts, zonder dat het slachtoffer zich opnieuw hoeft aan te melden. Dit gebeurt door sessiecookies te capteren tijdens een actieve sessie, waardoor de aanvaller volledige controle over het account verwerft ~\autocite{gangan2015}.
+  
+  \item \textbf{E-mailovername:}  
+  Aanvallers onderscheppen en manipuleren e-mails door zich voor te doen als vertrouwde organisaties of personen. Dit gebeurt vaak in financiële transacties en bij gevoelige bedrijfsinformatie, waarbij de aanvaller zich voordoet als een betrouwbare afzender om betalingen of vertrouwelijke gegevens te verkrijgen~\autocite{Nmachi2023}.
+  
+  \item \textbf{ARP-spoofing:}  
+  Aanvallers versturen vervalste ARP-antwoorden binnen een lokaal netwerk, waardoor de koppeling tussen IP- en MAC-adressen in de ARP-cache van doelcomputers wordt gemanipuleerd. Hierdoor wordt netwerkverkeer naar het apparaat van de aanvaller geleid, wat hen de mogelijkheid biedt om gegevens te onderscheppen, te wijzigen of extra pakketten in te voegen ~\autocite{arslan2017}.
+\end{enumerate}
 
-Verschillende studies beschrijven specifieke methoden om MitM-aanvallen te voorkomen. Het combineren van Advanced Encryption Standard (AES) met Diffie-Hellman-sleuteldistributie wordt gezien als een effectieve oplossing om zowel de vertrouwelijkheid als de integriteit van gegevens te waarborgen ~\autocite{ELRAWY2023
-}. Bovendien voegt deze aanpak slechts minimale overhead toe aan netwerkprestaties, waardoor het geschikt blijft voor netwerken met beperkte middelen ~\autocite{HALGAMUGE2025}. Een gelaagde beveiligingsaanpak met de integratie van Intrusion Detection Systems (IDS) en Intrusion Prevention Systems (IPS) kan bijdragen aan het vroegtijdig detecteren en voorkomen van aanvallen   ~\autocite{ANKARI2022}.
+
+
+\textbf{Verschillen Tussen Soorten MitM-aanvallen}
+
+\begin{description}
+  \item[\textbf{Techniek:}]  
+  Sommige aanvallen, zoals ARP-spoofing, richten zich specifiek op netwerkprotocollen, terwijl anderen, zoals phishing, afhankelijk zijn van social engineering.
+  
+  \item[\textbf{Doelwit:}]  
+  Openbare Wi-Fi-aanvallen richten zich vaak op individuele gebruikers, terwijl e-mailovername en sessiekaping meer gericht zijn op bedrijven of financiële instellingen.
+  
+  \item[\textbf{Complexiteit:}]  
+  HTTPS-spoofing en SSL-manipulatie vereisen technische kennis en voorbereiding, zoals het registreren van domeinen, terwijl phishing eenvoudiger kan worden uitgevoerd.
+  
+  \item[\textbf{Impact:}]  
+  Sessiekaping kan directe toegang geven tot accounts, terwijl phishing-gebaseerde aanvallen vaak dienen als opstap naar verdere uitbuiting.
+\end{description}
+
+Verschillende studies beschrijven specifieke methoden om MitM-aanvallen te voorkomen. Het combineren van Advanced Encryption Standard (AES) met Diffie-Hellman-sleuteldistributie wordt gezien als een effectieve oplossing om zowel de vertrouwelijkheid als de integriteit van gegevens te waarborgen~\autocite{ELRAWY2023}. Bovendien voegt deze aanpak slechts minimale overhead toe aan netwerkprestaties, waardoor het geschikt blijft voor netwerken met beperkte middelen ~\autocite{HALGAMUGE2025}. Een gelaagde beveiligingsaanpak met de integratie van Intrusion Detection Systems (IDS) en Intrusion Prevention Systems (IPS) kan bijdragen aan het vroegtijdig detecteren en voorkomen van aanvallen   ~\autocite{ANKARI2022}.
 
 Daarnaast geven studies inzicht in de uitdagingen van MitM-beveiliging binnen Internet of Things (IoT)-omgevingen. IoT-apparaten zijn vaak kwetsbaar door hun beperkte rekenkracht en energiecapaciteit, waardoor traditionele beveiligingsmethoden minder effectief zijn. Lichtgewicht cryptografische oplossingen zijn noodzakelijk om deze apparaten effectief tegen MitM-aanvallen te beschermen zonder hun prestaties te beperken ~\autocite{ANKARI2022}. Tot slot benadrukken onderzoeken dat dynamische beveiligingsmodellen, zoals adaptieve randbeveiliging, essentieel zijn om IoT-apparaten te beschermen tegen evoluerende cyberdreigingen ~\autocite{HALGAMUGE2025}.
 
