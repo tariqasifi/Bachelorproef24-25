@@ -6,46 +6,308 @@
 % bijzonder aan wat de link is met het vorige en volgende hoofdstuk.
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
+\section{\IfLanguageName{dutch}{Man-in-the-middle-aanvaal}{Man-in-the-Middle-attack}}%
+\label{sec:Man-in-the-middle-aanvaal}
+MITM-aanval is een type cyberaanval waarbij een aanvaller zich tussen een zender en een ontvanger plaatst om hun communicatie te onderscheppen of te manipuleren. De aanvaller verbreekt de directe verbinding en creëert twee afzonderlijke kanalen: één tussen de zender en zichzelf en een ander tussen de ontvanger en zichzelf. Hierdoor ontvangt de ontvanger de berichten van de zender niet rechtstreeks. MITM-aanvallen kunnen worden gebruikt voor gegevensdiefstal door passief af te luisteren, of voor het injecteren van valse gegevens door berichten te onderscheppen en te wijzigen. In slimme netwerken kunnen dergelijke aanvallen zowel geautomatiseerde als handmatige beslissingen binnen het systeem beïnvloeden. ~\autocite{ELRAWY2023}
+Onderzoek toont aan dat MITM-aanvallen een aanzienlijke bedreiging vormen voor slimme netwerken, vooral vanwege hun vermogen om communicatie te onderscheppen en te manipuleren~\autocite{ELRAWY2023}. Hoewel traditionele beveiligingsmaatregelen zoals firewalls en netwerksegmentatie vaak worden ingezet, blijken deze niet altijd voldoende om geavanceerde MITM-aanvallen te detecteren en te voorkomen~\autocite{ELRAWY2023}. Bovendien worden slimme netwerken steeds complexer, wat het aanvalsoppervlak vergroot en nieuwe kwetsbaarheden introduceert ~\autocite{ELRAWY2023}. Daarom is er behoefte aan effectievere detectiemethoden die de impact van MITM-aanvallen kunnen minimaliseren zonder de functionaliteit van het netwerk te beperken.
+In deze literatuurstudie bespreken we de verschillende soorten MITM-aanvallen, hun kenmerken en de methoden die aanvallers toepassen. Daarnaast analyseren we veelvoorkomende kwetsbaarheden en beveiligingsmaatregelen die kunnen worden ingezet om dergelijke aanvallen te voorkomen of te detecteren. Tot slot evalueren we de effectiviteit van bestaande detectiemethoden en onderzoeken we mogelijke verbeteringen in de beveiliging van slimme netwerken.
 
-Dit hoofdstuk bevat je literatuurstudie. De inhoud gaat verder op de inleiding, maar zal het onderwerp van de bachelorproef *diepgaand* uitspitten. De bedoeling is dat de lezer na lezing van dit hoofdstuk helemaal op de hoogte is van de huidige stand van zaken (state-of-the-art) in het onderzoeksdomein. Iemand die niet vertrouwd is met het onderwerp, weet nu voldoende om de rest van het verhaal te kunnen volgen, zonder dat die er nog andere informatie moet over opzoeken \autocite{Pollefliet2011}.
+\section{\IfLanguageName{dutch}{MitM-aanvallen per OSI-laag}{MitM-aanvallen per OSI-laag}}%
+\label{sec:MitM-aanvallen per OSI-laag}
 
-Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${textcite\{\}}} of \texttt{$\backslash${autocite\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\LaTeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin (narratieve referentie), gebruik je \texttt{$\backslash${}textcite\{\}}. Soms is de auteursnaam niet expliciet een onderdeel van de zin, dan gebruik je \texttt{$\backslash${}autocite\{\}} (referentie tussen haakjes). Dit gebruik je bv.~bij een citaat, of om in het bijschrift van een overgenomen afbeelding, broncode, tabel, enz. te verwijzen naar de bron. In de volgende paragraaf een voorbeeld van elk.
+\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de fysieke laag (laag 1)}{MitM-attacks on the physical layer (layer 1)}}
+\label{sec:MitM-aanvallen-op-fysieke-laag}
+De fysieke laag (laag 1) van het OSI-model is verantwoordelijk voor de overdracht van elektrische, optische en radiofrequentiesignalen. Aanvallen op deze laag richten zich op het onderscheppen, manipuleren of verstoren van deze signalen. 
 
-\textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
+\vspace{0.5cm}
+\textbf{1. IMSI Catchers}
+Een bekende MitM-aanval op deze laag is het gebruik van IMSI Catchers, apparaten die zich voordoen als een echte mobiele zendmast. Wanneer een telefoon verbinding maakt, geeft deze automatisch zijn unieke identificatie, de IMSI(International Mobile Subscriber Identity) vrij. Dit biedt aanvallers de mogelijkheid om de locatie van gebruikers te volgen en in sommige gevallen zelfs hun gesprekken of dataverkeer te onderscheppen en te manipuleren ~\autocite{PALAMA2021}.
+Uit onderzoek blijkt dat de meeste commerciële telefoons kwetsbaar zijn voor deze aanval, zelfs zonder extra stoorzenders. Aanvallers kunnen echter een speciale jammer gebruiken om het signaal van echte zendmasten te verstoren, waardoor telefoons gedwongen worden verbinding te maken met de nep-mast van de aanvaller ~\autocite{PALAMA2021}. Hoewel 5G betere beveiliging biedt met versleuteling via SUPI/SUCI, blijft de aanval effectief. Aanvallers kunnen apparaten dwingen om terug te schakelen naar 4G, waar de IMSI nog steeds onderschept kan worden ~\autocite{PALAMA2021}. Dit toont aan dat de fysieke laag van mobiele netwerken een zwakke plek blijft en dat aanvullende beveiligingsmaatregelen noodzakelijk zijn om dit risico te verkleinen.
 
-Let er ook op: het \texttt{cite}-commando voor de punt, dus binnen de zin. Je verwijst meteen naar een bron in de eerste zin die erop gebaseerd is, dus niet pas op het einde van een paragraaf.
+\vspace{0.5cm}
+\textbf{2. Kabelaftapping}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{grail.jpg}
-  \caption[Voorbeeld figuur.]{\label{fig:grail}Voorbeeld van invoegen van een figuur. Zorg altijd voor een uitgebreid bijschrift dat de figuur volledig beschrijft zonder in de tekst te moeten gaan zoeken. Vergeet ook je bronvermelding niet!}
-\end{figure}
+Een andere manier om netwerkverkeer af te luisteren op de fysieke laag, is via kabelaftapping. Dit houdt in dat men toegang krijgt tot de informatie die door glasvezel- of ethernetkabels wordt verzonden, zonder dat de gebruiker dit merkt. Door een klein deel van het lichtsignaal in een glasvezelkabel af te tappen, kunnen aanvallers gevoelige informatie zoals wachtwoorden en vertrouwelijke communicatie onderscheppen ~\autocite{EVERETT2007}. 
 
-\begin{listing}
-  \begin{minted}{python}
-    import pandas as pd
-    import seaborn as sns
+Er zijn verschillende methoden die hiervoor worden gebruikt:
+\begin{enumerate}
+\item \textbf{Splitsen (splicing)}: Hierbij wordt de glasvezelkabel fysiek opengesneden en een deel van het signaal naar afluisterapparatuur geleid.​ ~\autocite{EVERETT2007}. 
 
-    penguins = sns.load_dataset('penguins')
-    sns.relplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
-  \end{minted}
-  \caption[Voorbeeld codefragment]{Voorbeeld van het invoegen van een codefragment.}
-\end{listing}
+\item \textbf{Buigen (bending)}: Een subtielere techniek waarbij een lichte buiging in de kabel al voldoende is om een klein deel van het lichtsignaal te laten lekken.​ ~\autocite{EVERETT2007}. 
 
-\lipsum[7-20]
+ \item \textbf{Rayleigh-verstrooiing (Rayleigh scattering)}: Een geavanceerdere methode waarbij speciale sensoren minuscule lichtlekken detecteren en zo data kunnen onderscheppen zonder de kabel fysiek aan te raken.​ ~\autocite{EVERETT2007}. 
+\end{enumerate} 
+Deze technieken worden niet alleen door criminelen gebruikt, maar ook door overheidsinstanties voor grootschalige surveillance. Een bekend voorbeeld hiervan is samenwerking tussen de NSA en AT\&T, waarbij glasvezelkabels op strategische locaties werden afgetapt om enorme hoeveelheden data te verzamelen. ~\autocite{EVERETT2007}. 
 
-\begin{table}
-  \centering
-  \begin{tabular}{lcr}
-    \toprule
-    \textbf{Kolom 1} & \textbf{Kolom 2} & \textbf{Kolom 3} \\
-    $\alpha$         & $\beta$          & $\gamma$         \\
-    \midrule
-    A                & 10.230           & a                \\
-    B                & 45.678           & b                \\
-    C                & 99.987           & c                \\
-    \bottomrule
-  \end{tabular}
-  \caption[Voorbeeld tabel]{\label{tab:example}Voorbeeld van een tabel.}
-\end{table}
+
+\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de datalinklaag (laag 2)}{MitM-attacks on the data link layer (layer 2)}}
+\label{sec:MitM-aanvallen-op-datalinklaag}
+
+\vspace{0.5cm}
+\textbf{1. ARP-Spoofing}
+
+
+ARP Spoofing, ook bekend als ARP Poisoning, is een vorm van een MitM-aanval op laag 2 van het OSI-model~\autocite{ARSLAN2017}. 
+Bij deze aanval worden vervalste ARP-replies verstuurd om de IP-MAC-koppelingen in de ARP-cache van een slachtoffer te manipuleren. Hierdoor kan een aanvaller netwerkverkeer onderscheppen, wijzigen of doorsturen zonder dat de betrokken partijen dit opmerken.
+
+Deze kwetsbaarheid ontstaat doordat het Address Resolution Protocol (ARP) geen authenticatiemechanisme bevat. Netwerkapparaten accepteren standaard elke ARP-reply, ongeacht of er een bijbehorend verzoek is verzonden~\autocite{ARSLAN2017}. 
+Dit maakt ARP Spoofing tot een van de meest voorkomende en gevaarlijke aanvallen op laag 2-netwerken~\autocite{ARSLAN2017}.
+
+\vspace{0.5cm}
+
+In Ethernet-gebaseerde netwerken gebruikt ARP een broadcastmechanisme om het MAC-adres van een apparaat te achterhalen op basis van een IP-adres. 
+Wanneer een apparaat een ARP-request uitzendt, antwoordt het doelapparaat met een ARP-reply waarin het MAC-adres wordt meegestuurd~\autocite{ARSLAN2017}. 
+Dit ARP-cachemechanisme vergemakkelijkt de communicatie, maar maakt het ook mogelijk voor aanvallers om onjuiste ARP-replies in het netwerk te injecteren, wat leidt tot verkeerde IP-MAC-koppelingen.
+
+\vspace{0.5cm}
+
+Bij een ARP Spoofing-aanval wordt deze zwakte als volgt misbruikt:
+
+\begin{enumerate}
+    \item De aanvaller verstuurt vervalste ARP-replies, waarin zijn eigen MAC-adres wordt gekoppeld aan het IP-adres van een legitiem netwerkapparaat, zoals de router~\autocite{ARSLAN2017}.
+    
+    \item De ARP-cache van het slachtoffer wordt aangepast, waardoor alle communicatie via de aanvaller loopt.
+    
+    \item De aanvaller kan het netwerkverkeer afluisteren, wijzigen of doorsturen, wat kan leiden tot datadiefstal, sessiekaping of verdere aanvallen zoals DNS Spoofing~\autocite{ARSLAN2017}.
+\end{enumerate}
+
+Een belangrijk aspect van ARP Spoofing is dat het niet alleen door externe aanvallers wordt gebruikt, maar ook vaak een interne dreiging vormt binnen organisaties. 
+\textcite{ARSLAN2017} 
+
+
+
+\vspace{0.5cm}
+\textbf{2. Evil Twin-aanvallen}
+
+Wi-Fi-netwerken zijn nog steeds kwetsbaar voor verschillende aanvallen. Een veelgebruikte methode om netwerkverkeer te onderscheppen is de Evil Twin-aanval. Hierbij zet een aanvaller een vals toegangspunt (AP) op dat er precies uitziet als een legitiem netwerk. Zodra een slachtoffer verbinding maakt met dit valse AP, kan de aanvaller al het netwerkverkeer onderscheppen en manipuleren ~\autocite{LOUCA2023}.
+
+Traditioneel maken Evil Twin-aanvallen gebruik van deauthentication- en dissociation-aanvallen, waarbij de aanvaller de legitieme verbindingen verbreekt en gebruikers forceert om zich opnieuw aan te melden bij het kwaadaardige AP.~\autocite{LOUCA2023} tonen echter aan dat een nieuwe techniek, gebaseerd op 802.11v BSS Transition Management, veel onopvallender is en daardoor moeilijker te detecteren voor slachtoffers en beveiligingssystemen.
+
+
+Het 802.11v-protocol is ontwikkeld om apparaten soepel te laten overschakelen tussen Wi-Fi-toegangspunten via BSS Transition Management-frames. Normaal gesproken gebruiken legitieme netwerken deze instructies om de signaalsterkte en netwerkbelasting te optimaliseren. Onderzoek van ~\autocite{LOUCA2023} toont echter aan dat aanvallers valse 802.11v Transition Management Requests kunnen versturen, waardoor een apparaat wordt gedwongen verbinding te maken met een kwaadwillig AP, zelfs als het legitieme AP een sterker signaal heeft. Hierdoor is het niet langer nodig om het signaal van het legitieme netwerk te overtreffen om een succesvolle aanval uit te voeren.
+
+
+De aanval verloopt als volgt: de aanvaller stuurt eerst een vervalst 802.11v BSS Transition Management-verzoek naar een doelapparaat. Dit verzoek bevat misleidende informatie die suggereert dat het kwaadwillige toegangspunt (AP) de beste optie is. Het apparaat accepteert deze instructie en maakt onopgemerkt verbinding met het kwaadaardige AP. Vanaf dat moment kan de aanvaller het netwerkverkeer onderscheppen, manipuleren of omleiden naar schadelijke websites.
+
+Deze methode biedt aanvallers verschillende voordelen. Ten eerste is de aanval niet afhankelijk van signaalsterkte, waardoor de aanvaller geen sterker Wi-Fi-signaal hoeft te genereren dan het legitieme netwerk. Ten tweede is de aanval moeilijker te detecteren, omdat er geen storende deauthentication- of dissociation-frames worden verstuurd die melding stuurt naar Intrusion Detection Systems (IDS). Daarnaast maakt deze techniek de aanval effectiever, omdat apparaten automatisch de instructies opvolgen zonder dat de gebruiker iets hoeft te doen ~\autocite{LOUCA2023}.
+
+Volgens ~\autocite{LOUCA2023} blijkt dat veel moderne apparaten, zoals smartphones en laptops, vatbaar blijven voor deze aanval, vooral wanneer ze geen gebruik maken van Management Frame Protection (MFP). De onderzoekers testten de aanval in realistische omgevingen, zowel binnen als in stedelijke gebieden, en ontdekten dat alle geteste apparaten zonder enige waarschuwing in de val liepen.
+
+
+\vspace{0.5cm}
+\textbf{3. Multi-Channel-aanvallen}
+
+
+Naast Evil Twin- en ARP-spoofing-aanvallen vormt de Multi-Channel Man-in-the-Middle (MC-MitM)-aanval een geavanceerde risico voor draadloze netwerken. Deze aanval maakt gebruik van meerdere Wi-Fi-kanalen om netwerkverkeer af te luisteren en te beïnvloeden, zonder de originele verbinding te verbreken~\autocite{THANKAPPAN2022}.
+
+Bij een MC-MitM-aanval zet de aanvaller een nepnetwerk op dat identiek lijkt aan het echte netwerk. Door middel van een Channel Switch Attack (CSA) wordt het slachtoffer ongemerkt naar een kanaal geleid dat volledig onder controle van de aanvaller staat. De aanvaller gebruikt twee netwerkinterfaces: één om met het echte netwerk te communiceren en één om het slachtoffer te misleiden. Hierdoor blijft de versleuteling actief, maar kan de aanvaller alsnog verkeer manipuleren, injecteren of blokkeren, zonder dat het slachtoffer iets merkt~\autocite{THANKAPPAN2022}.
+Deze aanval is gevaarlijk omdat zelfs beveiligde netwerken kwetsbaar zijn, zonder dat de aanvaller de netwerksleutel hoeft te kennen. Hij kan inloggegevens onderscheppen, gebruikers omleiden naar schadelijke websites en zelfs moderne Wi-Fi-protocollen zoals WPA3 aanvallen ~\autocite{THANKAPPAN2022}.
+Detectie is moeilijk, omdat de aanval geen zichtbare verstoring veroorzaakt, waardoor Intrusion Detection Systems (IDS) geen afwijkend gedrag op netwerkniveau detecteren~\autocite{THANKAPPAN2022}.
+
+
+
+\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de netwerklaag (laag 3)}{MitM-attacks on the network layer (layer 3)}}
+\label{sec:MitM-aanvallen op de netwerklaag}
+
+\vspace{0.5cm}
+\textbf{1. BGP-hijacking}
+
+BGP-hijacking is een aanval op laag 3 van het OSI-model omdat het de netwerkrouting beïnvloedt. Dit verschilt van ARP-spoofing, dat op laag 2 plaatsvindt en gericht is op het manipuleren van MAC-adres-tabellen binnen een lokaal netwerk. 
+BGP (Border Gateway Protocol) is verantwoordelijk voor de uitwisseling van routeringsinformatie tussen autonome systemen (AS’en), die het wereldwijde internet vormen. Het probleem is dat BGP geen ingebouwde beveiligingsmechanismen heeft, waardoor aanvallers valse route-informatie kunnen verspreiden en zo verkeer van andere netwerken kunnen  kapen~\autocite{bühler2023}.
+
+
+Bij een BGP-hijacking doet een aanvaller zich voor als de legitieme eigenaar van een IP-prefix, zonder daarvoor geautoriseerd te zijn. Omdat BGP-routes worden geselecteerd op basis van de kortste of meest specifieke route, kunnen netwerken de valse route als geldig accepteren. Hierdoor wordt verkeer omgeleid naar het netwerk van de aanvaller in plaats van naar de echte bestemming~\autocite{bühler2023}.
+
+Afhankelijk van wat de aanvaller wil bereiken, kan een BGP-hijack twee vormen aannemen. In een blackhole hijack wordt het verkeer gedropt en bereikt het nooit de legitieme bestemming. Dit kan bijvoorbeeld worden gebruikt voor het verstoren van services of voor cyberaanvallen zoals DDoS-aanvallen. In een interception hijack onderschept de aanvaller het verkeer en stuurt het daarna alsnog door naar de juiste bestemming. Dit maakt het mogelijk om communicatie af te luisteren of zelfs aan te passen, wat een vorm van MitM-aanval is op laag 3~\autocite{bühler2023}.
+
+
+Er zijn verschillende manieren om een BGP-hijack uit te voeren. Bij een same-prefix hijack maakt de aanvaller zich bekend als de eigenaar van exact hetzelfde IP-prefix als de legitieme beheerder. Omdat BGP geen ingebouwde verificatie heeft om de geldigheid van deze route-informatie te bevestigen, kunnen sommige netwerken besluiten het verkeer via de aanvaller te routeren, afhankelijk van de BGP-policy’s van hun providers.
+Een more-specific hijack is nog effectiever: hierbij geeft de aanvaller een kleiner subnet op dan de legitieme eigenaar. Omdat BGP standaard de meest specifieke route verkiest, zullen bijna alle netwerken deze route als de beste optie zien en hun verkeer naar de aanvaller sturen~\autocite{bühler2023}.
+
+
+Een geavanceerdere techniek is AS-path poisoning, waarbij een aanvaller bepaalde AS-nummers toevoegt aan zijn BGP-routeinformatie. Dit kan worden gebruikt om de verspreiding van de valse route te beperken of om bepaalde netwerken te laten denken dat de route legitiem is. Hierdoor kan de aanvaller selectief verkeer onderscheppen, zonder dat de manipulatie wereldwijd wordt opgemerkt~\autocite{bühler2023}.
+
+
+BGP-hijacking wordt vaak gebruikt voor verschillende vormen van cybercriminaliteit, zoals het stelen van gevoelige gegevens, het omleiden van gebruikers naar phishing-websites of het beperken van internetverkeer door overheden of aanvallers. Omdat BGP-verkeer dynamisch is en routes voortdurend veranderen, kunnen BGP-hijacks langdurig onopgemerkt blijven. Veel netwerken ontvangen hun verkeer nog steeds, waardoor ze zich niet bewust zijn dat het onderweg is onderschept~\autocite{bühler2023}.
+
+
+
+\vspace{0.5cm}
+\textbf{2. DNS Cache Poisoning}
+
+
+Domain Name System (DNS) zet domeinnamen zoals example.com om in IP-adressen en maakt zo internetverkeer mogelijk. Omdat DNS-resolvers veelgebruikte antwoorden tijdelijk opslaan in een cache, wordt de laadtijd verkort en de belasting van autoritatieve DNS-servers verminderd【64】. Dit caching-mechanisme vormt echter een kwetsbaarheid, omdat een aanvaller de opgeslagen gegevens kan manipuleren en gebruikers  kan omleiden naar een kwaadwillende server~\autocite{klein2020}.
+
+Bij DNS Cache Poisoning plaatst een aanvaller valse DNS-records in de cache van een resolver, zodat toekomstige verzoeken het vervalste antwoord retourneren~\autocite{klein2020}. Dit gebeurt doordat een DNS-resolver standaard het eerste geldige antwoord accepteert dat binnenkomt. Als een aanvaller een vals antwoord sneller levert dan het legitieme antwoord van de autoritatieve server, wordt het kwaadaardige IP-adres in de cache opgeslagen en blijft dit actief totdat de Time-To-Live (TTL) verloopt~\autocite{klein2020}.
+
+Een effectieve manier om deze aanval uit te voeren is door gebruik te maken van transaction ID (TXID) guessing~\autocite{klein2020}. DNS-verzoeken bevatten een TXID, een 16-bits waarde die als identificatie dient. Een aanvaller kan een groot aantal valse antwoorden genereren en tegelijkertijd verschillende TXID’s uitproberen. Als een van deze gespoofte antwoorden een correcte TXID bevat, accepteert de resolver het en slaat het op in de cache, waardoor het verkeer wordt omgeleid naar de IP-adres van de aanvaller~\autocite{klein2020}.
+Het effect van deze aanval hangt af van drie fasen~\autocite{klein2020}. In de injectiefase probeert de aanvaller een valse DNS-record in de cache van de resolver te plaatsen door de autoritatieve server te overspoelen met gespoofte antwoorden. Wanneer de valse record succesvol wordt opgeslagen, begint de latentiefase, waarin het vervalste DNS-record actief blijft in de cache terwijl legitieme records verlopen【64】. Dit stelt de aanvaller in staat verkeer langdurig om te leiden zonder dat dit direct wordt opgemerkt. Zodra gebruikers de vervalste record opvragen, daarna begint de actieve fase, waarin het verkeer daadwerkelijk naar de verkeerde server wordt omgeleid~\autocite{klein2020}.
+Binnen deze latente fase kunnen verschillende technieken worden toegepast om verkeer te manipuleren~\autocite{klein2020}. Real Bounce Hijacking maakt gebruik van bestaande NS-records om verkeer indirect te kapen, terwijl Fictitious Bounce Hijacking niet-bestaande NS-records introduceert om DNS-verzoeken naar een door de aanvaller beheerde server te sturen~\autocite{klein2020}.
+Empirisch onderzoek toont aan dat DNS Cache Poisoning een succespercentage van bijna 100\%\ kan hebben wanneer de TTL-waarden strategisch worden gemanipuleerd~\autocite{klein2020}. Dit maakt het een effectieve MitM-aanval op laag 3, waarbij een aanvaller het internetverkeer onderschept en omleidt zonder tussenliggende netwerkcomponenten direct te beïnvloeden~\autocite{klein2020}
+
+
+
+
+\vspace{0.5cm}
+\textbf{3. Rogue DHCP Server Attack}
+
+Een Rogue DHCP Server Attack ontstaat wanneer een aanvaller een ongeautoriseerde DHCP-server opzet binnen een netwerk en valse IP-configuraties toewijst aan apparaten die verbinding maken~\autocite{dilworth2025}. Dit is mogelijk omdat DHCP-clients altijd het eerste antwoord accepteren dat ze ontvangen. Als de aanvaller sneller reageert dan de legitieme DHCP-server, krijgt het slachtoffer een verkeerde netwerkconfiguratie toegewezen~\autocite{dilworth2025}.
+Door een valse standaardgateway of DNS-server op te geven, kan de aanvaller verkeer omleiden naar een kwaadwillende server, waardoor hij gevoelige informatie kan onderscheppen. Dit maakt een MitM-aanval op laag 3 mogelijk~\autocite{dilworth2025}.
+Deze aanval heeft directe gevolgen voor de Confidentiality, Integrity en Availability (CIA)-triad:
+Vertrouwelijkheid wordt aangetast doordat de aanvaller toegang krijgt tot het netwerkverkeer.
+De integriteit van de communicatie komt in gevaar, doordat DNS- en routeringsinformatie kan worden aangepast.
+De beschikbaarheid van het netwerk wordt verstoord, omdat clients kunnen worden omgeleid naar onbereikbare of niet-bestaande servers~\autocite{dilworth2025}.
+Daarnaast kan de aanvaller DHCP Starvation gebruiken om alle beschikbare IP-adressen van de echte DHCP-server op te maken. Hierdoor kunnen nieuwe clients geen geldig IP-adres krijgen en worden ze gedwongen verbinding te maken met de rogue DHCP-server~\autocite{dilworth2025}. Dit geeft de aanvaller volledige controle over de netwerkconfiguratie.
+Deze aanval is vooral gevaarlijk in netwerken zonder DHCP Snooping, een beveiligingsfunctie die ervoor zorgt dat switches alleen DHCP-verkeer accepteren van geautoriseerde servers. Zonder deze bescherming blijft de aanval moeilijk te detecteren en kan de aanvaller langdurige controle over het netwerk behouden~\autocite{dilworth2025}.
+
+
+\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de Transport (laag 4)}{MitM-attacks on the Transport (layer 4)}}
+\label{sec:MitM-aanvallen op de Transport}
+
+\vspace{0.5cm}
+\textbf{1. Session Hijacking}
+
+Aanvallen op de transportlaag, zoals TCP Session Hijacking, komen minder vaak voor dan aanvallen op de netwerklaag, maar kunnen grote gevolgen hebben. Bij deze aanval wordt misbruik gemaakt van een zwakte in het Transmission Control Protocol (TCP). TCP controleert alleen de authenticiteit bij het opzetten van een verbinding, maar niet tijdens de sessie zelf. Zodra een verbinding is opgebouwd via de three-way handshake, worden pakketten enkel herkend aan de hand van hun sequentienummers, zonder extra verificatie~\autocite{chen2020}.
+Een aanvaller kan een actieve TCP-sessie overnemen door de juiste sequentienummers te raden en vervalste pakketten naar de server of de client te sturen. Dit kan bijvoorbeeld door een RESET (RST)-pakket te versturen, waardoor de originele verbinding plotseling wordt verbroken. Daarna kan de aanvaller een nieuw pakket met de juiste identificatiegegevens verzenden en zo de sessie overnemen, waardoor hij zich kan voordoen als de legitieme gebruiker en de sessie kan overnemen~\autocite{chen2020}.
+Om dit uit te voeren, gebruikt een aanvaller vaak een sniffer om TCP-verkeer af te luisteren en belangrijke gegevens zoals IP-adressen, poortnummers en sequentienummers vast te leggen. Met deze informatie kan hij vervalste TCP-pakketten maken en naar de doelserver sturen. Zodra de server deze pakketten als legitiem accepteert, krijgt de aanvaller controle over de sessie en kan hij gegevens onderscheppen of manipuleren~\autocite{chen2020}.
+Vroeger was deze aanval vooral effectief tegen Telnet- en FTP-sessies, omdat deze protocollen geen versleuteling gebruikten. Een aanvaller kon eenvoudig een sessie kapen en commando’s uitvoeren namens de gebruiker zonder opgemerkt te worden. Moderne beveiligingsmaatregelen, zoals random initial sequence numbers (ISN’s) en versleutelde protocollen zoals TLS/SSL, maken dit soort aanvallen veel moeilijker~\autocite{chen2020}.
+Vaak wordt TCP Session Hijacking gecombineerd met MitM-aanvallen of IP Spoofing. Eerst zorgt de aanvaller ervoor dat het netwerkverkeer via zijn eigen apparaat loopt, bijvoorbeeld door ARP-spoofing of BGP-hijacking. Zodra hij zich op de juiste positie in het netwerk bevindt, kan hij TCP-pakketten onderscheppen, aanpassen of zelfs nieuwe sessies starten zonder dat dit  opgemerkt wordt~\autocite{chen2020}.
+
+\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de Sessielaag en Presentatielaag (laag 5 en 6)}{MitM-attacks on the Session and Presentation Layer (layer 5 and 6)}}
+
+\label{sec:MitM-aanvallen op de Sessielaag en Presentatielaag}
+\vspace{0.5cm}
+\textbf{1. SSL Stripping}
+
+ Stripping is een aanval waarbij een aanvaller een versleutelde HTTPS-verbinding teruggezet naar een onbeveiligde HTTP-verbinding zonder dat de gebruiker dit doorheeft. Dit stelt de aanvaller in staat om gevoelige gegevens, zoals inloggegevens en financiële informatie, naar plain tekst omtezetten~\autocite{gangan2015}.De aanval beïnvloedt zowel laag 5 (session laag) als laag 6 (presentation laag), omdat het de manier verstoort waarop een beveiligde verbinding wordt opgezet en tegelijkertijd de versleuteling ongedaan maakt~\autocite{gangan2015}.
+
+De aanval begint wanneer een gebruiker probeert verbinding te maken met een website via HTTPS. Normaal gesproken zorgt de TLS-handshake op de sessielaag (laag 5) ervoor dat een beveiligde sessie wordt opgezet. Bij SSL Stripping onderschept de aanvaller deze handshake en voorkomt hij dat de verbinding overschakelt naar HTTPS. Dit kan bijvoorbeeld door het manipuleren van een HTTP 302-redirect, waardoor de gebruiker op een onbeveiligde HTTP-versie van de website blijft~\autocite{gangan2015}. Omdat de encryptie niet wordt toegepast, heeft de aanvaller volledige toegang tot alle gegevens die de gebruiker invoert, zoals wachtwoorden, creditcardgegevens en andere vertrouwelijke informatie~\autocite{gangan2015}.
+Een belangrijke techniek die vaak wordt gebruikt bij SSL Stripping is een TLS downgrade-aanval, waarbij de aanvaller de verbinding dwingt om een oudere en minder veilige versie van het protocol te gebruiken, zoals SSL 3.0. Dit is mogelijk als de server verkeerd is geconfigureerd en nog verouderde encryptieprotocollen ondersteunt. Door deze downgrade kan een aanvaller zwakke versleuteling afdwingen en de communicatie eenvoudiger ontcijferen~\autocite{gangan2015}.
+Naast het manipuleren van de HTTPS-verbinding kan de aanvaller ook SSL Hijacking toepassen. Hierbij wordt een vals certificaat gegenereerd aan de client, waardoor de gebruiker denkt dat hij een veilige verbinding heeft met de echte server. In werkelijkheid verloopt de communicatie via de aanvaller, die als tussenpersoon fungeert en alle data in plain tekst kan lezen. Dit gebeurt vaak in netwerken waar de aanvaller controle heeft over de CA-instellingen of wanneer de gebruiker een certificaatwaarschuwing negeert~\autocite{gangan2015}.
+Deze aanval is effectief omdat veel websites en browsers eerst een onbeveiligde HTTP-verbinding aanbieden voordat ze de gebruiker automatisch doorsturen naar HTTPS., en als deze redirect wordt onderschept, blijft de gebruiker onbewust op de onbeveiligde versie van de site~\autocite{gangan2015}. Omdat deze aanval zowel de sessieopbouw op laag 5 als de encryptie op laag 6 beïnvloedt, vormt SSL Stripping een directe bedreiging voor de vertrouwelijkheid en integriteit van gegevens~\autocite{gangan2015}.
+
+\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de Application (laag 7)}{MitM-attacks on the Application (layer 4)}}
+\label{sec:MitM-aanvallen op de Application}
+
+\vspace{0.5cm}
+\textbf{1. Phishing-gebaseerde-MitM}
+
+In de applicatielaag worden MitM-aanvallen vaak gecombineerd met phishingtechnieken om gebruikers te misleiden. Hierbij wordt een gebruiker misleid om zijn gegevens in te voeren op een nagemaakte website, terwijl een aanvaller het verkeer onderschept tussen de gebruiker en de echte website of e-mailserver. Dit type aanval maakt gebruik van technieken zoals DNS-spoofing, ARP-spoofing en het manipuleren van e-mailverkeer om de gebruiker te misleiden en vertrouwelijke informatie te verkrijgen~\autocite{birlea2020}.
+Een MitM-aanval op laag 7 kan op verschillende manieren voorkomen, afhankelijk van de technologie die wordt gebruikt. Een veelvoorkomende methode is het onderscheppen van e-mailcommunicatie. Hierbij kan een aanvaller zich positioneren tussen een gebruiker en een legitieme e-maildienst, waarbij hij de inhoud van e-mails kan manipuleren of gevoelige gegevens kan stelen. In een bedrijfsomgeving kan een cybercrimineel bijvoorbeeld een conversatie tussen een werknemer en de HR-afdeling onderscheppen, en valse bankgegevens invoegen in een betalingsaanvraag~\autocite{birlea2020}.
+Een andere vorm van MitM-phishing is het klonen van websites. Met behulp van tools zoals de Social Engineering Toolkit in Kali Linux kunnen aanvallers nagemaakte versies van legitieme websites maken, zoals inlogpagina’s van banken of sociale media. Wanneer een slachtoffer zijn gegevens invult, worden deze direct naar de aanvaller gestuurd, zonder dat het slachtoffer doorheeft dat hij op een valse website zit~\autocite{birlea2020}. De aanvaller kan ook schadelijke scripts injecteren op websites om gebruikersgegevens te stelen. Dit gebeurt vaak via client-side scripting, waarbij kwaadaardige code wordt toegevoegd aan een  webpagina zonder dat de gebruiker dit opmerkt~\autocite{birlea2020}.
+Naast webgebaseerde MitM-aanvallen zijn er ook technieken waarbij telefoonverkeer wordt onderschept. Een cybercrimineel kan zich voordoen als een bankmedewerker en een gebruiker telefonisch misleiden om zijn persoonlijke en financiële gegevens vrij te geven. Hierbij kan de aanvaller gebruik maken van social engineering en psychologische druk om het slachtoffer te overtuigen dat de informatie dringend nodig is. Deze vorm van MitM-phishing wordt vaak ingezet om toegang te krijgen tot online bankrekeningen of bedrijfsnetwerken~\autocite{birlea2020}.
+Phishing via zoekmachines is een andere methode waarbij aanvallers misleidende websites maken die lijken op legitieme diensten en deze hoger laten scoren in zoekresultaten. Gebruikers die op dergelijke links klikken, worden naar een nepwebsite geleid waar hun gegevens worden gestolen. it werkt goed, omdat mensen vaak denken dat een hooggeplaatste website in Google betrouwbaar is~\autocite{birlea2020}.
+E-mail blijft echter een van de meest gebruikte methodes voor MitM-aanvallen. Cybercriminelen sturen phishing-e-mails met links naar valse inlogpagina’s of bijlagen die malware bevatten. Zodra iemand op een link klikt of een bijlage opent, kan de aanvaller toegang krijgen tot het systeem of inloggegevens stelen. Een geavanceerde techniek is spear-phishing, waarbij de e-mails specifiek worden aangepast aan het slachtoffer, bijvoorbeeld door gebruik te maken van persoonlijke of bedrijfsinformatie. Dit maakt de aanval veel geloofwaardiger en moeilijker te herkennen dan gewone phishing~\autocite{birlea2020}.
+
+\section{\IfLanguageName{dutch}{Man-in-the-Middle-aanval: Geschiedenis}{Man-in-the-Middle attack: History}}
+\label{sec:MitM-geschiedenis}
+
+
+
+Man-in-the-Middle-aanvallen zijn geen nieuw fenomeen, het idee bestaat al eeuwen. In de geschiedenis zien we vergelijkbare concepten, vooral in militaire inlichtingendiensten, waar het onderscheppen en soms manipuleren van berichten tussen vijanden een veelgebruikte spionagetechniek was. Een bekend historisch voorbeeld vond plaats in 1903, toen de Britse uitvinder Marconi een demonstratie gaf van draadloze telegrafie. Tijdens die demonstratie slaagde een onderzoeker (Nevil Maskelyne) erin de communicatie te kapen: hij onderschepte het radiosignaal en injecteerde eigen Morse-berichten. Het publiek keek verbaasd toe terwijl de demonstratie werd verstoord.~\autocite{nexus2023}. Dit wordt beschouwd als een van de eerste gedocumenteerde MitM-aanvallen, lang voordat computers en digitale communicatie bestonden~\autocite{nexus2023}. Dit illustreert het idee van een tussenpersoon die berichten onderschept en beïnvloedt al meer dan een eeuw bestaat.
+
+In de context van computerbeveiliging dook het MitM-concept op in de beginjaren van netwerken en cryptografie. Al in 1976 waarschuwde het Diffie-Hellman sleuteluitwisselingsprotocol voor het risico van een onbekende derde partij die de sleuteluitwisseling onderschept, beter bekend als de klassieke 'Alice, Bob en Eve'-situatie.~\autocite{DiffieHellman1976}
+
+Naarmate digitale communicatie groeide, werden MitM-aanvallen steeds geavanceerder. In de jaren 1980 en 1990, met de opkomst van TCP/IP-netwerken~\autocite{computerhistory1980s}, werden MitM-aanvallen zoals TCP-hijacking en IP-spoofing voor het eerst praktisch gedemonstreerd~\autocite{purdueengineering2025}. In 1989 toonde Steve Bellovin aan hoe het gebrek aan authenticatie in protocollen zoals TCP sessiekaping mogelijk maakte. Hierdoor kon een aanvaller zich in een bestaande verbinding injecteren en deze overnemen zonder dat de betrokken partijen het merkten~\autocite{Bellovin2004}.
+
+Dergelijke ontdekkingen maakten duidelijk dat kwetsbaarheden voor MitM-aanvallen op meerdere lagen van het opkomende internetmodel aanwezig waren. Een van de grootste mijlpalen in de geschiedenis was het DigiNotar-incident in 2011. DigiNotar, een Nederlandse Certificate Authority, werd gehackt, waardoor aanvallers valse SSL-certificaten konden uitgeven voor domeinen zoals google.com. Dit gaf hen de mogelijkheid om op grote schaal Gmail-gebruikers in Iran af te luisteren via MitM-aanvallen op HTTPS-verbindingen~\autocite{onderzoeksraad2012}.
+Uit technisch onderzoek, vastgelegd in het Fox-IT (Black Tulip) rapport, bleek dat het verkeer van meer dan 300.000 unieke slachtoffers werd onderschept met de vervalste certificaten.~\autocite{eff2011}.
+
+
+Dit incident toonde aan hoe kwetsbaar het PKI-systeem destijds was en leidde tot verbeteringen, zoals public key pinning en strengere controles op Certificate Authorities (CA’s) ~\autocite{pkic2013}.
+Sindsdien zijn MitM-aanvallen steeds slimmer geworden, vaak als reactie op betere beveiligingsmaatregelen. Waar hackers vroeger simpelweg ongecodeerd internetverkeer konden onderscheppen, zoeken ze nu manieren om encryptie te omzeilen of te verzwakken.
+Een bekend voorbeeld is SSL stripping, een techniek die Moxie Marlinspike in 2009 introduceerde. Hiermee wordt een beveiligde HTTPS-verbinding teruggedwongen naar HTTP, waardoor gevoelige informatie, zoals wachtwoorden, alsnog onversleuteld onderschept kan worden ~\autocite{PMC2023}.
+
+In de afgelopen jaren zijn er zelfs experimenten met AI-gestuurde MitM-technieken. Aanvallers gebruiken machine learning om versleuteld verkeer te analyseren en patronen te herkennen, (bijv. welke websites of diensten een slachtoffer bezoekt op basis van patroonherkenning)~\autocite{Hababi2020}.
+Hoewel steeds meer internetverkeer versleuteld is—met in 2018 een HTTPS-gebruik van 81\% op Linux, 94\% op Windows, 98\% op macOS en 99\% op Chrome OS—blijven MitM-aanvallen zich ontwikkelen. Aanvallers zoeken voortdurend naar nieuwe zwakke plekken, van onbeveiligde Wi-Fi-netwerken tot kwetsbaarheden in BGP-routing op de internetbackbone. ~\autocite{google2025}
+
+Deze voortdurende evolutie laat zien dat MitM-aanvallen zich blijven aanpassen aan technologische vooruitgang. Daarom is het essentieel om ze te blijven bestuderen en bestrijden.
+
+
+\section{\IfLanguageName{dutch}{Statistieken en Nieuwsincidenten rond MitM-aanvallen}{Statistics and News Incidents on MitM Attacks}}
+\label{sec:MitM-statistieken-nieuws}
+
+Exacte cijfers over hoe vaak MitM-aanvallen voorkomen zijn lastig te geven, omdat veel incidenten onopgemerkt blijven of niet afzonderlijk gerapporteerd worden (ze vallen vaak onder bredere categorieën zoals “network attacks” of “phishing”). Toch wijzen verschillende bronnen erop dat deze aanvallen een belangrijke dreiging zijn. Een case study gepubliceerd in het International Journal of Engineering Development and Research (IJEDR) benadrukt dat MitM-aanvallen behoren tot de meest voorkomende beveiligingsdreigingen. De studie stelt dat deze aanvallen steeds wijdverspreider en gevaarlijker worden, omdat ze in potentie elke online interactie kunnen beïnvloeden​~\autocite{Bhagat2020}. Dit toont het belang van voortdurende monitoring, onderzoek en de implementatie van verdedigingsstrategieën om deze bedreiging effectief aan te pakken.
+
+Ook op nationaal niveau is een stijging in cybercriminaliteit zichtbaar. In België nam het aantal geregistreerde slachtoffers toe van ruim 27.000 in 2019 naar ongeveer 41.000 in 2022. Volgens eerste commissaris Christophe Axen, specialist cyberveiligheid, ligt het werkelijke aantal waarschijnlijk nog hoger, omdat niet iedereen aangifte doet​~\autocite{Politie2024}.
+
+Verschillende security rapporten ondersteunen dit: zo rapporteerde het \textcite{Verizon2019} Data Breach Investigations Report (DBIR) in 2019 dat MitM technieken vooral voorkomen in het kader van espionage- en financieel gedreven aanvallen. Deze aanvallen komen vooral voor waar netwerkverkeer onvoldoende versleuteld is, waardoor aanvallers gevoelige informatie makkelijker kunnen onderscheppen. Het ~\autocite{IBM2024} meldt een 71\% toename in aanvallen met gestolen inloggegevens, waarbij MitM-aanvallen een belangrijke rol spelen
+
+\vspace{0.5cm}
+\textbf{Nieuwswaardige incidenten}
+
+Naast DigiNotar (2011) zijn er nog diverse opvallende MitM-aanvallen geweest. Zo onderschepten de NSA en het Britse GCHQ via het MUSCULAR-programma heimelijk de dataverbindingen tussen de interne datacenters van Google en Yahoo. Dit gebeurde door glasvezelkabels af te tappen, waardoor ze ongecodeerde communicatie konden inzien die normaal alleen binnen de bedrijven zou blijven ~\autocite{Gallagher2013}. In slechts 30 dagen, verzamelde de NSA meer  dan 97 miljard stukken wereldwijde internetdata en 124 miljard telefoongegevens~\autocite{Zhao2022}.
+
+
+In 2023 ontdekte het NCSC een andere kwetsbaarheid in OpenSSH die het mogelijk maakt om MitM-aanvallen uit te voeren, bekend als de Terrapin-aanval. Hierdoor kan een aanvaller de verbinding tussen een client en server verzwakken. Daarnaast zijn er twee andere kwetsbaarheden, CVE-2023-51385 en CVE-2023-6004, die aanvallers in staat stellen om ongewenste commando's uit te voeren~\autocite{NCSC2023}. 
+
+Recent zijn er ook ernstige kwetsbaarheden ontdekt in OpenSSH, die MitM-aanvallen en denial-of-service (DoS)-aanvallen mogelijk maken. De kwetsbaarheden, CVE-2025-26465 en CVE-2025-26466, stellen aanvallers in staat om communicatie tussen OpenSSH-clients en -servers te onderscheppen en te manipuleren, en kunnen servers vertragen of uitschakelen. Deze kwetsbaarheden zijn aanwezig in versies 8.5p1 en 9.7p1. Het wordt aanbevolen om de OpenSSH-versie te controleren en snel bij te werken naar de nieuwste versie om de systemen te beschermen ~\autocite{linuxsecurity2025}.
+
+
+
+\section{\IfLanguageName{dutch}{Hoe bescherm je jezelf tegen MitM-aanvallen?}{How to Protect Yourself from MitM-Attacks?}}
+\label{sec:Hoe bescherm je jezelf tegen MitM-aanvallen?}
+
+
+
+Er bestaat geen enkele oplossing die alle MitM-aanvallen kan voorkomen. Daarom is een gelaagde aanpak nodig waarbij zowel technische maatregelen als gebruikersbewustzijn een rol spelen. In deze sectie bespreken we de belangrijkste beveiligingsmechanismen en best practices voor het voorkomen en detecteren van MitM-aanvallen, gestructureerd op basis van hun type en toepassing.
+
+\vspace{0.5cm}
+\textbf{1. Sterke encryptie en betrouwbare authenticatie (TLS)}
+\vspace{0.5cm}
+Een van de meest effectieve verdedigingsmechanismen tegen MitM-aanvallen is het gebruik van sterke encryptie en betrouwbare verificatie. Het Transport Layer Security (TLS)-protocol, de opvolger van SSL, vormt de standaard voor het beveiligen van internetverkeer en voorkomt dat gegevens worden afgeluisterd of gemanipuleerd. TLS versleutelt de communicatie en maakt gebruik van certificaten, uitgegeven door Certificate Authorities (CA's), om te garanderen dat de gebruiker met de juiste server communiceert~\autocite{benton2013}.
+Om veilige verbindingen toegankelijker te make, biedt Let’s Encrypt gratis TLS-certificaten aan, Hierdoor kan vrijwel elke website een geldig certificaat implementeren. Dit maakt het voor aanvallers moeilijker om gebruikers naar een onveilige of nagemaakte website te leiden. Toch is encryptie op zichzelf niet genoeg ~\autocite{manousis2016}.. Er zijn gevallen bekend waarbij CA’s zijn misbruikt, waardoor aanvallers valse certificaten konden uitgeven. Een bekend voorbeeld hiervan, zoals eerder besproken, is de DigiNotar-hack in 2011, waarbij aanvallers valse certificaten gebruikten om legitieme communicatie te onderscheppen ~\autocite{onderzoeksraad2012}.
+Om misbruik van frauduleuze certificaten te voorkomen, hebben browsers verschillende beveiligingsmechanismen geïmplementeerd. Certificate Revocation Lists (CRL) en het Online Certificate Status Protocol (OCSP) maken het mogelijk om te controleren of een certificaat is ingetrokken. OCSP Stapling vermindert de netwerkbelasting door de server zelf de certificaatstatus te laten bewijzen, waardoor browsers niet bij elke verbinding een extra controle hoeven uit te voeren~\autocite{pkic2013}. Daarnaast biedt Certificate Transparency (CT) een publiek logboek waarin alle uitgegeven certificaten worden geregistreerd, zodat ongeautoriseerde certificaten sneller ontdekt kunnen worden~\autocite{sslcom2023}.
+Een oudere methode, Public Key Pinning (HPKP), maakte het mogelijk voor websites om een specifieke CA of publieke sleutel vast te leggen, zodat alleen deze gebruikt kon worden. Hoewel dit theoretisch de veiligheid verhoogde, bleek het ook risico’s te hebben: een verkeerde configuratie kon ertoe leiden dat een website permanent onbereikbaar werd~\autocite{sslcertificaten2023}. Hierdoor is HPKP grotendeels vervangen door Certificate Transparency, dat hetzelfde doel bereikt zonder de nadelen van verkeerde pinning~\autocite{sslcertificaten2023}.
+Naast certificaatvalidatie is het ook belangrijk om het downgraden van beveiligde verbindingen te voorkomen. HTTP Strict Transport Security (HSTS) is hiervoor een effectieve maatregel. HSTS dwingt browsers om altijd een versleutelde verbinding te gebruiken, zelfs als een gebruiker handmatig http:// invoert. Hierdoor wordt SSL Stripping onmogelijk gemaakt. Bovendien blokkeert HSTS de optie om waarschuwingen voor ongeldige certificaten te negeren, waardoor gebruikers niet per ongeluk een onveilige verbinding accepteren. Grote browsers zoals Google Chrome en Mozilla Firefox gebruiken een preload-lijst met domeinen waarvoor HSTS standaard is ingeschakeld, vooral voor kritieke websites zoals banken en e-mailproviders~\autocite{ciohsts}.
+Daarnaast blijft gebruikersbewustzijn een kritische factor: veel aanvallen maken gebruik van social engineering, waarbij slachtoffers worden misleid om verbinding te maken met onveilige netwerken of certificaatwaarschuwingen te negeren. Daarom is het belangrijk dat organisaties investeren in cybersecurity-trainingen en het correct configureren van hun beveiligingsinfrastructuur.~\autocite{cybercompanysocialengineering}.
+
+\vspace{0.5cm}
+\textbf{2. VPN’s en versleutelde tunnels}
+\vspace{0.5cm}
+
+
+Naast encryptie op netwerkniveau met TLS, kunnen Virtual Private Networks (VPN’s) een extra beveiligingslaag bieden tegen MitM-aanvallen, vooral in omgevingen waar het netwerk niet volledig te vertrouwen is. Een VPN creëert een versleutelde tunnel tussen de gebruiker en een vertrouwde server, waardoor al het netwerkverkeer beveiligd wordt tegen onderschepping of manipulatie door aanvallers. Dit is vooral belangrijk op openbare Wi-Fi-netwerken, waar een aanvaller relatief gemakkelijk verkeer kan afluisteren of vervalsen~\autocite{ramesh2022}.
+Een van de belangrijkste voordelen van een VPN is dat niet alleen webverkeer, maar ook DNS-queries via de versleutelde tunnel worden geleid. Hierdoor wordt de DNS-spoofingaanval voorkomen~\autocite{catchpointdnsattack}. Echter, niet alle VPN’s zijn even betrouwbaar. Gratis of onbetrouwbare VPN-diensten kunnen zelf fungeren als een MitM aanvaller, waarbij ze gebruikersgegevens verzamelen of verkeer monitoren~\autocite{bui2019}. Het is daarom van groot belang om een vertrouwde VPN-dienst te kiezen, of in een zakelijke omgeving, een bedrijfs-VPN met strikte beveiligingsmaatregelen in te zetten.
+Veel organisaties verplichten werknemers om via een VPN te verbinden wanneer ze werken op onbekende of openbare netwerken. Dit vermindert de kans op aanvallen en zorgt ervoor dat interne bedrijfsgegevens niet via onveilige kanalen worden verstuurd. In sommige bedrijven worden TLS VPN-achtige technieken gebruikt, zoals TLS-interceptie proxies~\autocite{ncsc2020}. Dit houdt in dat de organisatie bewust het verkeer tussen haar systemen inspecteert, wat eigenlijk een soort MitM-aanval is, maar dan op eigen verkeer. Hoewel dit acceptabel kan zijn in een bedrijf omgeving, brengt het ook risico’s met zich mee: als een aanvaller deze interceptie-apparatuur aanvalt, krijgt hij toegang tot alle versleutelde communicatie binnen het netwerk.
+Om dit risico te minimaliseren, moeten bedrijven ervoor zorgen dat hun interceptie-infrastructuur goed beveiligd en continu gemonitord wordt. Ook moeten ze ervoor zorgen dat de certificaten van belangrijke externe sites, zoals die van banken, altijd correct worden gevalideerd (bijvoorbeeld door certificaatpinnen), zodat werknemers beschermd blijven tegen mogelijke aanvallen.
+
+\vspace{0.5cm}
+\textbf{3. End-to-End Encryptie en Verificatie}
+\vspace{0.5cm}
+
+Naast het beveiligen van netwerkverkeer met TLS en VPN’s, speelt End-to-End (E2E) encryptie van groot belang beschermen van gevoelige communicatie tegen MitM-aanvallen. In tegenstelling tot transportversleuteling, waarbij gegevens versleuteld worden tijdens de overdracht maar mogelijk op de server ontsleuteld kunnen worden, zorgt E2E-encryptie ervoor dat alleen de verzender en ontvanger de inhoud kunnen lezen. Zelfs als een aanvaller toegang heeft tot het netwerk of de server, blijft de versleutelde gegevens voor hem onbereikbaar~\autocite{SHURSON2024}.
+Een goed voorbeeld van deze aanpak is te vinden in moderne Chatapp zoals Signal en WhatsApp, die het Signal Protocol gebruiken. Dit protocol biedt niet alleen sterke encryptie, maar maakt ook gebruik van forward secrecy. Zelfs als een aanvaller later de encryptiesleutel in handen krijgt, kan hij eerdere berichten niet ontsleutelen~\autocite{SHURSON2024}. 
+Een belangrijk onderdeel van E2E-encryptie is het verifiëren van sleutels. Encryptie zorgt ervoor dat alleen de verzender en de ontvanger de inhoud kunnen lezen, maar het garandeert niet dat niemand anders de communicatie kan onderscheppen. Een aanvaller kan zich bijvoorbeeld voordoen als de ontvanger, waardoor de verzender onbedoeld met de aanvaller communiceert in plaats van met de echte ontvanger. Dit wordt een silent MitM-aanval genoemd, die kan plaatsvinden tijdens de sleuteluitwisseling~\autocite{eitca2024}.
+Om dit te voorkomen, moeten gebruikers ervoor zorgen dat ze de publieke sleutels van elkaar op een veilige manier verifiëren. Dit kan bijvoorbeeld door het scannen van een QR-code of door een sleutelafdruk (een soort digitale handtekening) te vergelijken via een vertrouwd contact. Op deze manier weten beide partijen zeker dat ze de juiste communicatie voeren en voorkomt het dat een aanvaller zich tussen hen plaatst~\autocite{effkeyverification2025}.
+Door de combinatie van mutual authentication en forward secrecy wordt de kans op succesvolle MitM-aanvallen drastisch verkleind. Binnen organisaties zien we een vergelijkbare aanpak met het Zero Trust Network (ZTN)-model. In plaats van te vertrouwen op de veiligheid van het netwerk zelf, wordt elke verbinding of transactie geauthenticeerd en versleuteld op applicatieniveau. Hierdoor krijgt een aanvaller die toegang tot het interne netwerk geen toegang tot bruikbare gegevens. Zero Trust en end-to-end encryptie vormen een effectieve aanpak tegen zowel externe als interne bedreigingen ~\autocite{microsoft2024}.
+
+\vspace{0.5cm}
+\textbf{4. DNSSEC and Secure Name Resolution}
+\vspace{0.5cm}
+
+Domain Name System Security Extensions (DNSSEC) is een belangrijke beveiligingsmaatregel tegen MitM-aanvallen op het DNS. DNSSEC voegt digitale handtekeningen toe aan DNS-records, zodat een DNS-resolver de authenticiteit van het antwoord kan verifiëren. Als een aanvaller een vervalst IP-adres probeert te injecteren via een MitM-aanval, zal de handtekeningcontrole falen, en wordt het gemanipuleerde resultaat automatisch geweigerd\autocite{Tehrani2024}.
+DNSSEC voorkomt dat gebruikers per ongeluk naar kwaadaardige websites worden geleid, waardoor het een belangrijke bescherming biedt tegen phishing en datadiefstal. Hoewel DNSSEC nog niet wereldwijd is geïmplementeerd, ondersteunen steeds meer top-level domains (TLD's) het, en in sommige landen is het zelfs verplicht voor overheidsdomeinen.
+DNSSEC kan bovendien worden gecombineerd met DANE (DNS-Based Authentication of Named Entities),, een systeem waarbij TLS-certificaatpublic keys direct in DNSSEC worden opgeslagen. Dit biedt een extra laag beveiliging, omdat browsers dan niet alleen vertrouwen op Certificate Authorities (CA’s), maar ook op een cryptografische bevestiging via DNS\autocite{Tehrani2024}.
+
+Een effectieve maatregel is het gebruik van betrouwbare DNS-resolvers (zoals Google DNS of Cloudflare DNS) op onveilige netwerken. Dit helpt om bescherming te bieden tegen phishing en andere bekende dreigingen. Hoewel dit geen bescherming biedt tegen MitM-aanvallen op het netwerk, zorgt DNS over TLS (DoT) of DNS over HTTPS (DoH) ervoor dat DNS-verzoeken zelf niet kunnen worden afgeluisterd of gemanipuleerd. Daarnaast versterkt de implementatie van DNSSEC de betrouwbaarheid van DNS-verzoeken en verkleint het risico op manipulatie\autocite{cloudflare}.
+
+
+\vspace{0.5cm}
+\textbf{5. RPKI en BGP Security}
+\vspace{0.5cm}
+
+Om BGP hijacking (BGP route hijacking) te voorkomen, worden er verschillende beveiligingsmaatregelen ontwikkeld zoals RPKI (Resource Public Key Infrastructure) en BGPsec. RPKI stelt eigenaren van IP-subnetten in staat om een cryptografisch ondertekende verklaring (ROA) te publiceren. Deze verklaring geeft aan welke Autonomous Systems (AS) een specifiek subnet mogen gebruiken. Netwerkbeheerders kunnen deze ROA’s gebruiken om BGP-routes te controleren en te weigeren als ze niet overeenkomen met de legitieme bron\autocite{IJANA2024}.
+Bijvoorbeeld in februari 2008 leidde een fout van Pakistan Telecom tot een wereldwijde onderbreking van YouTube-verkeer door onjuiste BGP-routes te verspreiden. Als YouTube een Route Origin Authorization (ROA) had gepubliceerd, zou dit hebben bevestigd dat alleen hun netwerk bevoegd was om hun IP-adressen te delen, waardoor dit incident mogelijk was voorkomen\autocite{ripe2008}.
+Daarnaast is er een organisatie, MANRS (Mutually Agreed Norms for Routing Security), die Netwerkbeheerders aanspoort om zulke controles toe te passen en routehijacks te melden. BGPsec is een uitgebreider, maar complexer protocol dat elke "hop" in het pad tussen routers zou ondertekenen om de veiligheid verder te verbeteren. Dit protocol word echter nog niet op grote schaal toegepast\autocite{Lepinski2017}.
+Andere eenvoudige maatregelen kunnen ook helpen, zoals het instellen van limieten voor IP-prefixes (zodat een kleine provider niet per ongeluk te veel IP-adressen deelt) en het gebruik van monitoringdiensten zoals BGPmon of RIPE RIS, die waarschuwingen geven bij verdachte route-aanpassingen\autocite{ripe202}. In belangrijke sectoren zoals de banksector kunnen telecomproviders afspraken maken om een clean pipe service aan te bieden, waarbij extra controles worden uitgevoerd om de betrouwbaarheid van de routing te waarborgen\autocite{nexusguardcleanpipe}.
+\vspace{0.5cm}
+\vspace{0.5cm}
+\section{\IfLanguageName{dutch}{Educatie en Beleid als Aanvulling op Technologische Oplossingen}{Education and Policy as an Addition to Technological Solutions}}
+\label{sec:Educatie en Beleid als Aanvulling op Technologische Oplossingen}
+
+\vspace{0.5cm}
+\vspace{0.5cm}
+\vspace{0.5cm}
+
 

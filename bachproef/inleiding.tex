@@ -5,32 +5,41 @@
 \chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}%
 \label{ch:inleiding}
 
-De inleiding moet de lezer net genoeg informatie verschaffen om het onderwerp te begrijpen en in te zien waarom de onderzoeksvraag de moeite waard is om te onderzoeken. In de inleiding ga je literatuurverwijzingen beperken, zodat de tekst vlot leesbaar blijft. Je kan de inleiding verder onderverdelen in secties als dit de tekst verduidelijkt. Zaken die aan bod kunnen komen in de inleiding~\autocite{Pollefliet2011}:
+Door de snelle technologische ontwikkelingen wordt ons leven steeds efficiënter, maar tegelijkertijd nemen de risico's van cybercriminaliteit toe. Individuen, bedrijven en overheden worden steeds vaker geconfronteerd met digitale dreigingen, waarvan Man-in-the-Middle (MITM)-aanvallen een zorgwekkend voorbeeld zijn. Deze aanvallen maken het mogelijk om communicatie tussen twee partijen te onderscheppen en te manipuleren zonder dat zij dit merken, met gevolgen zoals financiële fraude, identiteitsdiefstal en bedrijfsspionage.
 
-\begin{itemize}
-  \item context, achtergrond
-  \item afbakenen van het onderwerp
-  \item verantwoording van het onderwerp, methodologie
-  \item probleemstelling
-  \item onderzoeksdoelstelling
-  \item onderzoeksvraag
-  \item \ldots
-\end{itemize}
+De digitalisering van vrijwel elk aspect van ons leven vergroot de dreiging van cyberaanvallen. Volgens het Global Risks Perception Survey behoort cybercriminaliteit tot de grootste wereldwijde risico’s op lange termijn. In België alleen steeg het aantal geregistreerde MITM-slachtoffers van 27.000 in 2019 naar meer dan 41.000 in 2022, en dit aantal blijft elk jaar toenemen\autocite{Politie2024}.
+
+Ondanks de beschikbaarheid van geavanceerde beveiligingstools en -maatregelen, blijken deze vaak onvoldoende tegen de steeds geavanceerdere dreigingen van MITM-aanvallen, zoals SSL-stripping, ARP-spoofing en DNS-spoofing. Dit roept de vraag op welke maatregelen daadwerkelijk effectief zijn in het beschermen van digitale communicatiekanalen.
+
+Dit onderzoek richt zich op het analyseren van MITM-aanvallen en het evalueren van verschillende beveiligingsstrategieën. Door middel van een Proof of Concept (PoC) wordt de impact van deze aanvallen gedemonstreerd en getest hoe bestaande beveiligingsmethoden hiertegen bestand zijn. Het doel is om onderbouwde aanbevelingen te formuleren voor een betere netwerkbeveiliging en het verminderen van het risico op MITM-aanvallen.
+
 
 \section{\IfLanguageName{dutch}{Probleemstelling}{Problem Statement}}%
 \label{sec:probleemstelling}
 
-Uit je probleemstelling moet duidelijk zijn dat je onderzoek een meerwaarde heeft voor een concrete doelgroep. De doelgroep moet goed gedefinieerd en afgelijnd zijn. Doelgroepen als ``bedrijven,'' ``KMO's'', systeembeheerders, enz.~zijn nog te vaag. Als je een lijstje kan maken van de personen/organisaties die een meerwaarde zullen vinden in deze bachelorproef (dit is eigenlijk je steekproefkader), dan is dat een indicatie dat de doelgroep goed gedefinieerd is. Dit kan een enkel bedrijf zijn of zelfs één persoon (je co-promotor/opdrachtgever).
+MitM-aanvallen vormen een groot beveiligingsrisico en veroorzaken jaarlijks aanzienlijke schade. Bestaande beveiligingsmaatregelen zijn niet altijd effectief of vertragen netwerken, waardoor organisaties terughoudend zijn met implementatie. Dit onderzoek beoordeelt welke maatregelen zowel effectief als efficiënt zijn, met als doel een betere bescherming zonder prestatieverlies.
 
 \section{\IfLanguageName{dutch}{Onderzoeksvraag}{Research question}}%
 \label{sec:onderzoeksvraag}
+Om inzicht te krijgen in dit onderzoek, wordt de volgende hoofdvraag geformuleerd. 
+\begin{itemize}
 
-Wees zo concreet mogelijk bij het formuleren van je onderzoeksvraag. Een onderzoeksvraag is trouwens iets waar nog niemand op dit moment een antwoord heeft (voor zover je kan nagaan). Het opzoeken van bestaande informatie (bv. ``welke tools bestaan er voor deze toepassing?'') is dus geen onderzoeksvraag. Je kan de onderzoeksvraag verder specifiëren in deelvragen. Bv.~als je onderzoek gaat over performantiemetingen, dan 
+   \item Welke beveiligingsmaatregelen zijn het meest effectief tegen MitM-aanvallen en hoe beïnvloeden ze de netwerkprestaties?
+\end{itemize}
 
+Deze hoofdvraag wordt verder onderverdeeld in specifieke deelvragen om verschillende aspecten van MitM-aanvallen en beschermingsstrategieën te analyseren:
+
+\begin{itemize}
+    \item Welke soorten MitM-aanvallen komen het meest voor, en wat zijn de belangrijkste verschillen tussen deze aanvallen?
+    \item Tegen welke specifieke vormen van MitM-aanvallen bieden bestaande beveiligingsmaatregelen bescherming?
+    \item Hoe effectief zijn deze maatregelen in het waarborgen van de integriteit, vertrouwelijkheid en beschikbaarheid van gegevens?
+    \item Wat zijn de belangrijkste verschillen tussen de meest gebruikte tools en technieken voor het uitvoeren van MitM-aanvallen?
+    \item In hoeverre zijn organisaties zich bewust van de risico’s van MitM-aanvallen en de noodzakelijke preventieve maatregelen?
+\end{itemize}
 \section{\IfLanguageName{dutch}{Onderzoeksdoelstelling}{Research objective}}%
 \label{sec:onderzoeksdoelstelling}
 
-Wat is het beoogde resultaat van je bachelorproef? Wat zijn de criteria voor succes? Beschrijf die zo concreet mogelijk. Gaat het bv.\ om een proof-of-concept, een prototype, een verslag met aanbevelingen, een vergelijkende studie, enz.
+Dit onderzoek vergelijkt de effectiviteit en haalbaarheid van verschillende beveiligingsmaatregelen tegen Man-in-the-Middle (MitM)-aanvallen, waarbij de focus ligt op de invloed op netwerkprestaties. Het biedt een duidelijke analyse van veelvoorkomende MitM-aanvallen, een proof-of-concept van praktische verdedigingsstrategieën en een verslag met concrete aanbevelingen. Het doel is om zowel organisaties als individuen te helpen bij het kiezen van haalbare beveiligingsoplossingen.
 
 \section{\IfLanguageName{dutch}{Opzet van deze bachelorproef}{Structure of this bachelor thesis}}%
 \label{sec:opzet-bachelorproef}
