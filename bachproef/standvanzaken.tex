@@ -4,310 +4,312 @@
 % Tip: Begin elk hoofdstuk met een paragraaf inleiding die beschrijft hoe
 % dit hoofdstuk past binnen het geheel van de bachelorproef. Geef in het
 % bijzonder aan wat de link is met het vorige en volgende hoofdstuk.
+De stand van zaken biedt een overzicht van literatuur en theoretische inzichten die nodig zijn om de vergelijking tussen Cisco Packet Tracer en GNS3 te kaderen. We beginnen met een toelichting op het verschil tussen netwerksimulatie en netwerkemulatie (~\ref{sec:netwerksimulatie-vs-netwerkemulatie}), omdat deze begrippen belangrijk zijn om te begrijpen hoe Packet Tracer en GNS3 werken.
 
+\vspace{0.3cm}
+
+ Vervolgens gaan we dieper in op Cisco Packet Tracer (~\ref{sec:Cisco Packet Tracer}) en GNS3(~\ref{sec:GNS3}): we behandelen hun ontstaan, functionaliteiten, beperkingen en hoe ze worden gebruikt binnen de opleiding Netwerkbeheer. Tot slot worden in paragraaf (\ref{sec:Alternatieve tools: EVE-NG, Cisco VIRL en andere}) kort enkele alternatieve tools besproken, waaronder EVE-NG en Cisco VIRL, om een volledig beeld te geven van de beschikbare simulatie- en emulatiesoftware.
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
-\section{\IfLanguageName{dutch}{Man-in-the-middle-aanvaal}{Man-in-the-Middle-attack}}%
-\label{sec:Man-in-the-middle-aanvaal}
-MITM-aanval is een type cyberaanval waarbij een aanvaller zich tussen een zender en een ontvanger plaatst om hun communicatie te onderscheppen of te manipuleren. De aanvaller verbreekt de directe verbinding en creëert twee afzonderlijke kanalen: één tussen de zender en zichzelf en een ander tussen de ontvanger en zichzelf. Hierdoor ontvangt de ontvanger de berichten van de zender niet rechtstreeks. MITM-aanvallen kunnen worden gebruikt voor gegevensdiefstal door passief af te luisteren, of voor het injecteren van valse gegevens door berichten te onderscheppen en te wijzigen. In slimme netwerken kunnen dergelijke aanvallen zowel geautomatiseerde als handmatige beslissingen binnen het systeem beïnvloeden. ~\autocite{ELRAWY2023}
-Onderzoek toont aan dat MITM-aanvallen een aanzienlijke bedreiging vormen voor slimme netwerken, vooral vanwege hun vermogen om communicatie te onderscheppen en te manipuleren~\autocite{ELRAWY2023}. Hoewel traditionele beveiligingsmaatregelen zoals firewalls en netwerksegmentatie vaak worden ingezet, blijken deze niet altijd voldoende om geavanceerde MITM-aanvallen te detecteren en te voorkomen~\autocite{ELRAWY2023}. Bovendien worden slimme netwerken steeds complexer, wat het aanvalsoppervlak vergroot en nieuwe kwetsbaarheden introduceert ~\autocite{ELRAWY2023}. Daarom is er behoefte aan effectievere detectiemethoden die de impact van MITM-aanvallen kunnen minimaliseren zonder de functionaliteit van het netwerk te beperken.
-In deze literatuurstudie bespreken we de verschillende soorten MITM-aanvallen, hun kenmerken en de methoden die aanvallers toepassen. Daarnaast analyseren we veelvoorkomende kwetsbaarheden en beveiligingsmaatregelen die kunnen worden ingezet om dergelijke aanvallen te voorkomen of te detecteren. Tot slot evalueren we de effectiviteit van bestaande detectiemethoden en onderzoeken we mogelijke verbeteringen in de beveiliging van slimme netwerken.
+\section{\IfLanguageName{dutch}{Netwerksimulatie vs. netwerkemulatie}{Network Simulation vs. Network Emulation}}%
+\label{sec:netwerksimulatie-vs-netwerkemulatie}
 
-\section{\IfLanguageName{dutch}{MitM-aanvallen per OSI-laag}{MitM-aanvallen per OSI-laag}}%
-\label{sec:MitM-aanvallen per OSI-laag}
+De termen simulatie en emulatie worden in de informatica vaak door elkaar gehaald, maar er is wel degelijk een belangrijk onderscheid tussen beide, vooral binnen de context van virtuele netwerken.
 
-\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de fysieke laag (laag 1)}{MitM-attacks on the physical layer (layer 1)}}
-\label{sec:MitM-aanvallen-op-fysieke-laag}
-De fysieke laag (laag 1) van het OSI-model is verantwoordelijk voor de overdracht van elektrische, optische en radiofrequentiesignalen. Aanvallen op deze laag richten zich op het onderscheppen, manipuleren of verstoren van deze signalen. 
+\vspace{0.2cm}
 
-\vspace{0.5cm}
-\textbf{1. IMSI Catchers}
-Een bekende MitM-aanval op deze laag is het gebruik van IMSI Catchers, apparaten die zich voordoen als een echte mobiele zendmast. Wanneer een telefoon verbinding maakt, geeft deze automatisch zijn unieke identificatie, de IMSI(International Mobile Subscriber Identity) vrij. Dit biedt aanvallers de mogelijkheid om de locatie van gebruikers te volgen en in sommige gevallen zelfs hun gesprekken of dataverkeer te onderscheppen en te manipuleren ~\autocite{PALAMA2021}.
-Uit onderzoek blijkt dat de meeste commerciële telefoons kwetsbaar zijn voor deze aanval, zelfs zonder extra stoorzenders. Aanvallers kunnen echter een speciale jammer gebruiken om het signaal van echte zendmasten te verstoren, waardoor telefoons gedwongen worden verbinding te maken met de nep-mast van de aanvaller ~\autocite{PALAMA2021}. Hoewel 5G betere beveiliging biedt met versleuteling via SUPI/SUCI, blijft de aanval effectief. Aanvallers kunnen apparaten dwingen om terug te schakelen naar 4G, waar de IMSI nog steeds onderschept kan worden ~\autocite{PALAMA2021}. Dit toont aan dat de fysieke laag van mobiele netwerken een zwakke plek blijft en dat aanvullende beveiligingsmaatregelen noodzakelijk zijn om dit risico te verkleinen.
+Bij netwerksimulatie wordt het gedrag van netwerkapparaten of protocollen virtueel voorgesteld met behulp van vereenvoudigde softwaremodellen. Deze modellen tonen hoe het netwerk zich zou gedragen, maar voeren de interne processen van echte hardware, zoals een router, niet uit \autocite{GOMEZ2023}. Alleen de communicatie tussen apparaten wordt weergegeven; de interne verwerking van gegevens, zoals die binnen fysieke hardware plaatsvindt, blijft buiten beschouwing. Met andere woorden, een simulatie creëert de indruk van een functionerend netwerk, maar de onderliggende processen die bij fysieke apparaten plaatsvinden, worden niet uitgevoerd.
 
-\vspace{0.5cm}
-\textbf{2. Kabelaftapping}
+\vspace{0.2cm}
 
-Een andere manier om netwerkverkeer af te luisteren op de fysieke laag, is via kabelaftapping. Dit houdt in dat men toegang krijgt tot de informatie die door glasvezel- of ethernetkabels wordt verzonden, zonder dat de gebruiker dit merkt. Door een klein deel van het lichtsignaal in een glasvezelkabel af te tappen, kunnen aanvallers gevoelige informatie zoals wachtwoorden en vertrouwelijke communicatie onderscheppen ~\autocite{EVERETT2007}. 
+Netwerkemulatie gaat een stap verder dan simulatie. In plaats van enkel het externe gedrag weer te geven, voert emulatie ook de interne processen van apparaten of systemen daadwerkelijk uit. Het echte besturingssysteem of de firmware van een netwerkapparaat wordt daarbij geladen en uitgevoerd binnen een virtuele omgeving. Die omgeving zorgt ervoor dat het besturingssysteem denkt dat het op echte hardware draait, waardoor het zich bijna identiek gedraagt als in de werkelijkheid \autocite{asee_peer_2016}.
 
-Er zijn verschillende methoden die hiervoor worden gebruikt:
-\begin{enumerate}
-\item \textbf{Splitsen (splicing)}: Hierbij wordt de glasvezelkabel fysiek opengesneden en een deel van het signaal naar afluisterapparatuur geleid.​ ~\autocite{EVERETT2007}. 
+\vspace{0.2cm}
 
-\item \textbf{Buigen (bending)}: Een subtielere techniek waarbij een lichte buiging in de kabel al voldoende is om een klein deel van het lichtsignaal te laten lekken.​ ~\autocite{EVERETT2007}. 
-
- \item \textbf{Rayleigh-verstrooiing (Rayleigh scattering)}: Een geavanceerdere methode waarbij speciale sensoren minuscule lichtlekken detecteren en zo data kunnen onderscheppen zonder de kabel fysiek aan te raken.​ ~\autocite{EVERETT2007}. 
-\end{enumerate} 
-Deze technieken worden niet alleen door criminelen gebruikt, maar ook door overheidsinstanties voor grootschalige surveillance. Een bekend voorbeeld hiervan is samenwerking tussen de NSA en AT\&T, waarbij glasvezelkabels op strategische locaties werden afgetapt om enorme hoeveelheden data te verzamelen. ~\autocite{EVERETT2007}. 
+Een belangrijk voordeel hiervan is dat virtuele toestellen geen onderscheid maken tussen virtuele en fysieke hardware. Dankzij deze realistische werking kunnen geëmuleerde netwerken rechtstreeks worden gekoppeld aan fysieke netwerken of het internet. Routers en switches gedragen zich daarbij zoals fysieke toestellen, met ondersteuning voor dezelfde functies en protocollen \autocite{asee_peer_2016}.
 
 
-\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de datalinklaag (laag 2)}{MitM-attacks on the data link layer (layer 2)}}
-\label{sec:MitM-aanvallen-op-datalinklaag}
+\begin{table}[H]
+    \centering
+    \caption{Vergelijking tussen netwerksimulatie en -emulatie.}
+    \label{tab:sim_vs_emul}
+    \begin{tabularx}{\textwidth}{|l|X|X|}
+        \hline
+        \textbf{Kenmerk} & \textbf{Simulatie (Packet Tracer)} & \textbf{Emulatie (GNS3)} \\
+        \hline
+        \textbf{Werking} & Simuleert het gedrag van netwerkapparatuur zonder de echte software of het besturingssysteem van de apparaten te gebruiken. & Draait de echte firmware of het besturingssysteem virtueel en functioneert volledig zoals het fysieke apparaat. \\
+        \hline
+        \textbf{Bewustzijn van omgeving} & Weet dat het een simulatie is (vereenvoudigd gedrag). & Denkt dat het echt is (virtueel apparaat merkt emulatie niet). \\
+        \hline
+        \textbf{Nauwkeurigheid} & Beperkt tot gesimuleerde functies; niet alle eigenschappen van het echte apparaat zijn aanwezig. & Functioneert hetzelfde als een echt toestel en ondersteunt alle mogelijkheden. \\
+        \hline
+        \textbf{Resource-gebruik} & Efficiënt: werkt met een vereenvoudigde versie van een besturingssysteem, zonder een volledig besturingssysteem op elk toestel te draaien. & Zwaarder: elke node gebruikt CPU/RAM zoals een echt toestel. \\
+        \hline
+        \textbf{Gebruik in onderwijs} & Ideaal voor basisconcepten, visualisatie en eenvoudige labs. & Geschikt voor geavanceerde labs, realistische tests en integratie met echte netwerken. \\
+        \hline
 
-\vspace{0.5cm}
-\textbf{1. ARP-Spoofing}
+        
+    \end{tabularx}
+\noindent\footnotesize{\autocite{asee_peer_2016, GOMEZ2023}}
+\end{table}
 
 
-ARP Spoofing, ook bekend als ARP Poisoning, is een vorm van een MitM-aanval op laag 2 van het OSI-model~\autocite{ARSLAN2017}. 
-Bij deze aanval worden vervalste ARP-replies verstuurd om de IP-MAC-koppelingen in de ARP-cache van een slachtoffer te manipuleren. Hierdoor kan een aanvaller netwerkverkeer onderscheppen, wijzigen of doorsturen zonder dat de betrokken partijen dit opmerken.
+Simulators en emulators vullen elkaar aan: simulators zijn geschikt voor het aanleren van basisconcepten op een gebruiksvriendelijke manier, terwijl emulators belangrijk zijn om realistische configuraties en commando’s te testen zoals op echte netwerkapparatuur.
 
-Deze kwetsbaarheid ontstaat doordat het Address Resolution Protocol (ARP) geen authenticatiemechanisme bevat. Netwerkapparaten accepteren standaard elke ARP-reply, ongeacht of er een bijbehorend verzoek is verzonden~\autocite{ARSLAN2017}. 
-Dit maakt ARP Spoofing tot een van de meest voorkomende en gevaarlijke aanvallen op laag 2-netwerken~\autocite{ARSLAN2017}.
 
-\vspace{0.5cm}
+\section{\IfLanguageName{dutch}{Cisco Packet Tracer}{Cisco Packet Tracer}}
+\label{sec:Cisco Packet Tracer}
 
-In Ethernet-gebaseerde netwerken gebruikt ARP een broadcastmechanisme om het MAC-adres van een apparaat te achterhalen op basis van een IP-adres. 
-Wanneer een apparaat een ARP-request uitzendt, antwoordt het doelapparaat met een ARP-reply waarin het MAC-adres wordt meegestuurd~\autocite{ARSLAN2017}. 
-Dit ARP-cachemechanisme vergemakkelijkt de communicatie, maar maakt het ook mogelijk voor aanvallers om onjuiste ARP-replies in het netwerk te injecteren, wat leidt tot verkeerde IP-MAC-koppelingen.
+Cisco Packet Tracer (PT) is een uitgebreide netwerksimulatorsoftware ontwikkeld door Cisco Systems, bedoeld om studenten en cursisten op een toegankelijke manier netwerkconfiguraties te laten oefenen in een virtuele omgeving. De software maakt deel uit van de lesmaterialen van de Cisco Networking Academy en speelt wereldwijd een belangrijke rol in opleidingen tot Cisco Certified Network Associate (CCNA). Packet Tracer is specifiek ontworpen voor onderwijsdoeleinden en stelt studenten in staat om op een veilige manier praktische netwerkvaardigheden te ontwikkelen ~\autocite{netacad2025}.
 
-\vspace{0.5cm}
 
-Bij een ARP Spoofing-aanval wordt deze zwakte als volgt misbruikt:
 
-\begin{enumerate}
-    \item De aanvaller verstuurt vervalste ARP-replies, waarin zijn eigen MAC-adres wordt gekoppeld aan het IP-adres van een legitiem netwerkapparaat, zoals de router~\autocite{ARSLAN2017}.
-    
-    \item De ARP-cache van het slachtoffer wordt aangepast, waardoor alle communicatie via de aanvaller loopt.
-    
-    \item De aanvaller kan het netwerkverkeer afluisteren, wijzigen of doorsturen, wat kan leiden tot datadiefstal, sessiekaping of verdere aanvallen zoals DNS Spoofing~\autocite{ARSLAN2017}.
-\end{enumerate}
+\vspace{0.3cm}
 
-Een belangrijk aspect van ARP Spoofing is dat het niet alleen door externe aanvallers wordt gebruikt, maar ook vaak een interne dreiging vormt binnen organisaties. 
-\textcite{ARSLAN2017} 
+
+
+Packet Tracer biedt een virtuele omgeving waarin studenten computernetwerken kunnen ontwerpen, configureren en troubleshooten zonder fysieke hardware. De software stelt gebruikers in staat om realistische netwerktopologieën te creëren. Routers, switches, eindapparaten en andere componenten kunnen visueel worden geplaatst en verbonden, waarbij netwerkinstellingen en protocollen geconfigureerd kunnen worden alsof er met echte apparatuur wordt gewerkt~\autocite{netacad2025}.
 
 
 
 \vspace{0.5cm}
-\textbf{2. Evil Twin-aanvallen}
-
-Wi-Fi-netwerken zijn nog steeds kwetsbaar voor verschillende aanvallen. Een veelgebruikte methode om netwerkverkeer te onderscheppen is de Evil Twin-aanval. Hierbij zet een aanvaller een vals toegangspunt (AP) op dat er precies uitziet als een legitiem netwerk. Zodra een slachtoffer verbinding maakt met dit valse AP, kan de aanvaller al het netwerkverkeer onderscheppen en manipuleren ~\autocite{LOUCA2023}.
-
-Traditioneel maken Evil Twin-aanvallen gebruik van deauthentication- en dissociation-aanvallen, waarbij de aanvaller de legitieme verbindingen verbreekt en gebruikers forceert om zich opnieuw aan te melden bij het kwaadaardige AP.~\autocite{LOUCA2023} tonen echter aan dat een nieuwe techniek, gebaseerd op 802.11v BSS Transition Management, veel onopvallender is en daardoor moeilijker te detecteren voor slachtoffers en beveiligingssystemen.
-
-
-Het 802.11v-protocol is ontwikkeld om apparaten soepel te laten overschakelen tussen Wi-Fi-toegangspunten via BSS Transition Management-frames. Normaal gesproken gebruiken legitieme netwerken deze instructies om de signaalsterkte en netwerkbelasting te optimaliseren. Onderzoek van ~\autocite{LOUCA2023} toont echter aan dat aanvallers valse 802.11v Transition Management Requests kunnen versturen, waardoor een apparaat wordt gedwongen verbinding te maken met een kwaadwillig AP, zelfs als het legitieme AP een sterker signaal heeft. Hierdoor is het niet langer nodig om het signaal van het legitieme netwerk te overtreffen om een succesvolle aanval uit te voeren.
-
-
-De aanval verloopt als volgt: de aanvaller stuurt eerst een vervalst 802.11v BSS Transition Management-verzoek naar een doelapparaat. Dit verzoek bevat misleidende informatie die suggereert dat het kwaadwillige toegangspunt (AP) de beste optie is. Het apparaat accepteert deze instructie en maakt onopgemerkt verbinding met het kwaadaardige AP. Vanaf dat moment kan de aanvaller het netwerkverkeer onderscheppen, manipuleren of omleiden naar schadelijke websites.
-
-Deze methode biedt aanvallers verschillende voordelen. Ten eerste is de aanval niet afhankelijk van signaalsterkte, waardoor de aanvaller geen sterker Wi-Fi-signaal hoeft te genereren dan het legitieme netwerk. Ten tweede is de aanval moeilijker te detecteren, omdat er geen storende deauthentication- of dissociation-frames worden verstuurd die melding stuurt naar Intrusion Detection Systems (IDS). Daarnaast maakt deze techniek de aanval effectiever, omdat apparaten automatisch de instructies opvolgen zonder dat de gebruiker iets hoeft te doen ~\autocite{LOUCA2023}.
-
-Volgens ~\autocite{LOUCA2023} blijkt dat veel moderne apparaten, zoals smartphones en laptops, vatbaar blijven voor deze aanval, vooral wanneer ze geen gebruik maken van Management Frame Protection (MFP). De onderzoekers testten de aanval in realistische omgevingen, zowel binnen als in stedelijke gebieden, en ontdekten dat alle geteste apparaten zonder enige waarschuwing in de val liepen.
-
 
 \vspace{0.5cm}
-\textbf{3. Multi-Channel-aanvallen}
 
-
-Naast Evil Twin- en ARP-spoofing-aanvallen vormt de Multi-Channel Man-in-the-Middle (MC-MitM)-aanval een geavanceerde risico voor draadloze netwerken. Deze aanval maakt gebruik van meerdere Wi-Fi-kanalen om netwerkverkeer af te luisteren en te beïnvloeden, zonder de originele verbinding te verbreken~\autocite{THANKAPPAN2022}.
-
-Bij een MC-MitM-aanval zet de aanvaller een nepnetwerk op dat identiek lijkt aan het echte netwerk. Door middel van een Channel Switch Attack (CSA) wordt het slachtoffer ongemerkt naar een kanaal geleid dat volledig onder controle van de aanvaller staat. De aanvaller gebruikt twee netwerkinterfaces: één om met het echte netwerk te communiceren en één om het slachtoffer te misleiden. Hierdoor blijft de versleuteling actief, maar kan de aanvaller alsnog verkeer manipuleren, injecteren of blokkeren, zonder dat het slachtoffer iets merkt~\autocite{THANKAPPAN2022}.
-Deze aanval is gevaarlijk omdat zelfs beveiligde netwerken kwetsbaar zijn, zonder dat de aanvaller de netwerksleutel hoeft te kennen. Hij kan inloggegevens onderscheppen, gebruikers omleiden naar schadelijke websites en zelfs moderne Wi-Fi-protocollen zoals WPA3 aanvallen ~\autocite{THANKAPPAN2022}.
-Detectie is moeilijk, omdat de aanval geen zichtbare verstoring veroorzaakt, waardoor Intrusion Detection Systems (IDS) geen afwijkend gedrag op netwerkniveau detecteren~\autocite{THANKAPPAN2022}.
-
-
-
-\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de netwerklaag (laag 3)}{MitM-attacks on the network layer (layer 3)}}
-\label{sec:MitM-aanvallen op de netwerklaag}
-
-\vspace{0.5cm}
-\textbf{1. BGP-hijacking}
-
-BGP-hijacking is een aanval op laag 3 van het OSI-model omdat het de netwerkrouting beïnvloedt. Dit verschilt van ARP-spoofing, dat op laag 2 plaatsvindt en gericht is op het manipuleren van MAC-adres-tabellen binnen een lokaal netwerk. 
-BGP (Border Gateway Protocol) is verantwoordelijk voor de uitwisseling van routeringsinformatie tussen autonome systemen (AS’en), die het wereldwijde internet vormen. Het probleem is dat BGP geen ingebouwde beveiligingsmechanismen heeft, waardoor aanvallers valse route-informatie kunnen verspreiden en zo verkeer van andere netwerken kunnen  kapen~\autocite{bühler2023}.
-
-
-Bij een BGP-hijacking doet een aanvaller zich voor als de legitieme eigenaar van een IP-prefix, zonder daarvoor geautoriseerd te zijn. Omdat BGP-routes worden geselecteerd op basis van de kortste of meest specifieke route, kunnen netwerken de valse route als geldig accepteren. Hierdoor wordt verkeer omgeleid naar het netwerk van de aanvaller in plaats van naar de echte bestemming~\autocite{bühler2023}.
-
-Afhankelijk van wat de aanvaller wil bereiken, kan een BGP-hijack twee vormen aannemen. In een blackhole hijack wordt het verkeer gedropt en bereikt het nooit de legitieme bestemming. Dit kan bijvoorbeeld worden gebruikt voor het verstoren van services of voor cyberaanvallen zoals DDoS-aanvallen. In een interception hijack onderschept de aanvaller het verkeer en stuurt het daarna alsnog door naar de juiste bestemming. Dit maakt het mogelijk om communicatie af te luisteren of zelfs aan te passen, wat een vorm van MitM-aanval is op laag 3~\autocite{bühler2023}.
-
-
-Er zijn verschillende manieren om een BGP-hijack uit te voeren. Bij een same-prefix hijack maakt de aanvaller zich bekend als de eigenaar van exact hetzelfde IP-prefix als de legitieme beheerder. Omdat BGP geen ingebouwde verificatie heeft om de geldigheid van deze route-informatie te bevestigen, kunnen sommige netwerken besluiten het verkeer via de aanvaller te routeren, afhankelijk van de BGP-policy’s van hun providers.
-Een more-specific hijack is nog effectiever: hierbij geeft de aanvaller een kleiner subnet op dan de legitieme eigenaar. Omdat BGP standaard de meest specifieke route verkiest, zullen bijna alle netwerken deze route als de beste optie zien en hun verkeer naar de aanvaller sturen~\autocite{bühler2023}.
-
-
-Een geavanceerdere techniek is AS-path poisoning, waarbij een aanvaller bepaalde AS-nummers toevoegt aan zijn BGP-routeinformatie. Dit kan worden gebruikt om de verspreiding van de valse route te beperken of om bepaalde netwerken te laten denken dat de route legitiem is. Hierdoor kan de aanvaller selectief verkeer onderscheppen, zonder dat de manipulatie wereldwijd wordt opgemerkt~\autocite{bühler2023}.
-
-
-BGP-hijacking wordt vaak gebruikt voor verschillende vormen van cybercriminaliteit, zoals het stelen van gevoelige gegevens, het omleiden van gebruikers naar phishing-websites of het beperken van internetverkeer door overheden of aanvallers. Omdat BGP-verkeer dynamisch is en routes voortdurend veranderen, kunnen BGP-hijacks langdurig onopgemerkt blijven. Veel netwerken ontvangen hun verkeer nog steeds, waardoor ze zich niet bewust zijn dat het onderweg is onderschept~\autocite{bühler2023}.
-
-
-
-\vspace{0.5cm}
-\textbf{2. DNS Cache Poisoning}
-
-
-Domain Name System (DNS) zet domeinnamen zoals example.com om in IP-adressen en maakt zo internetverkeer mogelijk. Omdat DNS-resolvers veelgebruikte antwoorden tijdelijk opslaan in een cache, wordt de laadtijd verkort en de belasting van autoritatieve DNS-servers verminderd【64】. Dit caching-mechanisme vormt echter een kwetsbaarheid, omdat een aanvaller de opgeslagen gegevens kan manipuleren en gebruikers  kan omleiden naar een kwaadwillende server~\autocite{klein2020}.
-
-Bij DNS Cache Poisoning plaatst een aanvaller valse DNS-records in de cache van een resolver, zodat toekomstige verzoeken het vervalste antwoord retourneren~\autocite{klein2020}. Dit gebeurt doordat een DNS-resolver standaard het eerste geldige antwoord accepteert dat binnenkomt. Als een aanvaller een vals antwoord sneller levert dan het legitieme antwoord van de autoritatieve server, wordt het kwaadaardige IP-adres in de cache opgeslagen en blijft dit actief totdat de Time-To-Live (TTL) verloopt~\autocite{klein2020}.
-
-Een effectieve manier om deze aanval uit te voeren is door gebruik te maken van transaction ID (TXID) guessing~\autocite{klein2020}. DNS-verzoeken bevatten een TXID, een 16-bits waarde die als identificatie dient. Een aanvaller kan een groot aantal valse antwoorden genereren en tegelijkertijd verschillende TXID’s uitproberen. Als een van deze gespoofte antwoorden een correcte TXID bevat, accepteert de resolver het en slaat het op in de cache, waardoor het verkeer wordt omgeleid naar de IP-adres van de aanvaller~\autocite{klein2020}.
-Het effect van deze aanval hangt af van drie fasen~\autocite{klein2020}. In de injectiefase probeert de aanvaller een valse DNS-record in de cache van de resolver te plaatsen door de autoritatieve server te overspoelen met gespoofte antwoorden. Wanneer de valse record succesvol wordt opgeslagen, begint de latentiefase, waarin het vervalste DNS-record actief blijft in de cache terwijl legitieme records verlopen【64】. Dit stelt de aanvaller in staat verkeer langdurig om te leiden zonder dat dit direct wordt opgemerkt. Zodra gebruikers de vervalste record opvragen, daarna begint de actieve fase, waarin het verkeer daadwerkelijk naar de verkeerde server wordt omgeleid~\autocite{klein2020}.
-Binnen deze latente fase kunnen verschillende technieken worden toegepast om verkeer te manipuleren~\autocite{klein2020}. Real Bounce Hijacking maakt gebruik van bestaande NS-records om verkeer indirect te kapen, terwijl Fictitious Bounce Hijacking niet-bestaande NS-records introduceert om DNS-verzoeken naar een door de aanvaller beheerde server te sturen~\autocite{klein2020}.
-Empirisch onderzoek toont aan dat DNS Cache Poisoning een succespercentage van bijna 100\%\ kan hebben wanneer de TTL-waarden strategisch worden gemanipuleerd~\autocite{klein2020}. Dit maakt het een effectieve MitM-aanval op laag 3, waarbij een aanvaller het internetverkeer onderschept en omleidt zonder tussenliggende netwerkcomponenten direct te beïnvloeden~\autocite{klein2020}
-
-
-
-
-\vspace{0.5cm}
-\textbf{3. Rogue DHCP Server Attack}
-
-Een Rogue DHCP Server Attack ontstaat wanneer een aanvaller een ongeautoriseerde DHCP-server opzet binnen een netwerk en valse IP-configuraties toewijst aan apparaten die verbinding maken~\autocite{dilworth2025}. Dit is mogelijk omdat DHCP-clients altijd het eerste antwoord accepteren dat ze ontvangen. Als de aanvaller sneller reageert dan de legitieme DHCP-server, krijgt het slachtoffer een verkeerde netwerkconfiguratie toegewezen~\autocite{dilworth2025}.
-Door een valse standaardgateway of DNS-server op te geven, kan de aanvaller verkeer omleiden naar een kwaadwillende server, waardoor hij gevoelige informatie kan onderscheppen. Dit maakt een MitM-aanval op laag 3 mogelijk~\autocite{dilworth2025}.
-Deze aanval heeft directe gevolgen voor de Confidentiality, Integrity en Availability (CIA)-triad:
-Vertrouwelijkheid wordt aangetast doordat de aanvaller toegang krijgt tot het netwerkverkeer.
-De integriteit van de communicatie komt in gevaar, doordat DNS- en routeringsinformatie kan worden aangepast.
-De beschikbaarheid van het netwerk wordt verstoord, omdat clients kunnen worden omgeleid naar onbereikbare of niet-bestaande servers~\autocite{dilworth2025}.
-Daarnaast kan de aanvaller DHCP Starvation gebruiken om alle beschikbare IP-adressen van de echte DHCP-server op te maken. Hierdoor kunnen nieuwe clients geen geldig IP-adres krijgen en worden ze gedwongen verbinding te maken met de rogue DHCP-server~\autocite{dilworth2025}. Dit geeft de aanvaller volledige controle over de netwerkconfiguratie.
-Deze aanval is vooral gevaarlijk in netwerken zonder DHCP Snooping, een beveiligingsfunctie die ervoor zorgt dat switches alleen DHCP-verkeer accepteren van geautoriseerde servers. Zonder deze bescherming blijft de aanval moeilijk te detecteren en kan de aanvaller langdurige controle over het netwerk behouden~\autocite{dilworth2025}.
-
-
-\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de Transport (laag 4)}{MitM-attacks on the Transport (layer 4)}}
-\label{sec:MitM-aanvallen op de Transport}
-
-\vspace{0.5cm}
-\textbf{1. Session Hijacking}
-
-Aanvallen op de transportlaag, zoals TCP Session Hijacking, komen minder vaak voor dan aanvallen op de netwerklaag, maar kunnen grote gevolgen hebben. Bij deze aanval wordt misbruik gemaakt van een zwakte in het Transmission Control Protocol (TCP). TCP controleert alleen de authenticiteit bij het opzetten van een verbinding, maar niet tijdens de sessie zelf. Zodra een verbinding is opgebouwd via de three-way handshake, worden pakketten enkel herkend aan de hand van hun sequentienummers, zonder extra verificatie~\autocite{chen2020}.
-Een aanvaller kan een actieve TCP-sessie overnemen door de juiste sequentienummers te raden en vervalste pakketten naar de server of de client te sturen. Dit kan bijvoorbeeld door een RESET (RST)-pakket te versturen, waardoor de originele verbinding plotseling wordt verbroken. Daarna kan de aanvaller een nieuw pakket met de juiste identificatiegegevens verzenden en zo de sessie overnemen, waardoor hij zich kan voordoen als de legitieme gebruiker en de sessie kan overnemen~\autocite{chen2020}.
-Om dit uit te voeren, gebruikt een aanvaller vaak een sniffer om TCP-verkeer af te luisteren en belangrijke gegevens zoals IP-adressen, poortnummers en sequentienummers vast te leggen. Met deze informatie kan hij vervalste TCP-pakketten maken en naar de doelserver sturen. Zodra de server deze pakketten als legitiem accepteert, krijgt de aanvaller controle over de sessie en kan hij gegevens onderscheppen of manipuleren~\autocite{chen2020}.
-Vroeger was deze aanval vooral effectief tegen Telnet- en FTP-sessies, omdat deze protocollen geen versleuteling gebruikten. Een aanvaller kon eenvoudig een sessie kapen en commando’s uitvoeren namens de gebruiker zonder opgemerkt te worden. Moderne beveiligingsmaatregelen, zoals random initial sequence numbers (ISN’s) en versleutelde protocollen zoals TLS/SSL, maken dit soort aanvallen veel moeilijker~\autocite{chen2020}.
-Vaak wordt TCP Session Hijacking gecombineerd met MitM-aanvallen of IP Spoofing. Eerst zorgt de aanvaller ervoor dat het netwerkverkeer via zijn eigen apparaat loopt, bijvoorbeeld door ARP-spoofing of BGP-hijacking. Zodra hij zich op de juiste positie in het netwerk bevindt, kan hij TCP-pakketten onderscheppen, aanpassen of zelfs nieuwe sessies starten zonder dat dit  opgemerkt wordt~\autocite{chen2020}.
-
-\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de Sessielaag en Presentatielaag (laag 5 en 6)}{MitM-attacks on the Session and Presentation Layer (layer 5 and 6)}}
-
-\label{sec:MitM-aanvallen op de Sessielaag en Presentatielaag}
-\vspace{0.5cm}
-\textbf{1. SSL Stripping}
-
- Stripping is een aanval waarbij een aanvaller een versleutelde HTTPS-verbinding teruggezet naar een onbeveiligde HTTP-verbinding zonder dat de gebruiker dit doorheeft. Dit stelt de aanvaller in staat om gevoelige gegevens, zoals inloggegevens en financiële informatie, naar plain tekst omtezetten~\autocite{gangan2015}.De aanval beïnvloedt zowel laag 5 (session laag) als laag 6 (presentation laag), omdat het de manier verstoort waarop een beveiligde verbinding wordt opgezet en tegelijkertijd de versleuteling ongedaan maakt~\autocite{gangan2015}.
-
-De aanval begint wanneer een gebruiker probeert verbinding te maken met een website via HTTPS. Normaal gesproken zorgt de TLS-handshake op de sessielaag (laag 5) ervoor dat een beveiligde sessie wordt opgezet. Bij SSL Stripping onderschept de aanvaller deze handshake en voorkomt hij dat de verbinding overschakelt naar HTTPS. Dit kan bijvoorbeeld door het manipuleren van een HTTP 302-redirect, waardoor de gebruiker op een onbeveiligde HTTP-versie van de website blijft~\autocite{gangan2015}. Omdat de encryptie niet wordt toegepast, heeft de aanvaller volledige toegang tot alle gegevens die de gebruiker invoert, zoals wachtwoorden, creditcardgegevens en andere vertrouwelijke informatie~\autocite{gangan2015}.
-Een belangrijke techniek die vaak wordt gebruikt bij SSL Stripping is een TLS downgrade-aanval, waarbij de aanvaller de verbinding dwingt om een oudere en minder veilige versie van het protocol te gebruiken, zoals SSL 3.0. Dit is mogelijk als de server verkeerd is geconfigureerd en nog verouderde encryptieprotocollen ondersteunt. Door deze downgrade kan een aanvaller zwakke versleuteling afdwingen en de communicatie eenvoudiger ontcijferen~\autocite{gangan2015}.
-Naast het manipuleren van de HTTPS-verbinding kan de aanvaller ook SSL Hijacking toepassen. Hierbij wordt een vals certificaat gegenereerd aan de client, waardoor de gebruiker denkt dat hij een veilige verbinding heeft met de echte server. In werkelijkheid verloopt de communicatie via de aanvaller, die als tussenpersoon fungeert en alle data in plain tekst kan lezen. Dit gebeurt vaak in netwerken waar de aanvaller controle heeft over de CA-instellingen of wanneer de gebruiker een certificaatwaarschuwing negeert~\autocite{gangan2015}.
-Deze aanval is effectief omdat veel websites en browsers eerst een onbeveiligde HTTP-verbinding aanbieden voordat ze de gebruiker automatisch doorsturen naar HTTPS., en als deze redirect wordt onderschept, blijft de gebruiker onbewust op de onbeveiligde versie van de site~\autocite{gangan2015}. Omdat deze aanval zowel de sessieopbouw op laag 5 als de encryptie op laag 6 beïnvloedt, vormt SSL Stripping een directe bedreiging voor de vertrouwelijkheid en integriteit van gegevens~\autocite{gangan2015}.
-
-\subsection{\IfLanguageName{dutch}{MitM-aanvallen op de Application (laag 7)}{MitM-attacks on the Application (layer 4)}}
-\label{sec:MitM-aanvallen op de Application}
-
-\vspace{0.5cm}
-\textbf{1. Phishing-gebaseerde-MitM}
-
-In de applicatielaag worden MitM-aanvallen vaak gecombineerd met phishingtechnieken om gebruikers te misleiden. Hierbij wordt een gebruiker misleid om zijn gegevens in te voeren op een nagemaakte website, terwijl een aanvaller het verkeer onderschept tussen de gebruiker en de echte website of e-mailserver. Dit type aanval maakt gebruik van technieken zoals DNS-spoofing, ARP-spoofing en het manipuleren van e-mailverkeer om de gebruiker te misleiden en vertrouwelijke informatie te verkrijgen~\autocite{birlea2020}.
-Een MitM-aanval op laag 7 kan op verschillende manieren voorkomen, afhankelijk van de technologie die wordt gebruikt. Een veelvoorkomende methode is het onderscheppen van e-mailcommunicatie. Hierbij kan een aanvaller zich positioneren tussen een gebruiker en een legitieme e-maildienst, waarbij hij de inhoud van e-mails kan manipuleren of gevoelige gegevens kan stelen. In een bedrijfsomgeving kan een cybercrimineel bijvoorbeeld een conversatie tussen een werknemer en de HR-afdeling onderscheppen, en valse bankgegevens invoegen in een betalingsaanvraag~\autocite{birlea2020}.
-Een andere vorm van MitM-phishing is het klonen van websites. Met behulp van tools zoals de Social Engineering Toolkit in Kali Linux kunnen aanvallers nagemaakte versies van legitieme websites maken, zoals inlogpagina’s van banken of sociale media. Wanneer een slachtoffer zijn gegevens invult, worden deze direct naar de aanvaller gestuurd, zonder dat het slachtoffer doorheeft dat hij op een valse website zit~\autocite{birlea2020}. De aanvaller kan ook schadelijke scripts injecteren op websites om gebruikersgegevens te stelen. Dit gebeurt vaak via client-side scripting, waarbij kwaadaardige code wordt toegevoegd aan een  webpagina zonder dat de gebruiker dit opmerkt~\autocite{birlea2020}.
-Naast webgebaseerde MitM-aanvallen zijn er ook technieken waarbij telefoonverkeer wordt onderschept. Een cybercrimineel kan zich voordoen als een bankmedewerker en een gebruiker telefonisch misleiden om zijn persoonlijke en financiële gegevens vrij te geven. Hierbij kan de aanvaller gebruik maken van social engineering en psychologische druk om het slachtoffer te overtuigen dat de informatie dringend nodig is. Deze vorm van MitM-phishing wordt vaak ingezet om toegang te krijgen tot online bankrekeningen of bedrijfsnetwerken~\autocite{birlea2020}.
-Phishing via zoekmachines is een andere methode waarbij aanvallers misleidende websites maken die lijken op legitieme diensten en deze hoger laten scoren in zoekresultaten. Gebruikers die op dergelijke links klikken, worden naar een nepwebsite geleid waar hun gegevens worden gestolen. it werkt goed, omdat mensen vaak denken dat een hooggeplaatste website in Google betrouwbaar is~\autocite{birlea2020}.
-E-mail blijft echter een van de meest gebruikte methodes voor MitM-aanvallen. Cybercriminelen sturen phishing-e-mails met links naar valse inlogpagina’s of bijlagen die malware bevatten. Zodra iemand op een link klikt of een bijlage opent, kan de aanvaller toegang krijgen tot het systeem of inloggegevens stelen. Een geavanceerde techniek is spear-phishing, waarbij de e-mails specifiek worden aangepast aan het slachtoffer, bijvoorbeeld door gebruik te maken van persoonlijke of bedrijfsinformatie. Dit maakt de aanval veel geloofwaardiger en moeilijker te herkennen dan gewone phishing~\autocite{birlea2020}.
-
-\section{\IfLanguageName{dutch}{Man-in-the-Middle-aanval: Geschiedenis}{Man-in-the-Middle attack: History}}
-\label{sec:MitM-geschiedenis}
-
-
-
-Man-in-the-Middle-aanvallen zijn geen nieuw fenomeen, het idee bestaat al eeuwen. In de geschiedenis zien we vergelijkbare concepten, vooral in militaire inlichtingendiensten, waar het onderscheppen en soms manipuleren van berichten tussen vijanden een veelgebruikte spionagetechniek was. Een bekend historisch voorbeeld vond plaats in 1903, toen de Britse uitvinder Marconi een demonstratie gaf van draadloze telegrafie. Tijdens die demonstratie slaagde een onderzoeker (Nevil Maskelyne) erin de communicatie te kapen: hij onderschepte het radiosignaal en injecteerde eigen Morse-berichten. Het publiek keek verbaasd toe terwijl de demonstratie werd verstoord.~\autocite{nexus2023}. Dit wordt beschouwd als een van de eerste gedocumenteerde MitM-aanvallen, lang voordat computers en digitale communicatie bestonden~\autocite{nexus2023}. Dit illustreert het idee van een tussenpersoon die berichten onderschept en beïnvloedt al meer dan een eeuw bestaat.
-
-In de context van computerbeveiliging dook het MitM-concept op in de beginjaren van netwerken en cryptografie. Al in 1976 waarschuwde het Diffie-Hellman sleuteluitwisselingsprotocol voor het risico van een onbekende derde partij die de sleuteluitwisseling onderschept, beter bekend als de klassieke 'Alice, Bob en Eve'-situatie.~\autocite{DiffieHellman1976}
-
-Naarmate digitale communicatie groeide, werden MitM-aanvallen steeds geavanceerder. In de jaren 1980 en 1990, met de opkomst van TCP/IP-netwerken~\autocite{computerhistory1980s}, werden MitM-aanvallen zoals TCP-hijacking en IP-spoofing voor het eerst praktisch gedemonstreerd~\autocite{purdueengineering2025}. In 1989 toonde Steve Bellovin aan hoe het gebrek aan authenticatie in protocollen zoals TCP sessiekaping mogelijk maakte. Hierdoor kon een aanvaller zich in een bestaande verbinding injecteren en deze overnemen zonder dat de betrokken partijen het merkten~\autocite{Bellovin2004}.
-
-Dergelijke ontdekkingen maakten duidelijk dat kwetsbaarheden voor MitM-aanvallen op meerdere lagen van het opkomende internetmodel aanwezig waren. Een van de grootste mijlpalen in de geschiedenis was het DigiNotar-incident in 2011. DigiNotar, een Nederlandse Certificate Authority, werd gehackt, waardoor aanvallers valse SSL-certificaten konden uitgeven voor domeinen zoals google.com. Dit gaf hen de mogelijkheid om op grote schaal Gmail-gebruikers in Iran af te luisteren via MitM-aanvallen op HTTPS-verbindingen~\autocite{onderzoeksraad2012}.
-Uit technisch onderzoek, vastgelegd in het Fox-IT (Black Tulip) rapport, bleek dat het verkeer van meer dan 300.000 unieke slachtoffers werd onderschept met de vervalste certificaten.~\autocite{eff2011}.
-
-
-Dit incident toonde aan hoe kwetsbaar het PKI-systeem destijds was en leidde tot verbeteringen, zoals public key pinning en strengere controles op Certificate Authorities (CA’s) ~\autocite{pkic2013}.
-Sindsdien zijn MitM-aanvallen steeds slimmer geworden, vaak als reactie op betere beveiligingsmaatregelen. Waar hackers vroeger simpelweg ongecodeerd internetverkeer konden onderscheppen, zoeken ze nu manieren om encryptie te omzeilen of te verzwakken.
-Een bekend voorbeeld is SSL stripping, een techniek die Moxie Marlinspike in 2009 introduceerde. Hiermee wordt een beveiligde HTTPS-verbinding teruggedwongen naar HTTP, waardoor gevoelige informatie, zoals wachtwoorden, alsnog onversleuteld onderschept kan worden ~\autocite{PMC2023}.
-
-In de afgelopen jaren zijn er zelfs experimenten met AI-gestuurde MitM-technieken. Aanvallers gebruiken machine learning om versleuteld verkeer te analyseren en patronen te herkennen, (bijv. welke websites of diensten een slachtoffer bezoekt op basis van patroonherkenning)~\autocite{Hababi2020}.
-Hoewel steeds meer internetverkeer versleuteld is—met in 2018 een HTTPS-gebruik van 81\% op Linux, 94\% op Windows, 98\% op macOS en 99\% op Chrome OS—blijven MitM-aanvallen zich ontwikkelen. Aanvallers zoeken voortdurend naar nieuwe zwakke plekken, van onbeveiligde Wi-Fi-netwerken tot kwetsbaarheden in BGP-routing op de internetbackbone. ~\autocite{google2025}
-
-Deze voortdurende evolutie laat zien dat MitM-aanvallen zich blijven aanpassen aan technologische vooruitgang. Daarom is het essentieel om ze te blijven bestuderen en bestrijden.
-
-
-\section{\IfLanguageName{dutch}{Statistieken en Nieuwsincidenten rond MitM-aanvallen}{Statistics and News Incidents on MitM Attacks}}
-\label{sec:MitM-statistieken-nieuws}
-
-Exacte cijfers over hoe vaak MitM-aanvallen voorkomen zijn lastig te geven, omdat veel incidenten onopgemerkt blijven of niet afzonderlijk gerapporteerd worden (ze vallen vaak onder bredere categorieën zoals “network attacks” of “phishing”). Toch wijzen verschillende bronnen erop dat deze aanvallen een belangrijke dreiging zijn. Een case study gepubliceerd in het International Journal of Engineering Development and Research (IJEDR) benadrukt dat MitM-aanvallen behoren tot de meest voorkomende beveiligingsdreigingen. De studie stelt dat deze aanvallen steeds wijdverspreider en gevaarlijker worden, omdat ze in potentie elke online interactie kunnen beïnvloeden​~\autocite{Bhagat2020}. Dit toont het belang van voortdurende monitoring, onderzoek en de implementatie van verdedigingsstrategieën om deze bedreiging effectief aan te pakken.
-
-Ook op nationaal niveau is een stijging in cybercriminaliteit zichtbaar. In België nam het aantal geregistreerde slachtoffers toe van ruim 27.000 in 2019 naar ongeveer 41.000 in 2022. Volgens eerste commissaris Christophe Axen, specialist cyberveiligheid, ligt het werkelijke aantal waarschijnlijk nog hoger, omdat niet iedereen aangifte doet​~\autocite{Politie2024}.
-
-Verschillende security rapporten ondersteunen dit: zo rapporteerde het \textcite{Verizon2019} Data Breach Investigations Report (DBIR) in 2019 dat MitM technieken vooral voorkomen in het kader van espionage- en financieel gedreven aanvallen. Deze aanvallen komen vooral voor waar netwerkverkeer onvoldoende versleuteld is, waardoor aanvallers gevoelige informatie makkelijker kunnen onderscheppen. Het ~\autocite{IBM2024} meldt een 71\% toename in aanvallen met gestolen inloggegevens, waarbij MitM-aanvallen een belangrijke rol spelen
-
-\vspace{0.5cm}
-\textbf{Nieuwswaardige incidenten}
-
-Naast DigiNotar (2011) zijn er nog diverse opvallende MitM-aanvallen geweest. Zo onderschepten de NSA en het Britse GCHQ via het MUSCULAR-programma heimelijk de dataverbindingen tussen de interne datacenters van Google en Yahoo. Dit gebeurde door glasvezelkabels af te tappen, waardoor ze ongecodeerde communicatie konden inzien die normaal alleen binnen de bedrijven zou blijven ~\autocite{Gallagher2013}. In slechts 30 dagen, verzamelde de NSA meer  dan 97 miljard stukken wereldwijde internetdata en 124 miljard telefoongegevens~\autocite{Zhao2022}.
-
-
-In 2023 ontdekte het NCSC een andere kwetsbaarheid in OpenSSH die het mogelijk maakt om MitM-aanvallen uit te voeren, bekend als de Terrapin-aanval. Hierdoor kan een aanvaller de verbinding tussen een client en server verzwakken. Daarnaast zijn er twee andere kwetsbaarheden, CVE-2023-51385 en CVE-2023-6004, die aanvallers in staat stellen om ongewenste commando's uit te voeren~\autocite{NCSC2023}. 
-
-Recent zijn er ook ernstige kwetsbaarheden ontdekt in OpenSSH, die MitM-aanvallen en denial-of-service (DoS)-aanvallen mogelijk maken. De kwetsbaarheden, CVE-2025-26465 en CVE-2025-26466, stellen aanvallers in staat om communicatie tussen OpenSSH-clients en -servers te onderscheppen en te manipuleren, en kunnen servers vertragen of uitschakelen. Deze kwetsbaarheden zijn aanwezig in versies 8.5p1 en 9.7p1. Het wordt aanbevolen om de OpenSSH-versie te controleren en snel bij te werken naar de nieuwste versie om de systemen te beschermen ~\autocite{linuxsecurity2025}.
-
-
-
-\section{\IfLanguageName{dutch}{Hoe bescherm je jezelf tegen MitM-aanvallen?}{How to Protect Yourself from MitM-Attacks?}}
-\label{sec:Hoe bescherm je jezelf tegen MitM-aanvallen?}
-
-
-
-Er bestaat geen enkele oplossing die alle MitM-aanvallen kan voorkomen. Daarom is een gelaagde aanpak nodig waarbij zowel technische maatregelen als gebruikersbewustzijn een rol spelen. In deze sectie bespreken we de belangrijkste beveiligingsmechanismen en best practices voor het voorkomen en detecteren van MitM-aanvallen, gestructureerd op basis van hun type en toepassing.
-
-\vspace{0.5cm}
-\textbf{1. Sterke encryptie en betrouwbare authenticatie (TLS)}
-\vspace{0.5cm}
-Een van de meest effectieve verdedigingsmechanismen tegen MitM-aanvallen is het gebruik van sterke encryptie en betrouwbare verificatie. Het Transport Layer Security (TLS)-protocol, de opvolger van SSL, vormt de standaard voor het beveiligen van internetverkeer en voorkomt dat gegevens worden afgeluisterd of gemanipuleerd. TLS versleutelt de communicatie en maakt gebruik van certificaten, uitgegeven door Certificate Authorities (CA's), om te garanderen dat de gebruiker met de juiste server communiceert~\autocite{benton2013}.
-Om veilige verbindingen toegankelijker te make, biedt Let’s Encrypt gratis TLS-certificaten aan, Hierdoor kan vrijwel elke website een geldig certificaat implementeren. Dit maakt het voor aanvallers moeilijker om gebruikers naar een onveilige of nagemaakte website te leiden. Toch is encryptie op zichzelf niet genoeg ~\autocite{manousis2016}.. Er zijn gevallen bekend waarbij CA’s zijn misbruikt, waardoor aanvallers valse certificaten konden uitgeven. Een bekend voorbeeld hiervan, zoals eerder besproken, is de DigiNotar-hack in 2011, waarbij aanvallers valse certificaten gebruikten om legitieme communicatie te onderscheppen ~\autocite{onderzoeksraad2012}.
-Om misbruik van frauduleuze certificaten te voorkomen, hebben browsers verschillende beveiligingsmechanismen geïmplementeerd. Certificate Revocation Lists (CRL) en het Online Certificate Status Protocol (OCSP) maken het mogelijk om te controleren of een certificaat is ingetrokken. OCSP Stapling vermindert de netwerkbelasting door de server zelf de certificaatstatus te laten bewijzen, waardoor browsers niet bij elke verbinding een extra controle hoeven uit te voeren~\autocite{pkic2013}. Daarnaast biedt Certificate Transparency (CT) een publiek logboek waarin alle uitgegeven certificaten worden geregistreerd, zodat ongeautoriseerde certificaten sneller ontdekt kunnen worden~\autocite{sslcom2023}.
-Een oudere methode, Public Key Pinning (HPKP), maakte het mogelijk voor websites om een specifieke CA of publieke sleutel vast te leggen, zodat alleen deze gebruikt kon worden. Hoewel dit theoretisch de veiligheid verhoogde, bleek het ook risico’s te hebben: een verkeerde configuratie kon ertoe leiden dat een website permanent onbereikbaar werd~\autocite{sslcertificaten2023}. Hierdoor is HPKP grotendeels vervangen door Certificate Transparency, dat hetzelfde doel bereikt zonder de nadelen van verkeerde pinning~\autocite{sslcertificaten2023}.
-Naast certificaatvalidatie is het ook belangrijk om het downgraden van beveiligde verbindingen te voorkomen. HTTP Strict Transport Security (HSTS) is hiervoor een effectieve maatregel. HSTS dwingt browsers om altijd een versleutelde verbinding te gebruiken, zelfs als een gebruiker handmatig http:// invoert. Hierdoor wordt SSL Stripping onmogelijk gemaakt. Bovendien blokkeert HSTS de optie om waarschuwingen voor ongeldige certificaten te negeren, waardoor gebruikers niet per ongeluk een onveilige verbinding accepteren. Grote browsers zoals Google Chrome en Mozilla Firefox gebruiken een preload-lijst met domeinen waarvoor HSTS standaard is ingeschakeld, vooral voor kritieke websites zoals banken en e-mailproviders~\autocite{ciohsts}.
-Daarnaast blijft gebruikersbewustzijn een kritische factor: veel aanvallen maken gebruik van social engineering, waarbij slachtoffers worden misleid om verbinding te maken met onveilige netwerken of certificaatwaarschuwingen te negeren. Daarom is het belangrijk dat organisaties investeren in cybersecurity-trainingen en het correct configureren van hun beveiligingsinfrastructuur.~\autocite{cybercompanysocialengineering}.
-
-\vspace{0.5cm}
-\textbf{2. VPN’s en versleutelde tunnels}
 \vspace{0.5cm}
 
 
-Naast encryptie op netwerkniveau met TLS, kunnen Virtual Private Networks (VPN’s) een extra beveiligingslaag bieden tegen MitM-aanvallen, vooral in omgevingen waar het netwerk niet volledig te vertrouwen is. Een VPN creëert een versleutelde tunnel tussen de gebruiker en een vertrouwde server, waardoor al het netwerkverkeer beveiligd wordt tegen onderschepping of manipulatie door aanvallers. Dit is vooral belangrijk op openbare Wi-Fi-netwerken, waar een aanvaller relatief gemakkelijk verkeer kan afluisteren of vervalsen~\autocite{ramesh2022}.
-Een van de belangrijkste voordelen van een VPN is dat niet alleen webverkeer, maar ook DNS-queries via de versleutelde tunnel worden geleid. Hierdoor wordt de DNS-spoofingaanval voorkomen~\autocite{catchpointdnsattack}. Echter, niet alle VPN’s zijn even betrouwbaar. Gratis of onbetrouwbare VPN-diensten kunnen zelf fungeren als een MitM aanvaller, waarbij ze gebruikersgegevens verzamelen of verkeer monitoren~\autocite{bui2019}. Het is daarom van groot belang om een vertrouwde VPN-dienst te kiezen, of in een zakelijke omgeving, een bedrijfs-VPN met strikte beveiligingsmaatregelen in te zetten.
-Veel organisaties verplichten werknemers om via een VPN te verbinden wanneer ze werken op onbekende of openbare netwerken. Dit vermindert de kans op aanvallen en zorgt ervoor dat interne bedrijfsgegevens niet via onveilige kanalen worden verstuurd. In sommige bedrijven worden TLS VPN-achtige technieken gebruikt, zoals TLS-interceptie proxies~\autocite{ncsc2020}. Dit houdt in dat de organisatie bewust het verkeer tussen haar systemen inspecteert, wat eigenlijk een soort MitM-aanval is, maar dan op eigen verkeer. Hoewel dit acceptabel kan zijn in een bedrijf omgeving, brengt het ook risico’s met zich mee: als een aanvaller deze interceptie-apparatuur aanvalt, krijgt hij toegang tot alle versleutelde communicatie binnen het netwerk.
-Om dit risico te minimaliseren, moeten bedrijven ervoor zorgen dat hun interceptie-infrastructuur goed beveiligd en continu gemonitord wordt. Ook moeten ze ervoor zorgen dat de certificaten van belangrijke externe sites, zoals die van banken, altijd correct worden gevalideerd (bijvoorbeeld door certificaatpinnen), zodat werknemers beschermd blijven tegen mogelijke aanvallen.
 
-\vspace{0.5cm}
-\textbf{3. End-to-End Encryptie en Verificatie}
-\vspace{0.5cm}
+\subsection{\IfLanguageName{dutch}{Functionaliteiten}{Functionalities}}%
+\label{sec:Functionaliteiten}
 
-Naast het beveiligen van netwerkverkeer met TLS en VPN’s, speelt End-to-End (E2E) encryptie van groot belang beschermen van gevoelige communicatie tegen MitM-aanvallen. In tegenstelling tot transportversleuteling, waarbij gegevens versleuteld worden tijdens de overdracht maar mogelijk op de server ontsleuteld kunnen worden, zorgt E2E-encryptie ervoor dat alleen de verzender en ontvanger de inhoud kunnen lezen. Zelfs als een aanvaller toegang heeft tot het netwerk of de server, blijft de versleutelde gegevens voor hem onbereikbaar~\autocite{SHURSON2024}.
-Een goed voorbeeld van deze aanpak is te vinden in moderne Chatapp zoals Signal en WhatsApp, die het Signal Protocol gebruiken. Dit protocol biedt niet alleen sterke encryptie, maar maakt ook gebruik van forward secrecy. Zelfs als een aanvaller later de encryptiesleutel in handen krijgt, kan hij eerdere berichten niet ontsleutelen~\autocite{SHURSON2024}. 
-Een belangrijk onderdeel van E2E-encryptie is het verifiëren van sleutels. Encryptie zorgt ervoor dat alleen de verzender en de ontvanger de inhoud kunnen lezen, maar het garandeert niet dat niemand anders de communicatie kan onderscheppen. Een aanvaller kan zich bijvoorbeeld voordoen als de ontvanger, waardoor de verzender onbedoeld met de aanvaller communiceert in plaats van met de echte ontvanger. Dit wordt een silent MitM-aanval genoemd, die kan plaatsvinden tijdens de sleuteluitwisseling~\autocite{eitca2024}.
-Om dit te voorkomen, moeten gebruikers ervoor zorgen dat ze de publieke sleutels van elkaar op een veilige manier verifiëren. Dit kan bijvoorbeeld door het scannen van een QR-code of door een sleutelafdruk (een soort digitale handtekening) te vergelijken via een vertrouwd contact. Op deze manier weten beide partijen zeker dat ze de juiste communicatie voeren en voorkomt het dat een aanvaller zich tussen hen plaatst~\autocite{effkeyverification2025}.
-Door de combinatie van mutual authentication en forward secrecy wordt de kans op succesvolle MitM-aanvallen drastisch verkleind. Binnen organisaties zien we een vergelijkbare aanpak met het Zero Trust Network (ZTN)-model. In plaats van te vertrouwen op de veiligheid van het netwerk zelf, wordt elke verbinding of transactie geauthenticeerd en versleuteld op applicatieniveau. Hierdoor krijgt een aanvaller die toegang tot het interne netwerk geen toegang tot bruikbare gegevens. Zero Trust en end-to-end encryptie vormen een effectieve aanpak tegen zowel externe als interne bedreigingen ~\autocite{microsoft2024}.
+Packet Tracer biedt een uitgebreide virtuele omgeving voor het veilig configureren en simuleren van netwerkarchitecturen. De software ondersteunt een breed scala aan gesimuleerde netwerkapparaten en netwerkprotocollen. Studenten kunnen aan de slag met een brede reeks netwerkapparaten, waaronder Catalyst-switches (2960, 3560), routers (1841, 2911, 4331), netwerkkaarten, hubs, access points en eindapparaten zoals pc’s, servers en IoT-sensoren. Op protocolniveau biedt Packet Tracer uitgebreide ondersteuning voor de configuratie van routeringsprotocollen zoals RIP, OSPF en EIGRP, en voor het opzetten van netwerksegmentatie door middel van VLAN’s en inter-VLAN routing. Daarnaast kunnen belangrijke netwerktechnieken zoals ARP, het Spanning Tree Protocol (STP) en EtherChannel worden toegepast om redundantie, schaalbaarheid en efficiënte bandbreedtebenutting binnen netwerken te simuleren ~\autocite{CiscoPacketTracerFAQ}.
 
-\vspace{0.5cm}
-\textbf{4. DNSSEC and Secure Name Resolution}
-\vspace{0.5cm}
+\vspace{0.3cm}
 
-Domain Name System Security Extensions (DNSSEC) is een belangrijke beveiligingsmaatregel tegen MitM-aanvallen op het DNS. DNSSEC voegt digitale handtekeningen toe aan DNS-records, zodat een DNS-resolver de authenticiteit van het antwoord kan verifiëren. Als een aanvaller een vervalst IP-adres probeert te injecteren via een MitM-aanval, zal de handtekeningcontrole falen, en wordt het gemanipuleerde resultaat automatisch geweigerd\autocite{Tehrani2024}.
-DNSSEC voorkomt dat gebruikers per ongeluk naar kwaadaardige websites worden geleid, waardoor het een belangrijke bescherming biedt tegen phishing en datadiefstal. Hoewel DNSSEC nog niet wereldwijd is geïmplementeerd, ondersteunen steeds meer top-level domains (TLD's) het, en in sommige landen is het zelfs verplicht voor overheidsdomeinen.
-DNSSEC kan bovendien worden gecombineerd met DANE (DNS-Based Authentication of Named Entities),, een systeem waarbij TLS-certificaatpublic keys direct in DNSSEC worden opgeslagen. Dit biedt een extra laag beveiliging, omdat browsers dan niet alleen vertrouwen op Certificate Authorities (CA’s), maar ook op een cryptografische bevestiging via DNS\autocite{Tehrani2024}.
+Ook geavanceerdere configuraties, zoals het opzetten van DHCP-servers, DNS-diensten, NAT (Network Address Translation) en ACL’s (Access Control Lists), kunnen binnen de omgeving worden ingericht en getest ~\autocite{CiscoPacketTracerFAQ}.
 
-Een effectieve maatregel is het gebruik van betrouwbare DNS-resolvers (zoals Google DNS of Cloudflare DNS) op onveilige netwerken. Dit helpt om bescherming te bieden tegen phishing en andere bekende dreigingen. Hoewel dit geen bescherming biedt tegen MitM-aanvallen op het netwerk, zorgt DNS over TLS (DoT) of DNS over HTTPS (DoH) ervoor dat DNS-verzoeken zelf niet kunnen worden afgeluisterd of gemanipuleerd. Daarnaast versterkt de implementatie van DNSSEC de betrouwbaarheid van DNS-verzoeken en verkleint het risico op manipulatie\autocite{cloudflare}.
+\vspace{0.3cm}
+
+Een belangrijk functioneel voordeel van Packet Tracer is dat configuratiewijzigingen in de \textit{real-time mode} onmiddellijk zichtbaar zijn, waardoor gebruikers direct de impact van hun configuratie kunnen zien ~\autocite{Kuzmenko2016}. Dit zorgt ervoor dat gebruikers het netwerkgedrag beter begrijpen en hun probleemoplossende vaardigheden verder ontwikkelen. Daarnaast biedt de \textit{simulation mode} de mogelijkheid om datapakketten stap voor stap te analyseren en protocollen zoals ICMP, TCP en routingupdates te volgen. Hierdoor kunnen gebruikers niet alleen problemen opsporen en oplossen, maar ook beter begrijpen hoe gegevens en protocollen zich binnen een netwerk verplaatsen.
 
 
-\vspace{0.5cm}
-\textbf{5. RPKI en BGP Security}
-\vspace{0.5cm}
+\vspace{0.3cm}
 
-Om BGP hijacking (BGP route hijacking) te voorkomen, worden er verschillende beveiligingsmaatregelen ontwikkeld zoals RPKI (Resource Public Key Infrastructure) en BGPsec. RPKI stelt eigenaren van IP-subnetten in staat om een cryptografisch ondertekende verklaring (ROA) te publiceren. Deze verklaring geeft aan welke Autonomous Systems (AS) een specifiek subnet mogen gebruiken. Netwerkbeheerders kunnen deze ROA’s gebruiken om BGP-routes te controleren en te weigeren als ze niet overeenkomen met de legitieme bron\autocite{IJANA2024}.
-Bijvoorbeeld in februari 2008 leidde een fout van Pakistan Telecom tot een wereldwijde onderbreking van YouTube-verkeer door onjuiste BGP-routes te verspreiden. Als YouTube een Route Origin Authorization (ROA) had gepubliceerd, zou dit hebben bevestigd dat alleen hun netwerk bevoegd was om hun IP-adressen te delen, waardoor dit incident mogelijk was voorkomen\autocite{ripe2008}.
-Daarnaast is er een organisatie, MANRS (Mutually Agreed Norms for Routing Security), die Netwerkbeheerders aanspoort om zulke controles toe te passen en routehijacks te melden. BGPsec is een uitgebreider, maar complexer protocol dat elke "hop" in het pad tussen routers zou ondertekenen om de veiligheid verder te verbeteren. Dit protocol word echter nog niet op grote schaal toegepast\autocite{Lepinski2017}.
-Andere eenvoudige maatregelen kunnen ook helpen, zoals het instellen van limieten voor IP-prefixes (zodat een kleine provider niet per ongeluk te veel IP-adressen deelt) en het gebruik van monitoringdiensten zoals BGPmon of RIPE RIS, die waarschuwingen geven bij verdachte route-aanpassingen\autocite{ripe202}. In belangrijke sectoren zoals de banksector kunnen telecomproviders afspraken maken om een clean pipe service aan te bieden, waarbij extra controles worden uitgevoerd om de betrouwbaarheid van de routing te waarborgen\autocite{nexusguardcleanpipe}.
-\vspace{0.5cm}
-\vspace{0.5cm}
-\section{\IfLanguageName{dutch}{Educatie en Beleid als Aanvulling op Technologische Oplossingen}{Education and Policy as an Addition to Technological Solutions}}
-\label{sec:Educatie en Beleid als Aanvulling op Technologische Oplossingen}
 
-\vspace{0.5cm}
-\vspace{0.5cm}
-\vspace{0.5cm}
+Naast de uitgebreide configuratiemogelijkheden biedt Packet Tracer ook een multi-user functie, waarmee meerdere gebruikers tegelijkertijd kunnen samenwerken aan één gezamenlijke netwerkconfiguratie ~\autocite{Smith2010}. Deze mogelijkheid maakt het eenvoudig om projecten en labo-oefeningen uit te voeren, waarbij meerdere gebruikers samen aan één netwerkproject werken.
+
+\vspace{0.3cm}
+
+Daarnaast ondersteunt Packet Tracer de simulatie van IoT-apparaten, zoals slimme sensoren, actuatoren en bewakingscamera’s ~\autocite{thera2020}. Gebruikers kunnen deze apparaten niet alleen verbinden met hun netwerk, maar ook eenvoudige toepassingen programmeren, bijvoorbeeld via Python-scripts. Deze functionaliteit breidt de mogelijkheden van Packet Tracer aanzienlijk uit, doordat gebruikers niet langer beperkt zijn tot traditionele netwerkconfiguraties, maar ook leren hoe ze IoT-apparaten kunnen configureren en beheren.
+
+\vspace{0.3cm}
+
+Een ander belangrijk onderdeel van Packet Tracer is de ingebouwde \textit{Activity Wizard} en de toetsingsfunctie. Hiermee kunnen instructeurs scenario’s en labo-oefeningen maken waarbij studenten bepaalde configuraties moeten uitvoeren ~\autocite{asee_peer_2016}. De software controleert de oplossingen automatisch op basis van vooraf ingestelde regels, zodat studenten direct feedback krijgen en zowel zij als hun docenten kunnen zien of de configuraties correct zijn of fouten bevatten. Hierdoor ondersteunt Packet Tracer zowel zelfstandig leren als begeleide trainingen in het bouwen en beheren van netwerken ~\autocite{asee_peer_2016}.
+
+
+\subsection{\IfLanguageName{dutch}{Voordelen in het onderwijs}{Benefits in education
+}}
+\label{sec:Voordelen in het onderwijs}
+Cisco Packet Tracer biedt verschillende voordelen voor educatief gebruik. De software is volledig gratis te gebruiken. Het enige wat nodig is, is een gratis account bij de Cisco Networking Academy om toegang te krijgen tot de software. Packet Tracer is compatibel met verschillende besturingssystemen, waaronder Windows, macOS en Linux. De interface is gebruiksvriendelijk en vereist weinig voorkennis, wat de tool toegankelijk maakt voor beginners zonder ervaring met de Cisco CLI. Daarnaast bevat Packet Tracer een breed scala aan voorbeeldlabs en tutorials die gebruikers stap voor stap begeleiden bij het configureren van netwerkinstellingen~\autocite{packetTracerResources2025}.
+
+\vspace{0.3cm}
+
+Onderzoek van \textcite{noor2018} toont aan dat studenten die gebruikmaakten van Packet Tracer aanzienlijke verbeteringen vertoonden in hun vermogen om netwerktopologieën te ontwerpen en netwerkproblemen op te lossen. Andere studies bevestigen de waarde van Packet Tracer als leerhulpmiddel, vooral wanneer het gebruik ervan wordt gecombineerd met echte hardware om de overgang van simulatie naar praktijkervaring te ondersteunen \autocite{runtuwene2024}.
+
+\vspace{0.3cm}
+
+Daarnaast beschouwt Cisco Packet Tracer als een ideaal platform voor studenten die beginnen met het opbouwen van basiskennis en het opdoen van vaardigheden binnen het domein van netwerken. Dankzij de integratie in het officiële NetAcad-curriculum maakt de software wereldwijd deel uit van het standaardaanbod binnen netwerkgerichte opleidingen ~\autocite{packetTracerResources2025}.
+
+
+
+\subsection{\IfLanguageName{dutch}{Gebruik in het onderwijs}{Gebruik in het onderwijs}}%
+\label{sec:Gebruik in het onderwijs}
+
+Cisco Packet Tracer is ontwikkeld met het oog op netwerkopleidingen en wordt vaak al vanaf de eerste lessen ingezet om studenten op een toegankelijke manier kennis te laten maken met netwerkinfrastructuur. Dankzij de gebruiksvriendelijke interface kunnen beginnende studenten zich focussen op concepten zoals IP-adressering, routeringstabellen en netwerkstructuren, zonder dat zij meteen diepgaand vertrouwd hoeven te zijn met command-line syntax. Inmiddels is het gebruik van Packet Tracer breed verspreid, ook buiten de NetAcad: vele universiteiten en hogescholen zetten het programma in voor vakken als computernetwerken, netwerkbeheer en cybersecurity ~\autocite{Allison2022}.
+
+\vspace{0.3cm}
+
+Na verloop van tijd, naarmate de kennis en vaardigheden van studenten groeien, leren zij ook werken met de Cisco CLI binnen Packet Tracer. De ingebouwde CLI-simulatie voor routers en switches vertoont sterke gelijkenissen met de structuur van echte Cisco IOS-apparatuur. Hierdoor kunnen studenten realistische commando’s en configuraties oefenen, wat hen optimaal voorbereidt op het gebruik van fysieke hardware of professionele emulatoren ~\autocite{Allison2022}.
+
+\vspace{0.3cm}
+
+Zoals eerder aangehaald, ondersteunt Packet Tracer naast de leermogelijkheden ook de evaluatie. Via de ingebouwde assessment-functionaliteiten kunnen docenten opdrachten ontwerpen waarbij studenten een netwerkconfiguratie moeten maken, die automatisch wordt nagekeken op correctheid. Een voorbeeld hiervan is de opleiding Systeem- en Netwerkbeheer aan HOGENT, waar studenten elk een gepersonaliseerde netwerksimulatie krijgen als praktijkexamen. Deze aanpak bevordert zelfstandig werken, maakt foutenanalyse eenvoudiger en beperkt fraude door unieke opdrachten per student ~\autocite{asee_peer_2016}.
+
+\vspace{0.3cm}
+
+Onderzoek toont bovendien aan dat Packet Tracer helpt om de kloof tussen theorie en praktijk te verkleinen. Studenten leren beter door zelf dingen te proberen, wat goed past bij actief leren ~\autocite{Noor2018}. Ook bleek dat studenten meer betrokken zijn en beter worden in routing wanneer ze oefenen met Packet Tracer ~\autocite{Noor2018}.
+
+\vspace{0.3cm}
+
+Een groot voordeel van Packet Tracer is dat studenten veilig kunnen oefenen. Ze kunnen zonder risico experimenteren met ACL’s, firewalls en zelfs cyberaanvallen ~\autocite{Allison2022}. Zo leren ze makkelijker, durven ze meer fouten te maken en begrijpen ze de leerstof beter ~\autocite{Allison2022}.
+
+\vspace{0.3cm}
+
+Cisco werkt Packet Tracer regelmatig bij met nieuwe technologieën zoals IoT en netwerkautomatisering. Studenten blijven zo op de hoogte van moderne ontwikkelingen binnen hetzelfde programma ~\autocite{CiscoPacketTracerFAQ}.
+
+\vspace{0.3cm}
+
+Ook verhoogt Packet Tracer de motivatie en leerresultaten. Studenten die ermee werkten, scoorden beter op testen, begrepen de leerstof sneller en zagen beter hoe alles in netwerken samenhangt ~\autocite{Javid2014}. Docenten kunnen bovendien makkelijker zien hoe ver studenten staan en fouten snel verbeteren ~\autocite{Javid2014}.
+
+\vspace{0.3cm}
+
+Ten slotte biedt Packet Tracer ook voordelen op financieel vlak: scholen besparen geld omdat ze minder dure apparatuur nodig hebben. Zelfs scholen met weinig middelen kunnen goed netwerkonderwijs aanbieden. Een lokaal met alleen computers is vaak al genoeg ~\autocite{Makasiranondh2010}.
+
+
+
+\subsection{\IfLanguageName{dutch}{Beperkingen}{Beperkingen
+}}
+\label{sec:Beperkingen}
+
+Ondanks de bovengenoemde voordelen, wijzen wetenschappelijke bronnen ook op enkele beperkingen en aandachtspunten bij het gebruik van Cisco Packet Tracer in het onderwijs. Allereerst blijft Packet Tracer een simulatieomgeving die het gedrag van netwerken op vereenvoudigde wijze weergeeft. In tegenstelling tot emulatoren zoals GNS3, maakt Packet Tracer geen gebruik van het echte besturingssysteem van Cisco-apparaten, zoals Cisco IOS. Hierdoor ontbreken veel functies of zijn slechts beperkt beschikbaar. Geavanceerde mogelijkheden zoals BGP-configuraties, MPLS, uitgebreide QoS-instellingen en specifieke varianten van het Spanning Tree Protocol zijn niet beschikbaar of slechts gedeeltelijk functioneel ~\autocite{Kuzmenko2016}. Ook de command-line interface (CLI) in Packet Tracer is beperkt tot de basis die nodig is voor het CCNA-niveau. Daardoor kunnen complexere configuraties en realistische scenario’s niet volledig worden uitgevoerd, zoals dat wel mogelijk is in omgevingen die werken met een echte IOS-image ~\autocite{Mwansa2024}.
+
+\vspace{0.3cm}
+
+Daarnaast is Packet Tracer volledig gericht op Cisco-apparatuur en biedt geen ondersteuning voor netwerkhardware van andere fabrikanten zoals Juniper, MikroTik of HP. Ook open-source netwerkoplossingen zoals pfSense, VyOS of Linux-gebaseerde routers worden niet ondersteund ~\autocite{Kuzmenko2016}. Hierdoor kunnen studenten geen ervaring opdoen met systemen buiten het Cisco-ecosysteem. Deze beperking maakt het moeilijk om studenten vertrouwd te maken met omgevingen waarin verschillende soorten apparatuur samen worden gebruikt, zoals vaak voorkomt in de praktijk. Voor opleidingen die inzetten op open standn of leverancier-onafhankelijk netwerkbeheer, kan dit ertoe leiden dat studenten niet volledig voorbereid zijn op de variatie en complexiteit van echte IT-omgevingen.
+
+\vspace{0.3cm}
+
+Een andere beperking is dat simulatie per definitie vereenvoudigd is. Packet Tracer biedt geen volledige emulatie van hardwarecomponenten: belangrijke fysieke factoren zoals werkelijke datasnelheden, CPU-belasting, kabelkwaliteit, latency of poortdefecten worden niet weergegeven ~\autocite{Hashimi2017}. Hierdoor kunnen studenten een onrealistisch beeld krijgen van de complexiteit van netwerkbeheer: in de simulator verlopen configuraties vaak soepel, terwijl men in de praktijk te maken krijgt met vertragingen, compatibiliteitsproblemen en hardwarefouten. Dit risico wordt bevestigd in verschillende onderzoeken. Zo merkten Elias en Mohamad Ali ~\autocite{Elias2014} op dat studenten die voornamelijk met Packet Tracer hadden geoefend, tegen onverwachte problemen aanliepen toen zij overstapten naar echte netwerkapparatuur. Ook Syahrizad en Zamzuri ~\autocite{Elias2014} concludeerden dat het curriculum dat volledig op simulatie gebaseerd was, onvoldoende was om studenten volledig voor te bereiden op real-world situaties. Zij raden daarom een hybride aanpak aan, waarbij simulaties worden gecombineerd met fysieke labs.
+
+\vspace{0.3cm}
+
+Hoewel veel universiteiten en hogescholen beschikken over fysieke netwerkapparatuur, lukt het in de praktijk niet altijd om alle studenten volledig de kans te geven om elk labo-onderdeel uit te voeren. Beperkingen zoals beperkte toegangstijd, een tekort aan toestellen of grote studentengroepen kunnen ervoor zorgen dat niet elke student evenveel praktische ervaring kan opdoen ~\autocite{inproceedings}.
+
+
+
+
+\section{\IfLanguageName{dutch}{GNS3}{GNS3}}%
+\label{sec:GNS3}
+
+GNS3 (Graphical Network Simulator 3) is een open-source netwerkemulator, ontwikkeld in 2008 om netwerkprofessionals te ondersteunen bij de voorbereiding op certificatie-examens zoals Cisco CCNA en CCNP. In tegenstelling tot eenvoudige simulators zoals Cisco Packet Tracer, emuleert GNS3 echte netwerkapparatuur door gebruik te maken van officiële IOS-images en andere apparaatsoftware. Hierdoor draait een virtuele router in GNS3 dezelfde software als een fysieke router, waardoor het netwerkgedrag en de functionaliteit sterk overeenkomen met de praktijk ~\autocite{Kuzmenko2016}.
+
+\vspace{0.3cm}
+
+GNS3 ondersteunt veel verschillende netwerkapparaten en protocollen. Gebruikers kunnen werken met diverse Cisco-apparaten, zoals routers met IOS en Cisco ASA-firewalls, maar ook met apparatuur van andere leveranciers zoals Juniper (JunOS) en open-source routers zoals pfSense of VyOS ~\autocite{Amrizal2022}. Door gebruik te maken van officiële IOS-images en andere systeemsoftware zijn vrijwel alle commando’s en netwerkfuncties beschikbaar die men ook op echte hardware zou verwachten. GNS3 maakt het bovendien mogelijk om geavanceerde functies te gebruiken die in eenvoudigere simulaties vaak ontbreken ~\autocite{gns3_docs2025}.
+
+\vspace{0.3cm}
+
+GNS3 maakt het mogelijk om zowel eenvoudige als complexe netwerken te bouwen. Gebruikers kunnen uitgebreide netwerktopologieën ontwerpen met meerdere routers, switches, firewalls en eindapparaten, zonder dat daar fysieke hardware voor nodig is. Zelfs complexe bedrijfsnetwerken of examenlabs, zoals die voor Cisco’s CCNP-certificering, kunnen volledig virtueel worden opgezet ~\autocite{Gil2015}.
+
+\vspace{0.3cm}
+
+Daarnaast ondersteunt GNS3 ook oudere en minder gangbare technologieën die in andere simulatieplatformen vaak niet beschikbaar zijn. Zo kunnen bijvoorbeeld Frame Relay- en ATM-netwerken worden gesimuleerd voor educatieve toepassingen. Via modules zoals de NM-16ESW of virtuele Cisco IOSvL2-images is het mogelijk om Ethernet-switches te gebruiken. Dit maakt het eenvoudiger om netwerkconcepten zoals VLAN-configuraties en andere switchfunctionaliteiten toe te passen en te analyseren~\autocite{gns3_doc2025}.
+
+\vspace{0.3cm}
+
+Verder biedt GNS3 de mogelijkheid om virtuele netwerken te verbinden met fysieke infrastructuren. Zo kan een virtuele router gekoppeld worden aan een echt campusnetwerk of het internet, waardoor hybride scenario’s ontstaan waarin virtuele en fysieke omgevingen gecombineerd worden ~\autocite{gns3_doc2025}.
+
+\vspace{0.3cm}
+
+Tot slot beschikt GNS3 standaard over integratie met analysetools zoals Wireshark. Elke verbinding in de netwerktopologie kan worden gemonitord via packet capturing, waardoor studenten netwerkverkeer in \textit{realtime} kunnen analyseren en zo beter inzicht krijgen in de werking van protocollen ~\autocite{Golightly2023}.
+
+
+
+\vspace{0.3cm}
+
+\subsection{\IfLanguageName{dutch}{Functionaliteiten}{Functionalities}}%
+\label{sec:Functionaliteiten}
+
+GNS3 biedt, dankzij zijn uitgebreide mogelijkheden, een aanzienlijke meerwaarde voor netwerkopleidingen en systeembeheer in het hoger onderwijs. Ten eerste benadert een GNS3-lab de realiteit van een fysiek netwerk zeer nauwkeurig. Studenten voeren configuraties uit op een emulatie van echte Cisco- of Juniper-software, waarbij zij exact dezelfde commando’s gebruiken en dezelfde reacties krijgen als op een fysieke router of switch. Dit realisme versterkt de leerervaring: studenten leren werken met de echte CLI en functies van netwerkapparatuur, in plaats van met een vereenvoudigde simulatieomgeving ~\autocite{Kuzmenko2016}.
+
+\vspace{0.3cm}
+
+Onderzoek in academische context bevestigt dat GNS3 hierdoor realistischere netwerktopologieën ondersteunt dan traditionele simulators ~\autocite{bakni2019}. Concreet toonden onderzoekers aan dat GNS3 in staat is om volledige Cisco IOS-functionaliteit te draaien, waardoor diepgaandere netwerkexperimenten mogelijk worden dan bijvoorbeeld met Packet Tracer ~\autocite{bakni2019}.
+
+\vspace{0.3cm}
+
+Een tweede belangrijk voordeel is dat GNS3 studenten voorbereidt op professionele certificeringen en op de praktijk. Voor het instapniveau (CCNA) raadt Cisco Networking Academy vaak Packet Tracer aan, omdat deze leeromgeving laagdrempelig is ~\autocite{gns3_docs2025}. Voor gevorderde certificeringen zoals CCNP en zelfs CCIE is Packet Tracer echter onvoldoende, aangezien niet alle protocollen of commando’s worden ondersteund ~\autocite{gns3_docs2025}. GNS3 biedt hiervoor een oplossing: het werd oorspronkelijk ontwikkeld door oprichter Jeremy Grossman met als doel studenten te ondersteunen bij hun voorbereiding op het CCNP-examen ~\autocite{gns3_docs2025}.
+
+\vspace{0.3cm}
+
+Dankzij GNS3 kunnen studenten trainen in een bijna echte labomgeving, zonder dat dure fysieke hardware nodig is ~\autocite{gns3_docs2025}. Hierdoor wordt het voor hogescholen haalbaar om complexe scenario’s aan te bieden die anders enkel in dure fysieke labs of officiële Cisco-omgevingen mogelijk zijn. Bovendien dekt GNS3 vrijwel het volledige CCNA- en CCNP-curriculum qua functionaliteit, waardoor studenten bij het afleggen van examens al vertrouwd zijn met de juiste commando’s en het gedrag van professionele netwerkapparatuur.
+
+\vspace{0.3cm}
+
+GNS3 ondersteunt volgens de literatuur ook zelfstandig leren en experimenteren. Doordat de software gratis en open-source is en aansluit bij de professionele praktijk, kunnen studenten ook buiten de lesmomenten aan de slag. Ze bouwen thuis netwerkopstellingen, maken fouten en lossen deze zelf op via troubleshooting, met ondersteuning van de grote online community. Deze leerbenadering sluit aan bij constructivistische onderwijsmethoden, waarin actief ontdekken en probleemoplossend denken centraal staan. Studenten kunnen bovendien oefenen zonder risico op schade aan apparatuur, wat in fysieke labs buiten de geplande lessen vaak niet haalbaar is ~\autocite{Sari2018}.
+
+\vspace{0.3cm}
+
+Ten slotte biedt GNS3 diverse praktische voordelen ten opzichte van fysieke netwerklabs. Omdat alles virtueel gebeurt, bestaat er geen risico op schade aan dure netwerkapparatuur bij fouten. Eén krachtige computer is voldoende om tientallen virtuele routers tegelijk te draaien ~\autocite{Golightly2023}. Dit maakt het platform niet alleen aantrekkelijk voor instellingen met een beperkt budget, maar ook geschikt voor afstandsonderwijs, waar toegang tot fysieke infrastructuur vaak ontbreekt. Virtuele labs kunnen eenvoudig worden herstart, waardoor studenten oefeningen kunnen herhalen, feedback verwerken en hun vaardigheden geleidelijk verbeteren.
+
+\subsection{\IfLanguageName{dutch}{Voordelen in het onderwijs}{Benefits in education
+}}
+
+GNS3 wordt in het hoger onderwijs vaak gebruikt als vervanging of aanvulling op fysieke netwerklabs. Doordat het echte netwerkbesturingssystemen emuleert, kunnen studenten realistische configuraties oefenen zonder dat dure apparatuur nodig is. Uit onderzoek blijkt dat GNS3 goed werkt om netwerkvaardigheden aan te leren, zelfs bij grote studentengroepen of beperkte beschikbaarheid van labmateriaal ~\autocite{Amrizal2022}. De grafische gebruikersinterface maakt het opzetten van netwerktopologieën toegankelijker, al vraagt de tool enige technische voorkennis. In tegenstelling tot tools zoals Cisco Packet Tracer moeten gebruikers zelf besturingssystemen voorzien en werken met een echte CLI ~\autocite{Sari2018}. Dit vraagt wat meer voorbereiding, maar studenten doen waardevolle ervaring op met realistische netwerkcommando’s ~\autocite{Amrizal2022}.
+
+\vspace{0.3cm}
+
+GNS3 ondersteunt zelfstandig leren en is ook geschikt voor thuisgebruik en afstandsonderwijs. Studenten kunnen het programma op hun eigen laptop installeren en op hun eigen tempo oefenen buiten de les. Uit onderzoek blijkt dat praktijkoefeningen met GNS3 ook op afstand goed werken~\autocite{Sari2018}, waardoor meer studenten toegang krijgen tot netwerktraining.
+
+\vspace{0.3cm}
+
+GNS3 wordt ook ingezet voor evaluaties en praktijkopdrachten. Docenten kunnen virtuele labs maken waarin studenten veilig en zelfstandig werken, zonder elkaar te storen in een gedeelde omgeving. Hoewel GNS3 geen ingebouwde automatische beoordelingsfuncties biedt, implementeren veel onderwijsinstellingen handmatige evaluatiemethoden of aangepaste scripts om de leerresultaten van studenten te beoordelen. ~\autocite{pythonautomation}
+
+\vspace{0.3cm}
+
+GNS3 ondersteunt daarnaast het werken met multivendor-omgevingen en biedt ondersteuning voor netwerkautomatisering, containers en SDN ~\autocite{Kuzmenko2016}. Deze mogelijkheden maken GNS3 geschikt voor netwerkonderwijs dat sterk gericht is op praktijk en realistische werksituaties.
+
+
+
+\subsection{\IfLanguageName{dutch}{Beperkingen}{Beperkingen
+}}
+\label{sec:Beperkingen}
+
+Daartegenover staan ook enkele nadelen aan het gebruik van GNS3, vooral op het vlak van gebruiksgemak en systeemvereisten. Ten eerste is GNS3 bekend om zijn hoge hardwarevereisten bij het draaien van complexe labs. Omdat elke router in feite een volledig besturingssysteem laadt, vraagt dit veel CPU en RAM. Zo kan één enkele Cisco IOSv-routerimage ongeveer 512 MB RAM en een deel van een CPU-core gebruiken ~\autocite{cml_faq2025}. Een lab met tien routers, vier switches en enkele clients kan dus al snel meerdere gigabytes aan geheugen en aanzienlijke verwerkingskracht vereisen, vooral tijdens het opstarten (het laden van IOS-images vraagt veel CPU).
+
+\vspace{0.3cm}
+
+Ter vergelijking: Packet Tracer verbruikt weinig systeembronnen omdat de volledige toepassing licht is opgebouwd. De virtuele apparaten gebruiken geen afzonderlijk RAM-geheugen zoals bij echte emulatie. GNS3 daarentegen vereist meer rekenkracht: wie met meerdere toestellen tegelijk wil werken, heeft een krachtige pc of server nodig, bij voorkeur met een recente CPU die virtualisatie ondersteunt en voldoende geheugen. Daardoor is GNS3 minder geschikt om op eender welk studententoestel te gebruiken, zeker als dat niet aan de minimumvereisten voldoet. In een klaslokaal is het dan aangewezen om gebruik te maken van performante pc’s of een gedeelde server ~\autocite{Kuzmenko2016}.
+
+\vspace{0.3cm}
+
+Een tweede beperking is de complexiteit van installatie en configuratie. In tegenstelling tot Packet Tracer, dat een standalone applicatie is, vereist GNS3 vaak het installeren en configureren van meerdere componenten (de GNS3 GUI, een GNS3 VM in VirtualBox/VMware voor betere prestaties, en het importeren van afzonderlijke apparaat-images). Volgens de officiële handleiding is GNS3 geen alles-in-één pakket. Gebruikers moeten de benodigde componenten afzonderlijk installeren en configureren, wat afhankelijk is van lokale instellingen op de computer, zoals firewallregels en gebruikersrechten ~\autocite{Golightly2023}.
+
+\vspace{0.3cm}
+
+Voor studenten (en zelfs docenten) met beperkte IT-ervaring kan dit een drempel vormen: er gaat kostbare tijd naar het opzetten van de omgeving vóór men aan de eigenlijke netwerkopdrachten toekomt \autocite{Amrizal2022}. Daarnaast moeten Cisco IOS-images of andere appliance-images extern verkregen worden, vaak onder licentie. GNS3 levert om juridische redenen geen Cisco-software mee; de gebruiker moet zelf een IOS-image importeren, bijvoorbeeld door die te downloaden via Cisco’s website (vereist meestal academische toegang of een servicecontract) of door een officiële Cisco VIRL-licentie (tegenwoordig CML-Personal) aan te schaffen ~\autocite{gns3_ios_images}. Dit vormt een organisatorische uitdaging in een onderwijssituatie: de hogeschool moet zorgen dat er een legale en eenvoudige manier is voor studenten om aan de benodigde images te komen. Sommige opleidingen lossen dit op door vooraf geconfigureerde GNS3-projecten te verspreiden waarin de node-definities (zonder de IOS zelf) al klaarstaan, of door een centrale repository te voorzien met images onder academische licentie.~\autocite{gns3_docs2025}
+
+\vspace{0.3cm}
+
+Ondanks de vele mogelijkheden vereist GNS3 aanzienlijk meer voorbereiding in vergelijking met bijvoorbeeld Cisco Packet Tracer, waarbij studenten na installatie meteen kunnen starten. Bij GNS3 zijn extra stappen nodig, zoals het opzetten van de virtuele machine en het configureren van netwerkverbindingen. Dit kan leiden tot technische problemen, zoals verbindingsfouten door foutieve VirtualBox-instellingen. Begeleiding bij installatie en troubleshooting is daarom vaak noodzakelijk en moet structureel opgenomen worden in het curriculum ~\autocite{gns3_docs2025}.
+
+\vspace{0.3cm}
+
+Daarnaast brengt het gebruik van GNS3 in een klasomgeving extra uitdagingen met zich mee. Door de grote flexibiliteit van het platform bestaat het risico dat studenten verdwalen in de vele opties, of dat kleine configuratiefouten tot grote problemen leiden. Dit vraagt om duidelijke structuur en begeleiding vanuit de docent. In de meeste gevallen is het aangewezen om uitgewerkte labhandleidingen en vooraf ingestelde topologie-bestanden aan te bieden, zodat studenten niet volledig vanaf nul hoeven te beginnen, tenzij dit expliciet als leerdoel is voorzien. Het voorbereiden van dergelijke labs vergt echter extra tijd en technische afstemming van de lesgever ~\autocite{gns3_docs2025}.
+
+\vspace{0.3cm}
+
+Een bijkomend aandachtspunt bij het gebruik van GNS3 in onderwijscontexten is het gebrek aan ingebouwde ondersteuning voor multi-user samenwerking en automatische evaluatie. Waar Cisco Packet Tracer via het NetAcad-platform functies aanbiedt voor het automatisch beoordelen van opdrachten en gestructureerde samenwerking tussen studenten, ontbreekt deze functionaliteit bij GNS3. Hoewel het technisch mogelijk is om meerdere clients met een centrale GNS3-server te verbinden, vereist dit een complexe installatie en biedt het geen native ondersteuning voor simultane samenwerking aan hetzelfde project of geautomatiseerde feedbackmechanismen. Dit betekent dat docenten alternatieve evaluatiemethoden moeten hanteren, zoals het laten indienen van configuratiebestanden of het beoordelen van live uitgevoerde opdrachten ~\autocite{gns3_multiuser}.
+
+\vspace{0.3cm}
+
+Tot slot is er de leercurve: omdat GNS3 veel mogelijkheden biedt, kan het voor beginners lastig zijn om ermee te starten. Studenten moeten niet alleen netwerktheorie leren, maar ook leren hoe ze met GNS3 moeten werken, zoals apparaten toevoegen, interfaces verbinden en images instellen. Zonder een goede uitleg of begeleiding kan dit al snel verwarrend of moeilijk worden, zeker in vergelijking met de eenvoudige drag-and-dropomgeving van Packet Tracer \autocite{Amrizal2022}.
+
+\vspace{0.3cm}
+
+Daarom is het belangrijk dat docenten in hun lessen tijd voorzien om studenten stap voor stap wegwijs te maken in het gebruik van GNS3. Er zijn gelukkig veel tutorials beschikbaar en er is een grote online community, maar het blijft de taak van de opleiding om GNS3 op een goede en haalbare manier in te voeren, zodat het bruikbaar blijft voor studenten.
+
+
+\section{\IfLanguageName{dutch}{Alternatieve tools}{Alternatieve tools
+}}
+\label{sec:Alternatieve tools: EVE-NG, Cisco VIRL en andere}
+
+Naast Packet Tracer en GNS3 bestaan er nog andere netwerkemulators. Twee relevante alternatieven zijn EVE-NG en Cisco VIRL/CML. Ook Huawei eNSP is een voorbeeld van een simulator die gericht is op één bepaald merk of type netwerkapparatuur.
+
+\vspace{0.3cm}
+
+EVE-NG (Emulated Virtual Environment – Next Generation) lijkt qua werking sterk op GNS3. Het ondersteunt meerdere netwerkleveranciers zoals Cisco, Juniper en Palo Alto en functioneert volledig via de browser. Studenten kunnen hun labs uitvoeren zonder software lokaal te installeren. Dit is vooral interessant voor scholen of trainingsomgevingen die werken met centrale servers en gedeelde toegang. EVE-NG bestaat in een gratis Community Edition en een betaalde Pro-versie met extra functies, zoals ondersteuning voor meerdere gebruikers tegelijk. Volgens gebruikers is GNS3 iets eenvoudiger voor beginners, terwijl EVE-NG meer mogelijkheden biedt, maar ook meer voorbereiding en technische kennis vraagt. Omdat alles via de server draait, is er meestal ook krachtigere hardware nodig dan bij GNS3\autocite{eve-ng}.
+
+\vspace{0.3cm}
+
+Cisco VIRL (nu Cisco CML) is de officiële netwerkemulator van Cisco. Het programma wordt geleverd met een licentie en officiële IOS-images, waardoor gebruikers geen eigen images moeten zoeken zoals bij GNS3. VIRL is vooral bedoeld voor bedrijven en netwerkprofessionals en is niet gratis. Soms zijn er proeflicenties of educatieve versies beschikbaar, maar voor standaardgebruik in het onderwijs is het minder interessant door de kostprijs en complexiteit. Voor grote labs of situaties waarin officiële Cisco-software vereist is, kan het wel een nuttige oplossing zijn \autocite{cisco-cml}.
+
+\vspace{0.3cm}
+
+Huawei eNSP is een simulator voor Huawei-netwerkapparatuur. Het werkt vergelijkbaar met Packet Tracer, maar is gericht op Huawei-certificeringen. Voor HOGENT is dit momenteel minder relevant, tenzij er in de toekomst met Huawei-apparatuur gewerkt zou worden \autocite{huawei-ensp}.
+
+\vspace{0.3cm}
+
+Andere tools zoals Mininet (voor SDN-onderzoek) en Boson NetSim (een commerciële CCNA-simulator) bestaan ook, maar worden weinig gebruikt in onze context. Mininet is vooral geschikt voor onderzoeksdoeleinden. Boson NetSim is betalend, populair bij zelfstudie, maar biedt minder uitgewerkte scenario’s dan Packet Trace \autocite{huawei-ensp, cisco-cml}.
 
 

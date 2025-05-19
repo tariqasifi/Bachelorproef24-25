@@ -14,5 +14,47 @@
 % Heeft het onderzoek geleid tot nieuwe vragen die uitnodigen tot verder 
 %onderzoek?
 
-\lipsum[76-80]
+
+
+
+De vergelijking van Cisco Packet Tracer en GNS3 op basis van drie scenario’s toont aan hoe beide tools functioneren binnen de opleiding. Cisco Packet Tracer is geschikt voor studenten met weinig ervaring. De software is licht, eenvoudig in gebruik en maakt het mogelijk om snel een netwerk op te bouwen via een visuele interface. Door de vereenvoudigde commandolijn en visuele feedback, zoals gekleurde verbindingslijnen en een simulatiemodus, krijgen studenten direct inzicht in hun configuraties zonder zich te verdiepen in technische details. Alle noodzakelijke functies voor het CCNA-niveau, zoals STP, OSPF, NAT en DHCP, waren aanwezig en werkten correct in elk scenario. Packet Tracer bleef ook in het meest complexe scenario stabiel functioneren op een standaardlaptop. De ingebouwde functie voor automatische beoordeling maakt het mogelijk om oefeningen snel en objectief na te kijken, wat vooral handig is in grotere groepen of bij afstandsonderwijs.
+
+\vspace{0.3cm}
+
+GNS3 maakt het mogelijk om complexe netwerkomgevingen op een realistische en gedetailleerde manier op te bouwen, waardoor het platform bijzonder geschikt is voor gevorderde toepassingen. De software emuleert echte netwerkapparatuur met volledige besturingssystemen, zoals Cisco IOS of VyOS, wat geavanceerde functies en protocollen op een realistische manier ondersteunt. In de praktijktests leidde dit tot netwerkgedrag dat overeenkomt met echte situaties. Zo konden de eerste pings in een nieuw netwerk mislukken, bijvoorbeeld door vertraging bij ARP-resolutie of door configuratiefouten. Daarnaast is de troubleshooting hier werkelijk, niet gesimuleerd door programmeren. Dergelijke situaties leren studenten omgaan met realistische foutmeldingen en technische problemen, en stimuleren het zelfstandig zoeken naar oplossingen — een waardevolle ervaring voor studenten die zich voorbereiden op stages of professionele werkomgevingen.
+
+\vspace{0.3cm}
+
+GNS3 biedt bovendien de mogelijkheid om fysieke netwerkapparatuur op te nemen in een topologie en externe analysetools zoals Wireshark te integreren. Hoewel deze functies buiten de scope van de CCNA-scenario’s vielen, maakt dit duidelijk dat GNS3 beter aansluit bij geavanceerde leerdoelen en praktijkgerichte toepassingen dan Packet Tracer.
+
+\vspace{0.3cm}
+
+Tegelijkertijd brengt het gebruik van GNS3 enkele uitdagingen met zich mee. De opstarttijd van de software is langer en de systeemprestaties worden zwaarder belast. In complexere scenario’s liep het CPU- en geheugengebruik snel op, en virtuele routers zoals VyOS hadden meer tijd nodig om volledig op te starten en routingprotocollen te laten functioneren. Deze vertraging kan deels worden verklaard door het feit dat VyOS op Linux is gebaseerd en meer systeembronnen vereist dan klassieke routersoftware. Als in plaats daarvan gebruik wordt gemaakt van officiële Cisco IOS-images, die specifiek voor routertaken zijn ontworpen, zou de opstarttijd korter zijn en de prestaties stabieler. Dit vereist echter toegang tot gelicentieerde software en extra voorbereiding.
+
+\vspace{0.3cm}
+
+Op minder krachtige systemen kan deze extra belasting leiden tot merkbare vertragingen, waardoor GNS3 minder geschikt is voor standaardklassen zonder krachtige hardware of een centrale serverinfrastructuur. Bovendien is het opzetten van een netwerk in GNS3 technisch intensiever: studenten moeten zelf router-images importeren en meerdere consolevensters beheren. Omdat er geen kant-en-klare oefeningen beschikbaar zijn, vraagt het ontwikkelen van leermateriaal meer tijd en gespecialiseerde kennis van de docent.
+
+\vspace{0.3cm}
+
+Ook voor evaluaties vraagt GNS3 extra voorbereiding. Omdat de tool geen ingebouwde scorefunctie bevat, is het aan te raden om gebruik te maken van externe scripts die automatisch controleren of de configuratie correct is uitgevoerd. Dit kan met tools zoals Ansible, Expect of andere automatiseringsoplossingen, die de uitvoer van netwerkapparaten vergelijken met vooraf gedefinieerde correcte waarden. Op die manier kunnen examens in GNS3 toch op een objectieve, efficiënte en transparante manier worden nagekeken. Dit geeft studenten duidelijke verwachtingen en verlicht de werkdruk voor de lector.
+
+\vspace{0.3cm}
+
+Daarnaast vereist het gebruik van GNS3 extra ondersteuning van de opleiding. Bij de introductie van GNS3 is het aan te raden dat er een duidelijke handleiding, workshop of oefensessie wordt aangeboden, zodat studenten snel vertrouwd raken met de installatie en configuratie. Lectoren hebben hiervoor extra training, technische ondersteuning en passend lesmateriaal nodig om opstartbarrières te verlagen en eventuele moeilijkheden te vermijden. Bovendien vraagt het gebruik van GNS3 van lectoren een grondige voorbereiding. Voor elk netwerkonderdeel, zoals IP-configuratie, OSPF, ACL's en NAT, moeten er geschikte oefeningen en voorbeelden klaarstaan, zodat studenten zelfstandig kunnen oefenen met de verschillende protocollen en concepten.
+
+\vspace{0.3cm}
+
+Een belangrijk aandachtspunt is het gebruik van de officiële Cisco IOS-software in GNS3. Cisco-routerimages mogen alleen met een geldige licentie worden gebruikt. Onderwijsinstellingen moeten hier een duidelijk beleid voor vaststellen, bijvoorbeeld door afspraken te maken met Cisco over educatieve licenties of door open-sourcealternatieven, zoals VyOS, te gebruiken. Als er met echte IOS-images gewerkt wordt, kan het helpen om vooraf geconfigureerde apparaten klaar te zetten en bij aanvang duidelijke instructies te geven over installatie en licentievoorwaarden.
+
+\vspace{0.3cm}
+
+De praktijkopzet toont aan dat beide tools elkaar goed aanvullen. Voor instap- en basisvakken heeft Packet Tracer de voorkeur vanwege het lage instapniveau, de visuele ondersteuning en de lage systeemvereisten. Studenten kunnen hier geleidelijk ervaring opdoen met zaken als IP-configuratie, routering en VLAN-segmentatie. Naarmate het curriculum zich richt op meer geavanceerde leerdoelen, wordt GNS3 geleidelijk geïntroduceerd. In gevorderde vakken of projectwerk kunnen studenten dan gebruik maken van de realistischere netwerkervaring en de geavanceerde leermogelijkheden. In latere fasen kunnen studenten beide tools gebruiken, en indien mogelijk kunnen sommige studenten werken met fysieke apparatuur,
+
+\vspace{0.3cm}
+
+\section{\IfLanguageName{dutch}{Eind Conclusie:}{Eind Conclusie:}}
+
+Cisco Packet Tracer is geschikt voor beginnende studenten door de eenvoudige werking en visuele ondersteuning. GNS3 sluit beter aan bij gevorderde opleidingen omdat het werkt zoals echte fysieke netwerkapparatuur en compatibel is met verschillende IOS-versies en apparaten van andere leveranciers. Afhankelijk van het leerdoel en het opleidingsniveau kan gekozen worden voor de tool die het best past binnen de leeromgeving.
+
 

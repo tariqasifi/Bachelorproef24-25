@@ -4,17 +4,112 @@
 
 \chapter{\IfLanguageName{dutch}{Methodologie}{Methodology}}%
 \label{ch:methodologie}
-Dit onderzoek volgt een gestructureerde aanpak, verdeeld in vier opeenvolgende fasen om systematisch inzicht te verkrijgen in Man-in-the-Middle (MitM)-aanvallen en de meest geschikte beveiligingsmaatregelen voor diverse netwerkomgevingen.
 
-In de eerste fase voeren we een grondig literatuuronderzoek uit naar verschillende soorten MitM-aanvallen en de beveiligingsmethoden die momenteel beschikbaar zijn. We gebruiken wetenschappelijke artikelen, rapporten en casestudies om inzicht te krijgen in aanvalstechnieken zoals ARP-spoofing, DNS-spoofing en SSL-stripping. Dit onderzoek leidt tot een overzicht van aanvalstypen en mogelijke verdedigingsstrategieën en vormt de theoretische basis voor verdere analyse en praktische toepassing.
+Om de onderzoeksvraag te beantwoorden (“hoe en in welke mate verschillen Packet Tracer en GNS3 qua functionaliteit en geschiktheid voor diverse onderwijsniveaus?”), is er gekozen om de onderzoeksaanpak in twee fasen uit te voeren: een literatuurstudie (Hoofdstuk ~\ref{ch:stand-van-zaken}) en een praktijkgericht vergelijkend experiment (Proof-of-Concept in Hoofdstuk ~\ref{ch:proof_of_concept} ). In dit hoofdstuk wordt toegelicht hoe deze aanpak concreet is uitgevoerd.
+
+\section{\IfLanguageName{dutch}{Onderzoeksopzet}{Research Design}}
+\label{sec:onderzoeksopzet}
+
+Eerst is er uitgebreid literatuuronderzoek uitgevoerd naar de eigenschappen van beide tools en naar hoe ze in het onderwijs worden gebruikt (zoals beschreven in hoofdstuk~\ref{ch:stand-van-zaken}). Dit onderzoek heeft ons voorzien van een theoretisch kader en verwachtingen over de verschillen tussen Packet Tracer en GNS3.
+
+\vspace{0.5cm}
+
+Vervolgens werd er een proof-of-concept (POC) uitgewerkt, bestaande uit drie scenario’s die oplopen in complexiteit en telkens een ander aspect van netwerkconfiguratie belichten.
+
+\begin{itemize}
+    \item \textbf{Scenario 1: point-tot-point-verbinding} – het eenvoudigste netwerk: twee direct verbonden nodes die met elkaar communiceren. \textit{Doel:} basisconnectiviteit testen.
+    
+    \item \textbf{Scenario 2: LAN-netwerk} – een lokaal netwerk met meerdere eindgebruikers (pc’s) die via een switch verbonden zijn, en eventueel een router als gateway. \textit{Doel:} testen van switching, ARP en basisrouting naar een extern netwerk.
+    
+    \item \textbf{Scenario 3: Complex netwerk (CCNA 1–3 niveau)} – een samengestelde topologie met meerdere subnetten, routers en switches, inclusief dynamische routingprotocol(len) en eventueel VLANs. \textit{Doel:} een situatie nabootsen die gelijkwaardig is aan een eindproject in CCNA Module 3, om de grenzen van beide tools te verkennen.
+\end{itemize}
+
+Elk scenario werd \textbf{uitgewerkt in zowel Cisco Packet Tracer als GNS3}. Daarbij werden zoveel mogelijk identieke stappen en configuraties gevolgd, zodat de functionele uitkomsten vergelijkbaar zijn. Op die manier kunnen de ervaringen en resultaten per scenario rechtstreeks tegenover elkaar worden geplaatst voor beide platforms.
+
+\vspace{0.5cm}
+Om de tools objectief te kunnen evalueren, worden specifieke \textbf{vergelijkingscriteria} vastgelegd:
+\begin{itemize}
+    \item \textbf{Opzettijd en gebruiksvriendelijkheid:} Hoe lang duurde het en hoeveel stappen waren er nodig om het scenario op te zetten en werkend te krijgen in elke tool? Dit omvat onder andere het toevoegen van apparaten, het configureren van instellingen en het oplossen van eventuele problemen.
+    
+    \item \textbf{Ondersteunde functionaliteiten:} In welke mate konden beide tools de vereiste functies binnen het scenario implementeren? Indien niet volledig, welke beperkingen traden op (zoals de afwezigheid van specifieke protocollen of commando’s in Packet Tracer, of moeilijkheden bij het toevoegen van bepaalde apparaattypes in GNS3)?
+    
+    \item \textbf{Prestatie en resourcegebruik:} In GNS3 werd het verbruik van CPU en geheugen gemeten tijdens de uitvoering van scenario 3. Voor Packet Tracer, waar dergelijke metingen minder rechtstreeks beschikbaar zijn, werd de systeembelasting beoordeeld op basis van de algemene vloeiendheid van de werking op dezelfde hardware. Daarnaast werd de opstarttijd van virtuele apparaten in GNS3 vergeleken met die van de gesimuleerde componenten in Packet Tracer.
+    
+    \item \textbf{Gebruikerservaring / moeilijkheidsgraad:} Dit is deels afhankelijk van persoonlijke ervaring. Bijvoorbeeld, in GNS3 moet je vooraf IOS-images klaarzetten. Was dit een probleem? In Packet Tracer is er een GUI voor PC's. Was dit behulpzaam of juist te simplistisch?
+    
+    \item \textbf{Output en foutopsporing:} De mogelijkheden voor foutopsporing en verificatie worden beoordeeld binnen beide tools. Packet Tracer beschikt over een simulatiemodus die netwerkverkeer visueel weergeeft, terwijl GNS3 de integratie met Wireshark biedt voor diepgaande pakketanalyses. Er wordt nagegaan in welke mate deze functionaliteiten bijdragen aan een efficiënte controle van de netwerkwerking in elk platform.
+\end{itemize}
+
+Voor het meten van de ``opzettijd'' is ernaar gestreefd dit zo eerlijk mogelijk te doen. Daarom werd de tijd pas opgenomen bij de tweede uitvoering van de configuratie, aangezien de eerste poging doorgaans fouten of extra zoekwerk met zich meebrengt. De benodigde tijd hangt uiteraard ook af van de vertrouwdheid van de onderzoeker met de gebruikte tools.
+
+\vspace{0.5cm}
+
+De onderzoeker had meer ervaring met Packet Tracer, aangezien deze tool veel gebruikt werd tijdens de opleiding. De ervaring met GNS3 was beperkter. Om het verschil in vertrouwdheid met beide tools te beperken, werd vooraf extra tijd genomen om de basisfuncties van GNS3 opnieuw te bekijken.
+
+\vspace{0.5cm}
+
+Hoewel bepaalde handelingen in GNS3 mogelijk meer tijd in beslag namen door beperkte vertrouwdheid met de tool, wordt dit beschouwd als een relevant aspect van de gebruikerservaring die representatief is voor wat een gemiddelde student zou ondervinden.
+
+\vspace{0.5cm}
+
+De testomgeving voor GNS3 en Packet Tracer werd uitgevoerd vanaf mijn eigen laptop met een Intel Core i7-1165G7 processor (quad-core) en 16 GB RAM, draaiend op Windows 11.
+
+\vspace{0.3cm}
+
+Voor GNS3 werd GNS3 versie 2.2.53 gebruikt, samen met de GNS3 VM. De GNS3 VM werd standaard ingesteld met 1 virtuele CPU en 128 MB RAM, zoals door GNS3 aanbevolen. De GNS3 VM werd geïnstalleerd via VirtualBox en gekoppeld aan de lokale machine. Voor de routering werd gebruik gemaakt van VyOS-routers en voor de switching werd Open vSwitch gebruikt.
+
+\vspace{0.3cm}
+
+In Packet Tracer (versie 8.2.2.0400) zijn 2811-routers en 2960-switches gekozen om de scenario's parallel te houden, aangezien de functionaliteit van deze apparaten overeenkomt met die van de GNS3-configuratie. Packet Tracer draait lokaal op dezelfde machine, gezien de lage systeembelasting die de software vereist.
+
+\vspace{0.3cm}
+
+Het resultaat van elk scenario werd beoordeeld aan het einde van de uitvoering in de proef of concept. Hierbij werden verschillendeen  netwerkconfiguraties getest om te controleren of de implementatie van de netwerken correct was in beide tools. De beoordeling werd uitgevoerd na de voltooiing van elk scenario, waarbij de functionaliteit van de netwerkcomponenten in de tools werd geanalyseerd.
 
 
-Op basis van de literatuur selecteren we relevante beveiligingsmaatregelen, zoals encryptie, authenticatie en detectiesystemen, die effectief kunnen zijn tegen MitM-aanvallen. Elke maatregel wordt beoordeeld op haar theoretische effectiviteit, haalbaarheid en geschiktheid voor specifieke netwerkomgevingen, waaronder IoT-apparaten. Deze analyse helpt ons om maatregelen te selecteren voor praktische evaluatie in de volgende fase.
-
-In deze fase ontwikkelen we een Proof of Concept (PoC) voor één of meer geselecteerde beveiligingsmaatregelen en testen deze in een gesimuleerde netwerkomgeving. Hierin voeren we MitM-aanvalsscenario's uit om de effectiviteit en prestaties van de maatregelen te evalueren. De focus ligt op meetbare resultaten zoals gegevensintegriteit, vertrouwelijkheid en eventuele impact op netwerkprestaties. Deze testen bieden praktische inzichten in de haalbaarheid en kosten van de maatregelen.
 
 
-Op basis van de testresultaten worden de beveiligingsmaatregelen geëvalueerd. Er wordt een implementatieadvies opgesteld voor organisaties, met aanbevelingen over de inzet van MitM-beveiliging in verschillende netwerkconfiguraties, inclusief IoT-omgevingen. Dit advies bevat praktische overwegingen voor schaalbaarheid en kosten, zodat organisaties goed geïnformeerde beslissingen kunnen nemen.
+\section{\IfLanguageName{dutch}{Vergelijkingscriteria en data verzameling}{Comparison Criteria and Data Collection}}
+\label{sec:vergelijkingscriteria}
+
+Tijdens de opbouw van elk scenario in zowel \textbf{Cisco Packet Tracer} als \textbf{GNS3} werden systematisch observaties genoteerd. Op die manier konden beide tools op een consistente en transparante manier met elkaar vergeleken worden. De verzamelde data omvatten zowel kwantitatieve metingen als kwalitatieve bevindingen. Voor elk scenario en per tool werden de volgende aspecten onderzocht:
+
+\vspace{0.3cm}
+
+\begin{itemize}
+    \item \textbf{Tijdsduur van de opzet:} Gemeten vanaf het openen van een lege projectomgeving tot het moment waarop het volledige netwerk correct functioneerde (alle apparaten geconfigureerd en testpings succesvol). De tijd werd genoteerd in minuten en seconden.
+    
+
+    
+    \item \textbf{Problemen of fouten:} Tijdens het testen werd gelet op afwijkend gedrag, crashes of bugs. Voorbeelden zijn: onverwachte protocollaire fouten in Packet Tracer, niet-werkende images in GNS3, vergeten configuraties bij heropstart, enzovoort.
+    
+    \item \textbf{Ondersteuning van netwerkfuncties:} Voor elk scenario werd gecontroleerd of de vereiste functies ondersteund werden door de gebruikte tool. Zo werd in scenario 3 bijvoorbeeld geverifieerd of \textbf{OSPF}, \textbf{VLAN-trunking}, \textbf{Inter-VLAN routing}, \textbf{STP} en \textbf{NAT} correct functioneerden in zowel Packet Tracer als GNS3. Hierbij werd onder meer rekening gehouden met:
+
+    
+    \item \textbf{Prestatie-indicatoren:} In GNS3 werd het systeemverbruik gemeten via Windows Taakbeheer (CPU- en RAM-gebruik) tijdens het draaien van scenario~3. In Packet Tracer is dit moeilijk exact te meten, maar op basis van responsiviteit werd afgeleid dat de CPU-belasting beperkt bleef (Packet Tracer maakt zelden intensief gebruik van systeembronnen, zelfs bij grotere netwerken).
+    
+    \item \textbf{Gebruikservaring:} Subjectieve, maar gestructureerde observaties van de gebruiksvriendelijkheid werden eveneens meegenomen. Bijvoorbeeld: het toewijzen van IP-adressen aan pc’s gaat in Packet Tracer snel via een GUI-venster, terwijl dit in GNS3 doorgaans via de VPCS-console gebeurt en dus tekstgebaseerd is.
+\end{itemize}
+
+\vspace{0.3cm}
+
+
+\vspace{0.3cm}
+
+\textbf{Voor een consistente en controleerbare vergelijking zijn de volgende evaluatiecriteria toegepast:}
+
+\begin{itemize}
+    \item Beide omgevingen waren vooraf correct voorbereid en ingericht.
+    \item Tijd die nodig is voor eenmalige setups, zoals het importeren van een IOS-image in GNS3, werd niet meegeteld in de configuratieduur van het scenario zelf. Dergelijke stappen worden wel benoemd als gebruikskenmerk in de analyse.
+    \item Alle tests werden uitgevoerd door dezelfde onderzoeker, met ervaring in het gebruik van Packet Tracer vanuit een opleiding in systeem- en netwerkbeheer, en praktische kennis van GNS3 opgebouwd via oefeningen, documentatie en tutorials.
+    \item Om de invloed van toevallige fouten of eenmalige misconfiguraties uit te sluiten, werden alle configuraties meerdere keren zorgvuldig uitgevoerd en getest.
+\end{itemize}
+
+\vspace{0.3cm}
+
+Om softwarelicenties correct na te leven, werd in Packet Tracer gebruikgemaakt van een geldige Cisco Networking Academy-account. Voor GNS3 zijn bewust open-source en alternatieve images gebruikt voor routers en switches, aangezien officiële Cisco IOS-images niet vrij beschikbaar zijn.
+
+
 
 %% TODO: In dit hoofstuk geef je een korte toelichting over hoe je te werk bent
 %% gegaan. Verdeel je onderzoek in grote fasen, en licht in elke fase toe wat
@@ -36,6 +131,5 @@ Op basis van de testresultaten worden de beveiligingsmaatregelen geëvalueerd. E
 %%
 %% Maak voor elke fase (behalve het literatuuronderzoek) een NIEUW HOOFDSTUK aan
 %% en geef het een gepaste titel.
-
 
 
