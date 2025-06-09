@@ -1,9 +1,9 @@
-\chapter{\IfLanguageName{dutch}{Proof-of-Concept: Uitvoering en Observaties}{Proof of Concept: Execution and Observations}}
+\chapter{\IfLanguageName{dutch}{Proof of Concept: Uitvoering en Observaties}{Proof of Concept: Execution and Observations}}
 \label{ch:proof_of_concept}
 
 In dit hoofdstuk wordt uitgelegd hoe elk scenario is uitgevoerd in zowel Cisco Packet Tracer als GNS3. Er wordt besproken welke netwerktopologieën zijn gebruikt, welke configuratiestappen belangrijk waren en welke verschillen opvielen tijdens het opzetten en testen. De meetresultaten worden pas uitgebreid besproken in hoofdstuk~5, maar per scenario wordt hier alvast een kort overzicht gegeven van de ervaringen met beide tools. Ter ondersteuning zijn screenshots en figuren toegevoegd. De volledige configuratiebestanden en extra informatie zijn terug te vinden in de bijlagen.
 
-\section{\IfLanguageName{dutch}{Scenario 1 – Point-tot-point verbinding}{Scenario 1 – Point-to-point connection}}
+\section{\IfLanguageName{dutch}{Scenario 1 – Point to point verbinding}{Scenario 1 – Point-to-point connection}}
 \label{sec:scenario1}
 
 \subsection{\IfLanguageName{dutch}{Topologie}{Topology}}
@@ -103,7 +103,7 @@ De TTL-waarde van 64 geeft aan dat beide hosts zich in hetzelfde subnet bevinden
         \caption{Ping-resultaat in GNS3}
         \label{fig:ping_gns3}
     \end{subfigure}
-    \caption[Vergelijking van ping-resultaten tussen Packet Tracer en GNS3]{Resultaten van het uitvoeren van een \texttt{ping} tussen twee pc’s in een point-to-point scenario in zowel Packet Tracer als GNS3.}
+    \caption[Vergelijking van ping resultaten tussen Packet Tracer en GNS3]{Resultaten van het uitvoeren van een \texttt{ping} tussen twee pc’s in een point-to-point scenario in zowel Packet Tracer als GNS3.}
     \label{fig:ping_pt_gns3}
 \end{figure}
 
@@ -161,7 +161,7 @@ In dit scenario stellen we een eenvoudige \textbf{bedrijfsnetwerkomgeving} voor,
 
 \vspace{0.3cm}
 
-Zie Figuur~\ref{fig:scenario2} voor een schematische weergave van de opstelling. In zowel \textbf{Packet Tracer} als \textbf{GNS3} werd dezelfde netwerktopologie opgebouwd: vier pc’s zijn verbonden met één switch, die via een trunkverbinding gekoppeld is aan een router. Op de router zijn subinterfaces geconfigureerd voor twee VLAN’s: \texttt{VLAN10} voor de eerste twee pc’s en \texttt{VLAN20} voor de derde en vierde pc. De router fungeert als gateway voor beide VLAN’s volgens het Router-on-a-Stick-principe.
+Zie Figuur~\ref{fig:scenario2} voor een schematische weergave van de opstelling. In zowel \textbf{Packet Tracer} als \textbf{GNS3} werd dezelfde netwerktopologie opgebouwd: vier pc’s zijn verbonden met één switch, die via een trunkverbinding (nodig voor het doorsturen van verkeer van meerdere VLAN’s) gekoppeld is aan een router. Op de router zijn subinterfaces geconfigureerd voor twee VLAN’s: \texttt{VLAN10} voor de eerste twee pc’s en \texttt{VLAN20} voor de derde en vierde pc. De router fungeert als gateway voor beide VLAN’s volgens het Router-on-a-Stick-principe.
 
 
 
@@ -260,7 +260,7 @@ In \textbf{Packet Tracer} werden vier pc’s toegevoegd, samen met één switch 
 
 \textbf{Stap 4: DHCP-configuratie}
 
-De router krijgt twee DHCP-pools mee, één per VLAN. Elke pool deelt IP-adressen uit binnen het subnet van het respectieve VLAN.
+De router krijgt twee DHCP pools mee, één per VLAN. Elke pool deelt IP-adressen uit binnen het subnet van het respectieve VLAN.
 
 \begin{verbatim}
     ip dhcp pool NET10
@@ -401,12 +401,12 @@ Wat betreft de tijdsbesteding viel op dat het configuratieproces in GNS3 duideli
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{WeergaveDHCPGns3.png}
-    \caption{DHCP-proces zichtbaar in GNS3 via packet capture.}
+    \caption{DHCP proces zichtbaar in GNS3 via packet capture.}
     \label{fig:dhcp_gns3}
 \end{figure}
 
 
-Een bijkomend voordeel van werken in GNS3 is dat het mogelijk maakt om netwerkverkeer tot in detail te observeren. Zoals weergegeven in afbeelding ~\ref{fig:dhcp_gns3} , verschijnen na het opstarten van de router automatisch verschillende netwerkberichten in de packet capture. PC2 stuurt eerst een verzoek uit om een router in het netwerk te vinden. Kort daarna start het volledige DHCP-proces. De computer vraagt een IP-adres aan en ontvangt vervolgens een geldig adres samen met de standaardgateway. Dit bevestigt dat de DHCP-configuratie correct is uitgevoerd.
+Een bijkomend voordeel van werken in GNS3 is dat het mogelijk maakt om netwerkverkeer tot in detail te observeren. Zoals weergegeven in afbeelding ~\ref{fig:dhcp_gns3} , verschijnen na het opstarten van de router automatisch verschillende netwerkberichten in de packet capture. PC2 stuurt eerst een verzoek uit om een router in het netwerk te vinden. Kort daarna start het volledige DHCP proces. De computer vraagt een IP-adres aan en ontvangt vervolgens een geldig adres samen met de standaardgateway. Dit bevestigt dat de DHCP-configuratie correct is uitgevoerd.
 
 \vspace{0.3cm}
 
@@ -468,7 +468,7 @@ Router R1 is verbonden met een vierde router (R4) die als internetgateway fungee
 
 \vspace{0.3cm}
 
-Op alle drie de routers is OSPF ingesteld voor dynamische routering. De IP-adrestoewijzing gebeurt via twee DHCP-servers: R2 beheert VLAN10 en R3 verzorgt VLAN20.
+Op alle drie de routers is OSPF ingesteld voor dynamische routering. De IP-adrestoewijzing gebeurt via twee DHCP servers: R2 beheert VLAN10 en R3 verzorgt VLAN20.
 
 
 \vspace{0.3cm}
@@ -616,8 +616,6 @@ De volgende configuratie werd toegepast op de routers en switches in Scenario~2.
 \subsubsection{\IfLanguageName{dutch}{Configuratie in GNS3}{Configuration in GNS3}}
 \label{sec:configuratie-Gns3}
 
-\subsubsection{\IfLanguageName{dutch}{Configuratie in GNS3}{Configuration in GNS3}}
-\label{sec:configuratie-GNS3}
 
 In GNS3 werd hetzelfde netwerk nagebouwd met \textbf{VyOS-routers} en \textbf{Open vSwitch (OVS)}-switches. De configuratie wordt hieronder per toesteltype weergegeven, waarbij gelijkaardige instellingen gegroepeerd zijn om herhaling te vermijden.
 
@@ -737,7 +735,7 @@ Tijdens de uitvoering bleek er een significant verschil in de benodigde tijd en 
 
 
 
-Ook op het vlak van systeembelasting waren de verschillen duidelijk. Tijdens het opstarten van GNS3 steeg het CPU-gebruik tijdelijk tot 100\%. Zodra alle apparaten actief waren, stabiliseerde het verbruik tussen 47\% en 69\%, afhankelijk van de netwerkactiviteit0\. In tegenstelling daarmee bleef het CPU-gebruik in Packet Tracer doorgaans onder de 20\%. Dit verschil is logisch, aangezien GNS3 gebruikmaakt van echte virtuele machines, terwijl Packet Tracer werkt met gesimuleerde apparaten in een geoptimaliseerde omgeving(zie figuur~\ref{fig:cpu_verbruik}).
+Ook op het vlak van systeembelasting kwamen duidelijke verschillen naar voren. Tijdens het opstarten van GNS3 werd het CPU-gebruik gemeten met Taakbeheer op een Windows 11-laptop met een Intel Core i5-1135G7 (quad-core, 8 threads) en 16 GB RAM. De metingen werden driemaal herhaald, telkens met eenzelfde netwerktopologie van tien routers, vier switches en zes pc’s. Daarbij steeg het CPU-gebruik bij het starten van GNS3 tijdelijk tot 100\%. Zodra alle virtuele apparaten actief waren, stabiliseerde het CPU-verbruik tussen 47\% en 69\%, afhankelijk van de netwerkactiviteit. Ter vergelijking: in Packet Tracer bleef het CPU-gebruik in gelijkaardige omstandigheden onder de 20\%. Dit verschil is verklaarbaar, aangezien GNS3 gebruikmaakt van echte virtuele machines en emulatie, terwijl Packet Tracer gesimuleerde apparaten aanstuurt binnen een licht geoptimaliseerde omgeving(zie figuur~\ref{fig:cpu_gns3}).
 
 \vspace{0.3cm}
 
@@ -754,11 +752,11 @@ Ook op het vlak van systeembelasting waren de verschillen duidelijk. Tijdens het
         \caption{Gestabiliseerd CPU-gebruik na opstart}
         \label{fig:cpu_na_opstart}
     \end{subfigure}
-    \caption[CPU-verbruik van GNS3 tijdens Scenario 3.]{\label{fig:cpu_gns3}CPU-verbruik van GNS3 bij het opstarten en na stabilisatie tijdens Scenario~3.}
+    \caption[CPU verbruik van GNS3 tijdens Scenario 3.]{\label{fig:cpu_gns3}CPU-verbruik van GNS3 bij het opstarten en na stabilisatie tijdens Scenario~3.}
 \end{figure}
 
 
-Een bijkomend voordeel van GNS3 is de mogelijkheid om het volledige OSPF-proces te analyseren via Wireshark. Tijdens een packet capture zijn alle fasen van het protocol zichtbaar, zoals Hello-pakketten, Database Description, Link State Request, Link State Update en Link State Acknowledgement. Dit biedt een gedetailleerd inzicht in het verloop van het routingproces. In Packet Tracer zijn deze stappen niet waarneembaar; daar zijn enkel visuele statusindicatoren beschikbaar, wat de analyse beperkt.(zie figuur~\ref{fig:ospf_wireshark}).
+Een belangrijk aanvullend voordeel van GNS3, in vergelijking met Packet Tracer, is de mogelijkheid om het volledige OSPF-proces te analyseren via Wireshark. Tijdens een packet capture zijn alle fasen van het protocol zichtbaar, zoals Hello-pakketten, Database Description, Link State Request, Link State Update en Link State Acknowledgement. Dit biedt een gedetailleerd inzicht in het verloop van het routingproces. In Packet Tracer zijn deze stappen niet waarneembaar; daar zijn enkel visuele statusindicatoren beschikbaar, wat de analyse beperkt.(zie figuur~\ref{fig:ospf_wireshark}).
 
 \begin{figure}[H]
     \centering
@@ -788,7 +786,7 @@ Een bijkomend voordeel van GNS3 is de mogelijkheid om het volledige OSPF-proces 
         \label{fig:ospf_r3}
     \end{subfigure}
     
-    \caption[OSPF-verkeer zichtbaar via Wireshark in GNS3.]{\label{fig:ospf_wireshark}Weergave van het OSPF-proces via Wireshark in GNS3 op drie verschillende routers. In Packet Tracer zijn deze details niet zichtbaar.}
+    \caption[OSPF verkeer zichtbaar via Wireshark in GNS3.]{\label{fig:ospf_wireshark}Weergave van het OSPF-proces via Wireshark in GNS3 op drie verschillende routers. In Packet Tracer zijn deze details niet zichtbaar.}
 \end{figure}
 
 

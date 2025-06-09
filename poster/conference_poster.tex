@@ -6,81 +6,169 @@
 
 \documentclass[a0,portrait]{hogent-poster}
 
+
 % Info over de opleiding
 \course{Bachelorproef}
 \studyprogramme{toegepaste informatica}
-\academicyear{2022-2023}
+\academicyear{2024-2025}
 \institution{Hogeschool Gent, Valentin Vaerwyckweg 1, 9000 Gent}
 
 % Info over de bachelorproef
-\title{Titel van uw bachelorproef}
-\subtitle{Ondertitel (eventueel)}
-\author{Voornaam Naam}
-\email{voornaam.familienaam@student.hogent.be}
-\supervisor{Voornaam Naam}
-\cosupervisor{Voornaam Naam (Bedrijf)}
+\title{De impact van simulatie- en emulatietools op netwerkvaardigheden in het hogeronderwijs: een vergelijkende analyse van GNS3 en Packet Tracer.}
+
+\author{Tariq}
+\email{Tariq.Asifi@student.hogent.be}
+\supervisor{Lieven}
+\cosupervisor{Stijn (Spinae)}
 
 % Indien ingevuld, wordt deze informatie toegevoegd aan het einde van de
 % abstract. Zet in commentaar als je dit niet wilt.
 \specialisation{Systeem- en Netwerkbeheer}
-\keywords{Lambda-calculus, Scheme}
-\projectrepo{https://github.com/user/repo}
+\keywords{netwerksimulatie, netwerkemulatie, Cisco Packet Tracer, GNS3, netwerkconfiguratie, leerresultaten, netwerkgericht onderwijs, realistische netwerkopbouw, educatieve software}
+\projectrepo{https://github.com/tariqasifi/Bachelorproef24-25}
+
 
 \begin{document}
 
 \maketitle
 
+
+\vspace{0.3cm}
+
+\noindent\textbf{\LARGE Onderzoeksvraag}
+
+\vspace{0.3cm}
+
+\noindent
+\textit{In welke mate verschillen GNS3 en Cisco Packet Tracer van elkaar op vlak van functionaliteiten en geschiktheid voor verschillende niveaus van netwerkonderwijs en simulatie?}
+
+\vspace{0.3cm}
+
+\noindent\textbf{\LARGE Onderzoeksopzet}
+
+\vspace{0.3cm}
+
+\noindent
+
+
+
+\begin{minipage}[t]{0.32\textwidth}
+     Drie uitgewerkte netwerkscenario's
+\end{minipage}
+\begin{minipage}[t]{0.32\textwidth}
+    Identieke configuraties in beide tools
+\end{minipage}
+\begin{minipage}[t]{0.32\textwidth}
+    Meting van opzettijd, gebruiksgemak, systeembelasting, foutopsporing
+\end{minipage}
+
+
+\vspace{0.3cm}
+
 \begin{abstract}
-It's only a model.
-You don't vote for kings. Who's that then? We found them. Ni! Ni! Ni! Ni!
-The nose? On second thoughts, let's not go there. It is a silly place. Bloody Peasant! And the hat. She's a witch! Where'd you get the coconuts?
+ Deze bachelorproef onderzoekt welke tool het meest geschikt is voor netwerkonderwijs in het hoger onderwijs: Packet Tracer (simulatie) of GNS3 (emulatie), afhankelijk van het opleidingsniveau en de leerdoelen. We beschrijven eerst het verschil tussen simulatie en emulatie en de belangrijkste kenmerken van beide tools. De vergelijking wordt ondersteund met drie praktijkscenario’s die oplopen in moeilijkheidsgraad, van een eenvoudige verbinding tussen twee pc’s tot een complex netwerk op CCNA-niveau. In elke tool zijn identieke configuraties toegepast om zo de opzettijd, gebruiksvriendelijkheid, troubleshooting, systeembelasting en het leereffect te evalueren. De bevindingen leiden tot aanbevelingen voor het gebruik van deze tools in het onderwijs.
+
+
 \end{abstract}
 
 \begin{multicols}{2} % This is how many columns your poster will be broken into, a portrait poster is generally split into 2 columns
 
-\section{Introductie}
+\section*{\LARGE 1. Introductie}
 
-Be quiet! Found them? In Mercia?! The coconut's tropical! But you are dressed as one… Well, what do you want? Knights of Ni, we are but simple travelers who seek the enchanter who lives beyond these woods.
 
-Well, what do you want? It's only a model. Camelot! We found them. We shall say `Ni' again to you, if you do not appease us.
+In netwerkopleidingen is praktijkgericht leren van groot belang, maar fysieke netwerkapparatuur is vaak duur en beperkt beschikbaar. Om studenten toch realistische oefenmogelijkheden te bieden, wordt gebruikgemaakt van simulatie- en emulatietools. 
 
-The nose? Shut up! Burn her! I am your king. You don't vote for kings.
+\vspace{0.3cm}
 
-You can't expect to wield supreme power just `cause some watery tart threw a sword at you! Well, we did do the nose. I don't want to talk to you no more, you empty-headed animal food trough water! I fart in your general direction! Your mother was a hamster and your father smelt of elderberries! Now leave before I am forced to taunt you a second time!
+Cisco Packet Tracer is een veelgebruikte netwerksimulator binnen het CCNA-curriculum, dankzij zijn gebruiksvriendelijke interface en visuele opbouw. De tool is beperkt tot het Cisco-ecosysteem en ondersteunt enkel gesimuleerde netwerkapparatuur van dit merk, gebaseerd op een vereenvoudigde versie van de software met beperkte functionaliteiten, zonder compatibiliteit met apparatuur van andere leveranciers of echte netwerksoftware.
 
-Why do you think that she is a witch? We want a shrubbery!! I don't want to talk to you no more, you empty-headed animal food trough water! I fart in your general direction! Your mother was a hamster and your father smelt of elderberries! Now leave before I am forced to taunt you a second time!
+\vspace{0.3cm}
+
+ GNS3 is een geavanceerd emulatieplatform dat toelaat om netwerken op een professionele en realistische manier te configureren. Dankzij het gebruik van echte router- en switchsoftware sluit de werkwijze sterk aan bij de praktijk, zoals die ook in bedrijfsomgevingen voorkomt. Dit maakt GNS3 bijzonder geschikt voor gevorderde studenten of situaties waarin diepgaand inzicht in netwerkgedrag vereist is. Hoewel het platform zelf open-source is, maakt het vaak gebruik van besturingssystemen van externe leveranciers die niet altijd vrij beschikbaar zijn. Open source alternatieven, zoals VyOS of Open vSwitch, kunnen hierbij een vrij toegankelijk alternatief bieden. Daarnaast vereist het gebruik van GNS3 meer technische kennis en systeemcapaciteit dan Cisco Packet Tracer.
+ 
+ \vspace{0.3cm}
+ 
+  Deze bachelorproef onderzoekt welke van beide tools het meest geschikt is voor het netwerkonderwijs, afhankelijk van het opleidingsniveau en de beoogde leerdoelen.
 
 \section{Experimenten}
 
-A newt? Camelot! Why? No, no, no! Yes, yes. A bit. But she's got a wart.
+\begin{itemize}
+    \item \textbf{Scenario 1:} Eenvoudige point-to-point (2 pc's)
+    \item \textbf{Scenario 2:} LAN met router, switch en NAT
+    \item \textbf{Scenario 3:} CCNA-topologie met OSPF, VLAN's, NAT, DHCP
+    
+\end{itemize}
 
-Shut up! I dunno. Must be a king. Who's that then? Look, my liege! On second thoughts, let's not go there. It is a silly place.
 
-Shut up! Will you shut up?! No, no, no! Yes, yes. A bit. But she's got a wart. He hasn't got shit all over him. It's only a model. It's only a model.
 
-Bring her forward! I don't want to talk to you no more, you empty-headed animal food trough water! I fart in your general direction! Your mother was a hamster and your father smelt of elderberries! Now leave 
-
-\section{Sectie met figuur}
-
-De {\LaTeX} figure-omgeving bepaalt zelf waar een afbeelding komt en dat is meestal niet op de plek in de tekst waar de figure-omgeving gedefinieerd wordt. Als je wilt forceren dat afbeeldingen toch in de flow van de tekst blijven, dan kan je dat zoals hieronder:
-
-\begin{center}
-  \captionsetup{type=figure}
-  \includegraphics[width=1.0\linewidth]{grail}
-  \captionof{figure}{He hasn't got shit all over him. The nose? Where'd you get the coconuts? What do you mean? We shall say `Ni' again to you, if you do not appease us}
-\end{center}
-
-Let er wel op dat dit tot problemen met bladschikking kan leiden.
 
 \section{Conclusies}
 
-Don't underestimate the Force. Oh God, my uncle. How am I ever gonna explain this? I suggest you try it again, Luke. This time, let go your conscious self and act on instinct. Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force.
+\textbf{Gebruiksvriendelijkheid} \\
+Packet Tracer is eenvoudig in gebruik en maakt het mogelijk om snel netwerkopstellingen te bouwen. Alle benodigde apparaten zijn standaard beschikbaar via een duidelijke grafische interface, wat het werken met de tool overzichtelijk en toegankelijk maakt. Daarnaast biedt Packet Tracer interactieve opdrachten en foutmeldingen die studenten ondersteunen bij het stapsgewijs aanleren van netwerkconcepten. Dit maakt de tool bijzonder geschikt voor beginnende studenten en voor het efficiënt verwerven van basiskennis. \\[0.1em]
+
+\textbf{Realistische emulatie} \\
+GNS3 vereist meer voorbereiding, zoals het downloaden van images, het configureren van virtuele machines en het opstarten van apparaten. Dit maakt het proces tijdsintensiever, maar in ruil daarvoor draait GNS3 volledig op echte netwerksoftware. Die emulatie biedt een hoger realisme en meer inzicht in de werking van netwerken. Dit resulteert in meer transparantie en is bijzonder waardevol in gevorderde labs. Studenten verwerven hierdoor een diepgaander begrip van netwerkprocessen zoals DHCP en OSPF, die in Packet Tracer grotendeels verborgen blijven. \\[0.1em]
+
+\textbf{Aanbeveling} \\
+Beide tools vullen elkaar goed aan. Packet Tracer is geschikt voor de basisvorming door zijn eenvoud en gebruiksvriendelijkheid. GNS3 is beter geschikt voor gevorderde studenten die willen werken met realistische en complexere netwerksituaties. Het is aangeraden om eerst te starten met Packet Tracer en daarna over te stappen naar GNS3. Op die manier combineer je een vlotte instap met een diepgaander begrip van netwerken.
+
 
 \section{Toekomstig onderzoek}
 
-I care. So, what do you think of her, Han? No! Alderaan is peaceful. We have no weapons. You can't possibly… I have traced the Rebel spies to her. Now she is my only link to finding their secret base.
+\textbf{Suggesties voor vervolgonderzoek} \\
+\begin{itemize}
+    \item \textbf{Leerimpact meten:} Onderzoeken hoe het gebruik van deze tools de leerresultaten beïnvloedt (bijv. beter begrip bij GNS3-gebruik versus snellere start met Packet Tracer).
+    \item \textbf{Vergelijking met andere platforms:} Uitbreiding van de studie naar andere simulatie-/emulatieomgevingen zoals EVE-NG of Cisco VIRL, of samenwerkingsplatforms (multi-user labs).
+    \item \textbf{Complexere scenario’s:} Testen van nog geavanceerdere netwerken (buiten CCNA-niveau, inclusief nieuwe technologieën zoals IoT of SDN) om de grenzen van de tools in het onderwijs te verkennen.
+\end{itemize}
 
-Kid, I've flown from one side of this galaxy to the other. I've seen a lot of strange stuff, but I've never seen anything to make me believe there's one all-powerful Force controlling everything. There's no mystical energy field that controls my destiny. It's all a lot of simple tricks and nonsense. You are a part of the Rebel Alliance and a traitor! Take her away! 
 
 \end{multicols}
+
+
+\section*{Vergelijking tussen Cisco Packet Tracer en GNS3}
+
+
+\vspace{0.5cm}
+
+\begin{flushleft}
+
+    \footnotesize
+    
+    \setlength{\tabcolsep}{5pt}
+    \renewcommand{\arraystretch}{1.27}
+    
+    \begin{tabular}{|p{0.25\textwidth}|p{0.25\textwidth}|p{0.25\textwidth}|}
+        \hline
+        \textbf{Kenmerk} & \textbf{Packet Tracer} & \textbf{GNS3} \\
+        \hline
+        Softwaretype & Simulatie & Emulatie \\
+        Voorbereiding & Laag & Hoog (images, VM, setup) \\
+        Gebruiksvriendelijkheid & Zeer gebruiksvriendelijk & Technischer, hogere instapdrempel \\
+        Realistisch netwerkgedrag & Beperkt & Zeer realistisch (volledig OS) \\
+        Functionaliteit & Tot CCNA-niveau & Volledig (incl. CCNP/CCIE) \\
+        Foutopsporing & Simulatie (basis) & Wireshark-integratie \\
+        Ondersteuning protocollen & Basisprotocollen & Volledige ondersteuning \\
+        Apparaatondersteuning & Cisco-only & Cisco, Juniper, VyOS, ... \\
+        Leercurve & Laag, intuïtief & Hoog, vereist CLI-kennis \\
+        Geschikt voor & Beginnende studenten & Gevorderde studenten \\
+        Systeembelasting & Laag & Hoog \\
+        Licentie & Gratis via NetAcad & Open-source (images vereist) \\
+        Multivendor support & Niet ondersteund & Ja \\
+        Ingebouwde evaluatie & Automatisch via NetAcad & Geen standaard, handmatig \\
+        \hline
+    \end{tabular}
+
+\end{flushleft}
+
+
+
+   
+
+
+
+
+
+
 \end{document}
